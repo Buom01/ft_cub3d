@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 21:45:04 by badam             #+#    #+#             */
-/*   Updated: 2020/04/09 02:53:06 by badam            ###   ########.fr       */
+/*   Updated: 2020/04/09 04:17:23 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,13 @@ inline static void	print_error(e_error error)
 		PRINT(STDERR_FILENO, "Can't open scene: ");
 	else if (error == ERR_READING_SCENE)
 		PRINT(STDERR_FILENO, "Error while reading scene: ");
+	else if (error == ERR_INV_CONFIG)
+		PRINT(STDERR_FILENO, "Misformatted or inalid configuration command: ");
 	else
 		PRINT(STDERR_FILENO, "Unknown error\n"); 
 }
 
-int					error(e_error error, char* data)
+void				error(e_error error, char* data)
 {
 	PRINT(STDERR_FILENO, "Error\n");
 	print_error(error);
@@ -47,5 +49,5 @@ int					error(e_error error, char* data)
 			PRINT(STDERR_FILENO, "\n");
 		}
 	} 
-	return (1);
+	exit(1);
 }

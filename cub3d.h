@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 18:57:53 by badam             #+#    #+#             */
-/*   Updated: 2020/04/09 02:36:15 by badam            ###   ########.fr       */
+/*   Updated: 2020/04/09 05:08:08 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,15 @@ typedef enum
 typedef struct			s_map
 {
 	e_entity			*data;
-	size_t				*linelen;
+	size_t				size;
 }						t_map;
 
 typedef struct			s_scene
 {
 	bool				loaded;
 
-	size_t				screen_w;
-	size_t				screen_h;
+	int					screen_w;
+	int					screen_h;
 
 	t_texture			north;
 	t_texture			south;
@@ -76,14 +76,20 @@ typedef enum
 	ERR_UNKNOWN_ARG,
 	ERR_SCENE_NOT_LOADED,
 	ERR_OPENING_SCENE,
-	ERR_READING_SCENE
+	ERR_READING_SCENE,
+	ERR_INV_CONFIG
 }						e_error;
 
 
-int						error(e_error error, char* data);
+void					error(e_error error, char* data);
 
 bool					has_extension(char *path, char *ext);
 
-int						parse_scene(char* path, t_scene *scene);
+void					scene_defaults(t_scene *scene);
+bool					validate_scene(t_scene *scene);
+
+void					parse_scene(char *path, t_scene *scene);
+
+void					parse_rawmap(char **rawmap, t_scene *scene);
 
 #endif
