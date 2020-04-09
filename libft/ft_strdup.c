@@ -6,12 +6,11 @@
 /*   By: badam <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 17:17:02 by badam             #+#    #+#             */
-/*   Updated: 2019/11/05 17:48:50 by badam            ###   ########.fr       */
+/*   Updated: 2020/04/09 03:20:27 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "stdlib.h"
-#include "ft_strlen.h"
+#include "libft.h"
 
 char	*ft_strdup(const char *s1)
 {

@@ -6,14 +6,11 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 13:17:15 by badam             #+#    #+#             */
-/*   Updated: 2019/11/10 22:06:07 by badam            ###   ########.fr       */
+/*   Updated: 2020/04/09 03:22:22 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "stddef.h"
-#include "ft_strchr.h"
-#include "ft_strrchr.h"
-#include "ft_substr.h"
+#include "libft.h"
 
 char	*ft_strtrim(char const *s1, char const *set)
 {

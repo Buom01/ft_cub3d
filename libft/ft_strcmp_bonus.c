@@ -6,11 +6,11 @@
 /*   By: badam <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 15:51:34 by badam             #+#    #+#             */
-/*   Updated: 2020/04/09 00:54:54 by badam            ###   ########.fr       */
+/*   Updated: 2020/04/09 03:34:37 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "stddef.h"
+#include "libft.h"
 
 int	ft_strcmp(const char *s1, const char *s2)
 {

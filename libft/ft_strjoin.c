@@ -6,12 +6,11 @@
 /*   By: badam <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 18:05:48 by badam             #+#    #+#             */
-/*   Updated: 2019/11/10 22:08:54 by badam            ###   ########.fr       */
+/*   Updated: 2020/04/09 03:20:44 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "stdlib.h"
-#include "ft_strlen.h"
+#include "libft.h"
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {

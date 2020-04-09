@@ -6,13 +6,11 @@
 /*   By: badam <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/03 20:22:07 by badam             #+#    #+#             */
-/*   Updated: 2019/11/10 22:11:20 by badam            ###   ########.fr       */
+/*   Updated: 2020/04/09 03:22:07 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "stddef.h"
-#include "ft_strlen.h"
-#include "ft_substr.h"
+#include "libft.h"
 
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {

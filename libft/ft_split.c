@@ -6,13 +6,11 @@
 /*   By: badam <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 16:36:27 by badam             #+#    #+#             */
-/*   Updated: 2019/11/12 18:55:58 by badam            ###   ########.fr       */
+/*   Updated: 2020/04/09 03:19:35 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "stddef.h"
-#include "stdlib.h"
-#include "ft_substr.h"
+#include "libft.h"
 
 static char		*ft_split_stripchar(char *str, char c)
 {

@@ -6,11 +6,11 @@
 /*   By: badam <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 16:58:33 by badam             #+#    #+#             */
-/*   Updated: 2019/11/04 19:40:13 by badam            ###   ########.fr       */
+/*   Updated: 2020/04/09 03:23:37 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "stdlib.h"
+#include "libft.h"
 
 void	*ft_calloc(size_t count, size_t size)
 {

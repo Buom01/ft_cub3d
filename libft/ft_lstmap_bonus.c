@@ -6,13 +6,11 @@
 /*   By: badam <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/10 23:04:05 by badam             #+#    #+#             */
-/*   Updated: 2019/11/12 20:42:17 by badam            ###   ########.fr       */
+/*   Updated: 2020/04/09 03:14:22 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "ft_lstclear_bonus.h"
-#include "ft_lstnew_bonus.h"
 
 t_list		*ft_lstmap_free(t_list **nl, void *content, void (*del)(void *))
 {

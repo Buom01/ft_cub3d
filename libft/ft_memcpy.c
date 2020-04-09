@@ -6,12 +6,11 @@
 /*   By: badam <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 14:38:41 by badam             #+#    #+#             */
-/*   Updated: 2019/11/10 20:00:12 by badam            ###   ########.fr       */
+/*   Updated: 2020/04/09 03:15:02 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "stdlib.h"
-#include "ft_strlen.h"
+#include "libft.h"
 
 void	*ft_memcpy(void *dst, const void *src, size_t n)
 {

@@ -6,12 +6,11 @@
 /*   By: badam <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 17:03:49 by badam             #+#    #+#             */
-/*   Updated: 2019/11/11 21:34:59 by badam            ###   ########.fr       */
+/*   Updated: 2020/04/09 03:14:07 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "ft_lstdelone_bonus.h"
 
 void	ft_lstclear(t_list **lst, void (*del)(void*))
 {

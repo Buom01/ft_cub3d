@@ -6,11 +6,11 @@
 /*   By: badam <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 15:23:08 by badam             #+#    #+#             */
-/*   Updated: 2019/11/05 17:23:14 by badam            ###   ########.fr       */
+/*   Updated: 2020/04/09 03:31:22 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "stddef.h"
+#include "libft.h"
 
 char	*ft_strchr(const char *s, int c)
 {

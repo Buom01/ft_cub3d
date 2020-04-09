@@ -6,12 +6,11 @@
 /*   By: badam <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 16:13:52 by badam             #+#    #+#             */
-/*   Updated: 2019/11/11 21:27:05 by badam            ###   ########.fr       */
+/*   Updated: 2020/04/09 03:13:51 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "ft_lstlast_bonus.h"
 
 void	ft_lstadd_back(t_list **alst, t_list *new)
 {
