@@ -6,12 +6,10 @@
 /*   By: badam <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 17:06:05 by badam             #+#    #+#             */
-/*   Updated: 2020/04/08 20:56:33 by badam            ###   ########.fr       */
+/*   Updated: 2020/04/10 21:40:59 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <unistd.h>
 #include "get_next_line_bonus.h"
 
 static int		buff_strip_used(size_t len, char *buffer)
@@ -60,6 +58,7 @@ static int		line_joinbuff(char **line, char *buffer, size_t len)
 	if (!(newline = malloc(newlen * sizeof(char))))
 	{
 		free(*line);
+		*line = NULL;
 		return (0);
 	}
 	newlinecpy = newline;
@@ -92,19 +91,24 @@ int				get_next_line(int fd, char **line)
 	int			eof;
 	int			join_state;
 
-	if (fd < 0 || !line || !(*line = malloc(sizeof(char))))
+	if (fd < 0 || fd >= FD_SETSIZE || !BUFFER_SIZE
+			|| !line || !(*line = malloc(sizeof(char))))
 		return (-1);
 	**line = '\0';
 	eof = 1;
 	join_state = 1;
 	prefill = BUFFER_SIZE && *(buffer[fd]) != 0;
-	while (prefill || (join_state && (eof = read(fd, buffer[fd], BUFFER_SIZE)) > 0))
+	while (prefill
+		|| (join_state && (eof = read(fd, buffer[fd], BUFFER_SIZE)) > 0))
 	{
 		if ((join_state = joinline(line, buffer[fd])) == -1)
 			return (-1);
 		prefill = 0;
 	}
-	if (eof == -1)
+	if (eof < 1)
+	{
 		free(*line);
+		*line = NULL;
+	}
 	return (eof > 0 ? 1 : eof);
 }

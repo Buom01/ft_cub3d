@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
+/*   ft_ctoa_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: badam <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/04 17:06:14 by badam             #+#    #+#             */
-/*   Updated: 2020/04/10 19:44:32 by badam            ###   ########.fr       */
+/*   Created: 2020/04/10 22:44:44 by badam             #+#    #+#             */
+/*   Updated: 2020/04/10 23:06:18 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_BONUS_H
-# define GET_NEXT_LINE_BONUS_H
+#include "libft.h"
 
-# include <stdlib.h>
-# include <unistd.h>
+char	*ft_ctoa(char c)
+{
+	static char	str[2];
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 256
-# endif
-
-size_t	ft_strlen(const char *str);
-int		get_next_line(int fd, char **line);
-
-#endif
+	str[0] = c;
+	str[1] = 0;
+	return (str);
+}

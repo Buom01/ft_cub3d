@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 04:24:31 by badam             #+#    #+#             */
-/*   Updated: 2020/04/09 05:06:44 by badam            ###   ########.fr       */
+/*   Updated: 2020/04/10 22:17:03 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,6 @@ bool	validate_scene(t_scene *scene)
 		error(ERR_INV_CONFIG, "EA");
 	if (ft_strlen(scene->sprite) == 0)
 		error(ERR_INV_CONFIG, "S");
-	return true;
+	return validate_map( &(scene->map) );
 }
 

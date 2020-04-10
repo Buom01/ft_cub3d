@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 18:57:53 by badam             #+#    #+#             */
-/*   Updated: 2020/04/09 05:08:08 by badam            ###   ########.fr       */
+/*   Updated: 2020/04/10 23:13:16 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@
 # include "libft.h"
 # include "gnl/get_next_line_bonus.h"
 
+# define STDIN STDIN_FILENO
+# define STDOUT STDOUT_FILENO
+# define STDERR STDERR_FILENO
 
 typedef unsigned char	t_byte;
 typedef	char			*t_texture;
@@ -45,7 +48,8 @@ typedef enum
 typedef struct			s_map
 {
 	e_entity			*data;
-	size_t				size;
+	size_t				width;
+	size_t				height;
 }						t_map;
 
 typedef struct			s_scene
@@ -77,9 +81,14 @@ typedef enum
 	ERR_SCENE_NOT_LOADED,
 	ERR_OPENING_SCENE,
 	ERR_READING_SCENE,
-	ERR_INV_CONFIG
+	ERR_INV_CONFIG,
+	ERR_MAP_MALLOC,
+	ERR_MAP_UNKNOWN
 }						e_error;
 
+
+void					*ft_realloc(void *ptr, size_t dstsize, size_t srcsize);
+void					freeup_textblock(char **textblock);
 
 void					error(e_error error, char* data);
 
@@ -90,6 +99,10 @@ bool					validate_scene(t_scene *scene);
 
 void					parse_scene(char *path, t_scene *scene);
 
-void					parse_rawmap(char **rawmap, t_scene *scene);
+size_t					map_find_longer_line(char **rawmap);
+size_t					map_find_textblock_height(char **rawmap);
+
+void					parse_rawmap_free(char **rawmap, t_scene *scene);
+bool					validate_map(t_map *map);
 
 #endif

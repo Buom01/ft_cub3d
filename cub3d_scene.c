@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 00:40:12 by badam             #+#    #+#             */
-/*   Updated: 2020/04/09 05:16:48 by badam            ###   ########.fr       */
+/*   Updated: 2020/04/10 22:10:23 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static char	*gna(char **line, bool is_first)
 	return (*line);
 }
 
-static bool	parse_color(char *colorstr, t_color *out, char *cmd)
+static void	parse_color(char *colorstr, t_color out, char *cmd)
 {
 	char	*red;
 	char	*green;
@@ -50,39 +50,63 @@ static bool	parse_color(char *colorstr, t_color *out, char *cmd)
 static bool	parse_line(char	*line, t_scene *scene)
 {
 	if (ft_strlen(gna(&line, true)) == 0)
-		return true;
-	if (!(ft_strcmp(line, "R")))
+		return false;
+	if (!(ft_strnstr(line, "R", 1)))
 	{
 		scene->screen_w = ft_atoi(gna(&line, false));
 		scene->screen_h = ft_atoi(gna(&line, false));
 	}
-	else if (!(ft_strcmp(line, "NO")))
+	else if (!(ft_strnstr(line, "NO", 2)))
 		scene->north = ft_strdup( gna(&line, false) );
-	else if (!(ft_strcmp(line, "SO")))
+	else if (!(ft_strnstr(line, "SO", 2)))
 		scene->south = ft_strdup( gna(&line, false) );
-	else if (!(ft_strcmp(line, "WE")))
+	else if (!(ft_strnstr(line, "WE", 2)))
 		scene->west = ft_strdup( gna(&line, false) );
-	else if (!(ft_strcmp(line, "EA")))
+	else if (!(ft_strnstr(line, "EA", 2)))
 		scene->east = ft_strdup( gna(&line, false) );
-	else if (!(ft_strcmp(line, "S")))
+	else if (!(ft_strnstr(line, "S", 1)))
 		scene->sprite = ft_strdup( gna(&line, false) );
-	else if (!(ft_strcmp(line, "F")))
+	else if (!(ft_strnstr(line, "F", 1)))
 		parse_color( gna(&line, false), scene->floor, "F" );
-	else if (!(ft_strcmp(line, "C")))
+	else if (!(ft_strnstr(line, "C", 1)))
 		parse_color( gna(&line, false), scene->ceil, "C" );
-	else if (ft_isnum(line))
-		return false;
+	else if (ft_isdigit(*line))
+		return true;
 	else
 		error(ERR_INV_CONFIG, line);
-	return true;
+	return false;
 }
 
 void		save_line(char *line, char ***textblock)
 {
+	char	**textblockline;
+	char	**newtextblock;
+	size_t	lines;
+
+	lines = 0;
 	if (!(*textblock))
-		// first malloc and directly add text
+	{
+		if ( !(*textblock = malloc(sizeof(char**) * 2)) )
+			error(ERR_MAP_MALLOC, NULL);
+	}		
 	else
-		// ft_realloc
+	{
+		textblockline = *textblock;
+		while (textblockline + lines)
+			lines++;
+		newtextblock = ft_realloc( (void*)(*textblock),
+						sizeof(char**) * (lines + 1),
+						sizeof(char**) * lines );
+		if (newtextblock == NULL)
+		{
+			freeup_textblock(*textblock);
+			error(ERR_MAP_MALLOC, NULL);
+		}
+		*textblock = newtextblock;
+	}
+	textblockline = *textblock + lines;
+	*textblockline = line;
+	*(textblockline + 1) = NULL;
 }
 
 void		parse_scene(char *path, t_scene *scene)
@@ -108,6 +132,9 @@ void		parse_scene(char *path, t_scene *scene)
 	close(fd);
 	if (gnl_result == -1)
 		error(ERR_READING_SCENE, path);
-	parse_rawmap(rawmap, scene);
-	scene->loaded = validate_scene(scene);
+	if (is_map)
+	{
+		parse_rawmap_free(rawmap, scene);
+		scene->loaded = validate_scene(scene);
+	}
 }
