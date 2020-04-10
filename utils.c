@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 15:10:39 by badam             #+#    #+#             */
-/*   Updated: 2020/04/10 23:04:16 by badam            ###   ########.fr       */
+/*   Updated: 2020/04/11 00:59:47 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,6 @@ void	freeup_textblock(char **textblock)
 
 	textblockcpy = textblock;
 	while (*textblockcpy)
-		free( *(textblockcpy++) );
+		free(*(textblockcpy++));
 	free(textblock);
 }

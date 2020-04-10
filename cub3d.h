@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 18:57:53 by badam             #+#    #+#             */
-/*   Updated: 2020/04/10 23:13:16 by badam            ###   ########.fr       */
+/*   Updated: 2020/04/11 01:21:25 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,12 @@ typedef enum
 	MAP_PLAYER_N,
 	MAP_PLAYER_S,
 	MAP_PLAYER_W,
-	MAP_PLAYER_E,
-
-	MAX_ENTITY
-}						e_entity;			
+	MAP_PLAYER_E
+}	t_entity;
 
 typedef struct			s_map
 {
-	e_entity			*data;
+	t_entity			*data;
 	size_t				width;
 	size_t				height;
 }						t_map;
@@ -84,24 +82,19 @@ typedef enum
 	ERR_INV_CONFIG,
 	ERR_MAP_MALLOC,
 	ERR_MAP_UNKNOWN
-}						e_error;
+}	t_error;
 
-
-void					*ft_realloc(void *ptr, size_t dstsize, size_t srcsize);
+void					error(t_error error, char *data);
 void					freeup_textblock(char **textblock);
-
-void					error(e_error error, char* data);
-
 bool					has_extension(char *path, char *ext);
 
 void					scene_defaults(t_scene *scene);
 bool					validate_scene(t_scene *scene);
-
 void					parse_scene(char *path, t_scene *scene);
+bool					parse_line(char *line, t_scene *scene);
 
 size_t					map_find_longer_line(char **rawmap);
 size_t					map_find_textblock_height(char **rawmap);
-
 void					parse_rawmap_free(char **rawmap, t_scene *scene);
 bool					validate_map(t_map *map);
 

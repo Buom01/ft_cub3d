@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 05:06:05 by badam             #+#    #+#             */
-/*   Updated: 2020/04/10 23:17:08 by badam            ###   ########.fr       */
+/*   Updated: 2020/04/11 01:21:54 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ bool					validate_map(t_map *map)
 	return (map->data != NULL);
 }
 
-inline static e_entity	rawchar_to_entity(char c)
+inline static t_entity	rawchar_to_entity(char c)
 {
 	if (c == '0' || ft_isspace(c))
 		return (MAP_AIR);
@@ -33,13 +33,16 @@ inline static e_entity	rawchar_to_entity(char c)
 		return (MAP_PLAYER_W);
 	else if (c == 'E')
 		return (MAP_PLAYER_E);
-	error(ERR_MAP_UNKNOWN, ft_ctoa(c));
-	return (MAP_AIR);
+	else
+	{
+		error(ERR_MAP_UNKNOWN, ft_ctoa(c));
+		return (MAP_AIR);
+	}
 }
 
 void					parse_rawmap_line(t_map *map, char *line, size_t linen)
 {
-	e_entity	*mapline;
+	t_entity	*mapline;
 	size_t		pos;
 
 	mapline = map->data + (linen * map->width);
@@ -63,7 +66,7 @@ void					parse_rawmap_free(char **rawmap, t_scene *scene)
 	map = &scene->map;
 	map->width = map_find_longer_line(rawmap);
 	map->height = map_find_textblock_height(rawmap);
-	if ( !(map->data = malloc( sizeof(e_entity) * map->width * map->height ) ) )
+	if (!(map->data = malloc(sizeof(t_entity) * map->width * map->height)))
 	{
 		freeup_textblock(rawmap);
 		error(ERR_MAP_MALLOC, NULL);

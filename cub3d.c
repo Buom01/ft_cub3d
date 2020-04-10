@@ -6,11 +6,21 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 17:45:22 by badam             #+#    #+#             */
-/*   Updated: 2020/04/09 03:59:58 by badam            ###   ########.fr       */
+/*   Updated: 2020/04/11 00:43:58 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static void	shutdown(t_scene *scene)
+{
+	free(scene->north);
+	free(scene->south);
+	free(scene->west);
+	free(scene->east);
+	free(scene->sprite);
+	free(scene->map.data);
+}
 
 static void	parse_args(int argc, char **argv, int *argi, t_scene *scene)
 {
@@ -26,7 +36,7 @@ static void	parse_args(int argc, char **argv, int *argi, t_scene *scene)
 		error(ERR_UNKNOWN_ARG, argv[*argi]);
 }
 
-int	main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	t_scene scene;
 	int		argi;
@@ -42,5 +52,6 @@ int	main(int argc, char **argv)
 	}
 	if (!scene.loaded)
 		error(ERR_SCENE_NOT_LOADED, NULL);
+	shutdown(&scene);
 	return (0);
 }
