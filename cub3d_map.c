@@ -6,15 +6,20 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 05:06:05 by badam             #+#    #+#             */
-/*   Updated: 2020/04/11 01:21:54 by badam            ###   ########.fr       */
+/*   Updated: 2020/04/15 02:00:23 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-bool					validate_map(t_map *map)
+bool					validate_map(t_scene *scene)
 {
-	return (map->data != NULL);
+	if (!scene->map.data)
+		return (false);
+	scene->map.length = scene->map.width * scene->map.height;
+	physics_init(&scene->map);
+	init_player(&scene->map, &scene->state);
+	return (true);
 }
 
 inline static t_entity	rawchar_to_entity(char c)

@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 18:57:53 by badam             #+#    #+#             */
-/*   Updated: 2020/04/11 01:21:25 by badam            ###   ########.fr       */
+/*   Updated: 2020/04/15 02:41:33 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <errno.h>
+# include <mlx.h>
 
 # include "libft.h"
 # include "gnl/get_next_line_bonus.h"
@@ -28,9 +29,25 @@
 # define STDOUT STDOUT_FILENO
 # define STDERR STDERR_FILENO
 
+# define TEXTURE_SIZE 64
+
 typedef unsigned char	t_byte;
-typedef	char			*t_texture;
 typedef t_byte			t_color[3];
+
+typedef	struct			s_texture
+{
+	char				*path;
+	void				*data;
+}						t_texture;
+
+typedef struct			s_pos
+{
+	double				x;
+	double				y;
+	double				z;
+}						t_pos;
+
+typedef double			t_angle;
 
 typedef enum
 {
@@ -46,9 +63,25 @@ typedef enum
 typedef struct			s_map
 {
 	t_entity			*data;
+	bool				*walkable;
 	size_t				width;
 	size_t				height;
+	size_t				length;
 }						t_map;
+
+typedef struct			s_state
+{
+	t_pos				pos;
+	t_angle				yaw;
+}						t_state;
+
+typedef struct			s_surface
+{
+	t_pos				pos;
+	t_angle				yaw;
+	t_texture			*texture;
+	void				*next;
+}						t_surface;
 
 typedef struct			s_scene
 {
@@ -67,6 +100,8 @@ typedef struct			s_scene
 	t_color				ceil;
 
 	t_map				map;
+	t_state				state;
+	t_surface			*surfaces;
 
 	char				*save;
 }						t_scene;
@@ -81,7 +116,10 @@ typedef enum
 	ERR_READING_SCENE,
 	ERR_INV_CONFIG,
 	ERR_MAP_MALLOC,
-	ERR_MAP_UNKNOWN
+	ERR_MAP_UNKNOWN,
+	ERR_MLX_INIT,
+	ERR_MLX_TEXTURE,
+	ERR_MLX_UNKNOWN
 }	t_error;
 
 void					error(t_error error, char *data);
@@ -96,6 +134,15 @@ bool					parse_line(char *line, t_scene *scene);
 size_t					map_find_longer_line(char **rawmap);
 size_t					map_find_textblock_height(char **rawmap);
 void					parse_rawmap_free(char **rawmap, t_scene *scene);
-bool					validate_map(t_map *map);
+size_t					map_get_player_pos(t_map *map);
+void					init_player(t_map *map, t_state *state);
+void					physics_init(t_map *map);
+bool					validate_map(t_scene *scene);
+
+void					raytracing_init(t_scene *scene);
+
+void					graphical_run(t_scene *scene);
+void					textures_load(t_scene *scene, void *mlx);
+void					textures_unload(t_scene *scene, void *mlx);
 
 #endif

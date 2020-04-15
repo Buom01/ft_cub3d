@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 04:24:31 by badam             #+#    #+#             */
-/*   Updated: 2020/04/11 00:43:31 by badam            ###   ########.fr       */
+/*   Updated: 2020/04/14 01:25:37 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,15 @@ bool	validate_scene(t_scene *scene)
 {
 	if (scene->screen_w <= 0 && scene->screen_h <= 0)
 		error(ERR_INV_CONFIG, "R");
-	if (!scene->north || ft_strlen(scene->north) == 0)
+	if (!scene->north.path || ft_strlen(scene->north.path) == 0)
 		error(ERR_INV_CONFIG, "NO");
-	if (!scene->south || ft_strlen(scene->south) == 0)
+	if (!scene->south.path || ft_strlen(scene->south.path) == 0)
 		error(ERR_INV_CONFIG, "SO");
-	if (!scene->west || ft_strlen(scene->west) == 0)
+	if (!scene->west.path || ft_strlen(scene->west.path) == 0)
 		error(ERR_INV_CONFIG, "WE");
-	if (!scene->east || ft_strlen(scene->east) == 0)
+	if (!scene->east.path || ft_strlen(scene->east.path) == 0)
 		error(ERR_INV_CONFIG, "EA");
-	if (!scene->sprite || ft_strlen(scene->sprite) == 0)
+	if (!scene->sprite.path || ft_strlen(scene->sprite.path) == 0)
 		error(ERR_INV_CONFIG, "S");
-	return (validate_map(&(scene->map)));
+	return (validate_map(scene));
 }

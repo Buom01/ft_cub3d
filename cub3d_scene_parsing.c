@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/11 01:14:43 by badam             #+#    #+#             */
-/*   Updated: 2020/04/11 01:32:10 by badam            ###   ########.fr       */
+/*   Updated: 2020/04/14 00:35:23 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,15 @@ bool		parse_line(char *line, t_scene *scene)
 	else if (ft_strnstr(line, "R", 1))
 		parse_resolution(line, scene);
 	else if (ft_strnstr(line, "NO", 2))
-		scene->north = ft_strdup(gna(&line, false));
+		scene->north.path = ft_strdup(gna(&line, false));
 	else if (ft_strnstr(line, "SO", 2))
-		scene->south = ft_strdup(gna(&line, false));
+		scene->south.path = ft_strdup(gna(&line, false));
 	else if (ft_strnstr(line, "WE", 2))
-		scene->west = ft_strdup(gna(&line, false));
+		scene->west.path = ft_strdup(gna(&line, false));
 	else if (ft_strnstr(line, "EA", 2))
-		scene->east = ft_strdup(gna(&line, false));
+		scene->east.path = ft_strdup(gna(&line, false));
 	else if (ft_strnstr(line, "S", 1))
-		scene->sprite = ft_strdup(gna(&line, false));
+		scene->sprite.path = ft_strdup(gna(&line, false));
 	else if (ft_strnstr(line, "F", 1))
 		parse_color(gna(&line, false), scene->floor, "F");
 	else if (ft_strnstr(line, "C", 1))

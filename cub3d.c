@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 17:45:22 by badam             #+#    #+#             */
-/*   Updated: 2020/04/11 00:43:58 by badam            ###   ########.fr       */
+/*   Updated: 2020/04/14 00:52:32 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 static void	shutdown(t_scene *scene)
 {
-	free(scene->north);
-	free(scene->south);
-	free(scene->west);
-	free(scene->east);
-	free(scene->sprite);
+	free(scene->north.path);
+	free(scene->south.path);
+	free(scene->west.path);
+	free(scene->east.path);
+	free(scene->sprite.path);
 	free(scene->map.data);
 }
 
@@ -52,6 +52,7 @@ int			main(int argc, char **argv)
 	}
 	if (!scene.loaded)
 		error(ERR_SCENE_NOT_LOADED, NULL);
+	graphical_run(&scene);
 	shutdown(&scene);
 	return (0);
 }

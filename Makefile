@@ -1,11 +1,12 @@
 CC=gcc
 CFLAGS=-Wall -Wextra -Werror -fsanitize=address -g3 -Ilibft
 NAME=cub3d
-DEPS=libft/libft.a
+DEPS=libft/libft.a -lmlx -lXext -lX11 -lbsd
 HEADERS=cub3d.h gnl/get_next_line_bonus.h
 SRC=cub3d.c cub3d_file.c cub3d_scene.c cub3d_scene_utils.c cub3d_map.c \
 	cub3d_error.c gnl/get_next_line_bonus.c gnl/get_next_line_utils_bonus.c \
-	cub3d_map_utils.c cub3d_scene_parsing.c utils.c
+	cub3d_map_utils.c cub3d_scene_parsing.c utils.c cub3d_graphics.c \
+	cub3d_textures.c cub3d_map_physics.c cub3d_raytr_init.c
 OBJ=$(SRC:.c=.o)
 SRC_BONUS=
 OBJ_BONUS=$(SRC_BONUS:.c=.o)

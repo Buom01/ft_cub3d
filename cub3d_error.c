@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 21:45:04 by badam             #+#    #+#             */
-/*   Updated: 2020/04/11 01:20:11 by badam            ###   ########.fr       */
+/*   Updated: 2020/04/14 00:44:52 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,7 @@ inline static void	print_error(t_error error)
 	else if (error == ERR_UNKNOWN_ARG)
 		ft_putstr_fd("Unknown arg: ", STDERR);
 	else if (error == ERR_SCENE_NOT_LOADED)
-		ft_putstr_fd(
-			"No scene was loaded. Is the cub file provided and complete?\n",
-			STDERR);
+		ft_putstr_fd("No scene loaded. Is the cub file correct ?\n", STDERR);
 	else if (error == ERR_OPENING_SCENE)
 		ft_putstr_fd("Can't open scene: ", STDERR);
 	else if (error == ERR_READING_SCENE)
@@ -34,6 +32,12 @@ inline static void	print_error(t_error error)
 		ft_putstr_fd("Memory allocation failed while parsing map\n", STDERR);
 	else if (error == ERR_MAP_UNKNOWN)
 		ft_putstr_fd("Unknown map object: ", STDERR);
+	else if (error == ERR_MLX_INIT)
+		ft_putstr_fd("MiniLibX initialization failed\n", STDERR);
+	else if (error == ERR_MLX_INIT)
+		ft_putstr_fd("Texture failed to load: ", STDERR);
+	else if (error == ERR_MLX_UNKNOWN)
+		ft_putstr_fd("Unknown MiniLibX error\n", STDERR);
 	else
 		ft_putstr_fd("Unknown error\n", STDERR);
 }
