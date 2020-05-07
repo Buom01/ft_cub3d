@@ -6,47 +6,49 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/13 22:24:50 by badam             #+#    #+#             */
-/*   Updated: 2020/04/14 01:41:56 by badam            ###   ########.fr       */
+/*   Updated: 2020/04/30 15:49:28 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	graphical_init(t_scene *scene, void **mlx, void **window)
+static void	graphical_init(t_scene *sc)
 {
-	if (!(*mlx = mlx_init()))
+	if (!(sc->mlx = mlx_init()))
 		error(ERR_MLX_INIT, NULL);
-	textures_load(scene, *mlx);
-	if (!(*window =
-			mlx_new_window(*mlx, scene->screen_w, scene->screen_h, "Cub3D")))
+	textures_load(sc);
+	if (!(sc->window =
+			mlx_new_window(sc->mlx, sc->screen_w, sc->screen_h, "Cub3D")))
 		error(ERR_MLX_UNKNOWN, NULL);
-	raytracing_init(scene);
+	raytr_init(sc);
 }
 
-static void	graphical_main(t_scene *scene, void *mlx, void *window)
+static void	graphical_main(t_scene *scene)
 {
-	while (1)
+	t_vec	p_vec;
+
+	//while (1)
 	{
-		mlx_clear_window(mlx, window);
-		//controls_update(scene, mlx, window);
-		//raytracing_render(mlx, window, t_scene scene);
-		(void)scene;
+		mlx_clear_window(scene->mlx, scene->window);
+		//controls_update(scene);
+		p_vec.x = 1 * sin(scene->state.yaw * TORAD);
+		p_vec.y = 1 * cos(scene->state.yaw * TORAD);
+		p_vec.z = 0;
+		raytr_render(scene, p_vec);
 	}
 }
 
-static void	graphical_shutdown(t_scene *scene, void *mlx, void *window)
+static void	graphical_shutdown(t_scene *scene)
 {
-	mlx_destroy_window(mlx, window);
-	textures_unload(scene, mlx);
-	free(mlx);
+	mlx_destroy_window(scene->mlx, scene->window);
+	raytr_shutdown(scene);
+	textures_unload(scene);
+	free(scene->mlx);
 }
 
 void		graphical_run(t_scene *scene)
 {
-	void	*mlx;
-	void	*window;
-
-	graphical_init(scene, &mlx, &window);
-	graphical_main(scene, mlx, window);
-	graphical_shutdown(scene, mlx, window);	
+	graphical_init(scene);
+	graphical_main(scene);
+	graphical_shutdown(scene);	
 }

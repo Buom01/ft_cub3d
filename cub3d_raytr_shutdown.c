@@ -1,22 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter_bonus.c                                 :+:      :+:    :+:   */
+/*   cub3d_raytr_shutdown.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: badam <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/10 22:57:56 by badam             #+#    #+#             */
-/*   Updated: 2019/11/11 20:03:43 by badam            ###   ########.fr       */
+/*   Created: 2020/04/15 19:06:07 by badam             #+#    #+#             */
+/*   Updated: 2020/04/29 21:48:15 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "cub3d.h"
 
-void	ft_lstiter(t_list *lst, void (*f)(void *))
+void	raytr_free_surfs(t_surface *surf)
 {
-	while (lst)
+	t_surface	*next;
+
+	while(surf)
 	{
-		f(lst->content);
-		lst = lst->next;
+		next = surf->next;
+		free(surf);
+		surf = next;
 	}
+}
+
+void	raytr_shutdown(t_scene *scene)
+{
+	raytr_free_surfs(scene->surfaces);
+	scene->surfaces = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 18:57:53 by badam             #+#    #+#             */
-/*   Updated: 2020/04/15 02:41:33 by badam            ###   ########.fr       */
+/*   Updated: 2020/04/30 15:48:01 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <stdio.h>
 # include <errno.h>
 # include <mlx.h>
+# include <math.h>
 
 # include "libft.h"
 # include "gnl/get_next_line_bonus.h"
@@ -29,7 +30,10 @@
 # define STDOUT STDOUT_FILENO
 # define STDERR STDERR_FILENO
 
+# define TORAD 3.14159265 / 180
+
 # define TEXTURE_SIZE 64
+# define FOV 90
 
 typedef unsigned char	t_byte;
 typedef t_byte			t_color[3];
@@ -51,6 +55,22 @@ typedef double			t_angle;
 
 typedef enum
 {
+	DIR_NONE,
+	DIR_NORTH,
+	DIR_SOUTH,
+	DIR_WEST,
+	DIR_EAST
+}	t_direction;
+
+typedef enum
+{
+	AXIS_YAW,
+	AXIS_PITCH,
+	AXIS_ROLL
+}	t_axis;
+
+typedef enum
+{
 	MAP_AIR = 0,
 	MAP_WALL,
 	MAP_OBJECT,
@@ -67,6 +87,7 @@ typedef struct			s_map
 	size_t				width;
 	size_t				height;
 	size_t				length;
+	size_t				init_player_pos;
 }						t_map;
 
 typedef struct			s_state
@@ -80,6 +101,7 @@ typedef struct			s_surface
 	t_pos				pos;
 	t_angle				yaw;
 	t_texture			*texture;
+	float				distance;
 	void				*next;
 }						t_surface;
 
@@ -89,6 +111,11 @@ typedef struct			s_scene
 
 	int					screen_w;
 	int					screen_h;
+	float				fov;
+	float				vfov;
+
+	void				*mlx;
+	void				*window;
 
 	t_texture			north;
 	t_texture			south;
@@ -105,6 +132,15 @@ typedef struct			s_scene
 
 	char				*save;
 }						t_scene;
+
+typedef t_pos			t_vec;
+
+typedef struct
+{
+	t_pos				origin;
+	t_vec				direction;
+	int					level;
+}						t_ray;
 
 typedef enum
 {
@@ -134,15 +170,24 @@ bool					parse_line(char *line, t_scene *scene);
 size_t					map_find_longer_line(char **rawmap);
 size_t					map_find_textblock_height(char **rawmap);
 void					parse_rawmap_free(char **rawmap, t_scene *scene);
-size_t					map_get_player_pos(t_map *map);
+t_pos					i2pos(t_map *map, size_t i, t_direction dir);
 void					init_player(t_map *map, t_state *state);
 void					physics_init(t_map *map);
 bool					validate_map(t_scene *scene);
 
-void					raytracing_init(t_scene *scene);
+double					dist_2d(t_vec *a, t_vec *b);
+void					pos_dist(t_vec *pos_a, t_vec *pos_b);
+void					vec_rel_rot(t_vec *vec, t_axis axis, t_angle angle);
+
+void					raytr_init(t_scene *scene);
+void					raytr_shutdown(t_scene *scene);
+void					raytr_render(t_scene *scene, t_vec p_vec);
+void					raytr_free_surfs(t_surface *surf);
+void					raytr_get_surfaces(t_scene *scene, t_surface **surfs);
+void					surfaces_sort(t_surface **surfs);
 
 void					graphical_run(t_scene *scene);
-void					textures_load(t_scene *scene, void *mlx);
-void					textures_unload(t_scene *scene, void *mlx);
+void					textures_load(t_scene *scene);
+void					textures_unload(t_scene *scene);
 
 #endif

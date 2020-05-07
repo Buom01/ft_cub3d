@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 05:06:05 by badam             #+#    #+#             */
-/*   Updated: 2020/04/15 02:00:23 by badam            ###   ########.fr       */
+/*   Updated: 2020/04/15 18:33:02 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ bool					validate_map(t_scene *scene)
 	if (!scene->map.data)
 		return (false);
 	scene->map.length = scene->map.width * scene->map.height;
-	physics_init(&scene->map);
 	init_player(&scene->map, &scene->state);
+	physics_init(&scene->map);
 	return (true);
 }
 

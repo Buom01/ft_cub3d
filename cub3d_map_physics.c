@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 01:13:22 by badam             #+#    #+#             */
-/*   Updated: 2020/04/15 02:16:12 by badam            ###   ########.fr       */
+/*   Updated: 2020/04/15 18:34:02 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,8 @@ void	physics_walkable(t_map *map, size_t pos)
 
 void	physics_init(t_map *map)
 {
-	size_t	pos;
-
 	if (!(map->walkable = malloc(map->length * sizeof(bool))))
 		error(ERR_MAP_MALLOC, NULL);
 	ft_memset(map->walkable, 0, map->length * sizeof(bool));
-	pos = map_get_player_pos(map);
-	physics_walkable(map, pos);
+	physics_walkable(map, map->init_player_pos);
 }

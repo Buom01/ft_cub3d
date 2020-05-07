@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/10 22:08:39 by badam             #+#    #+#             */
-/*   Updated: 2020/04/15 01:30:04 by badam            ###   ########.fr       */
+/*   Updated: 2020/04/15 18:33:16 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,32 +38,42 @@ size_t	map_find_textblock_height(char **rawmap)
 	return (height);
 }
 
-size_t	map_get_player_pos(t_map *map)
+t_pos	i2pos(t_map *map, size_t i, t_direction dir)
 {
-	size_t		pos;
+	t_pos	pos;
 	
-	pos = 0;
-	while ((map->data[pos] < MAP_PLAYER_N || map->data[pos] > MAP_PLAYER_E)
-			&& pos < map->length)
-		pos++;
-	if (pos == map->width * map->height)
-		error(ERR_MAP_UNKNOWN, NULL);
+	pos.y = (int)(i / map->width);
+	pos.x = (int)(i - (map->width * pos.y));
+	pos.z = 0.5;
+	if (dir == DIR_NORTH)
+		pos.y -= 0.5;
+	if (dir == DIR_SOUTH)
+		pos.y += 0.5;
+	if (dir == DIR_WEST)
+		pos.x -= 0.5;
+	if (dir == DIR_EAST)
+		pos.x += 0.5;
 	return (pos);
 }
 
 void	init_player(t_map *map, t_state *state)
 {
-	size_t		pos;
+	size_t		i;
 	t_entity	player;
 
-	pos = map_get_player_pos(map);
-	player = map->data[pos];
-	state->pos.y = pos / map->width;
-	state->pos.x = pos - (map->width * state->pos.y);
+	i = 0;
+	while ((map->data[i] < MAP_PLAYER_N || map->data[i] > MAP_PLAYER_E)
+			&& i < map->length)
+		i++;
+	if (i == map->length)
+		error(ERR_MAP_UNKNOWN, NULL);
+	map->init_player_pos = i;
+	player = map->data[i];
+	state->pos = i2pos(map, i, DIR_NONE);
 	if (player == MAP_PLAYER_S)
 		state->yaw = 180;
 	else if (player == MAP_PLAYER_E)
-		state->yaw = 90;
-	else if (player == MAP_PLAYER_W)
 		state->yaw = -90;
+	else if (player == MAP_PLAYER_W)
+		state->yaw = 90;
 }

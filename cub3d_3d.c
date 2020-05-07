@@ -1,16 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tolower.c                                       :+:      :+:    :+:   */
+/*   cub3d_3d.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: badam <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/07 16:32:44 by badam             #+#    #+#             */
-/*   Updated: 2019/10/07 16:33:34 by badam            ###   ########.fr       */
+/*   Created: 2020/04/15 22:08:58 by badam             #+#    #+#             */
+/*   Updated: 2020/04/30 15:52:57 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_tolower(int c)
+#include "cub3d.h"
+
+void		vec_rel_rot(t_vec *vec, t_axis axis, t_angle angle)
 {
-	return ((c >= 'A' && c <= 'Z') ? (c - 'A' + 'a') : c);
+	(void)vec;
+	(void)axis;
+	(void)angle;
 }

@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 17:45:22 by badam             #+#    #+#             */
-/*   Updated: 2020/04/14 00:52:32 by badam            ###   ########.fr       */
+/*   Updated: 2020/04/15 19:13:12 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	shutdown(t_scene *scene)
 	free(scene->east.path);
 	free(scene->sprite.path);
 	free(scene->map.data);
+	free(scene->map.walkable);
 }
 
 static void	parse_args(int argc, char **argv, int *argi, t_scene *scene)

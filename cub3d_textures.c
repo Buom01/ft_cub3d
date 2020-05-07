@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/14 00:25:30 by badam             #+#    #+#             */
-/*   Updated: 2020/04/14 00:51:28 by badam            ###   ########.fr       */
+/*   Updated: 2020/04/29 21:17:04 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,20 @@ static void	unloadtexture(t_texture *texture, void *mlx)
 	mlx_destroy_image(mlx, texture->data);
 }
 
-void	textures_load(t_scene *scene, void *mlx)
+void	textures_load(t_scene *scene)
 {
-	loadtexture(&scene->north, mlx);
-	loadtexture(&scene->south, mlx);
-	loadtexture(&scene->west, mlx);
-	loadtexture(&scene->east, mlx);
-	loadtexture(&scene->sprite, mlx);
+	loadtexture(&scene->north, scene->mlx);
+	loadtexture(&scene->south, scene->mlx);
+	loadtexture(&scene->west, scene->mlx);
+	loadtexture(&scene->east, scene->mlx);
+	loadtexture(&scene->sprite, scene->mlx);
 }
 
-void	textures_unload(t_scene *scene, void *mlx)
+void	textures_unload(t_scene *scene)
 {
-	unloadtexture(&scene->north, mlx);
-	unloadtexture(&scene->south, mlx);
-	unloadtexture(&scene->west, mlx);
-	unloadtexture(&scene->east, mlx);
-	unloadtexture(&scene->sprite, mlx);
+	unloadtexture(&scene->north, scene->mlx);
+	unloadtexture(&scene->south, scene->mlx);
+	unloadtexture(&scene->west, scene->mlx);
+	unloadtexture(&scene->east, scene->mlx);
+	unloadtexture(&scene->sprite, scene->mlx);
 }

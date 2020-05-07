@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 04:24:31 by badam             #+#    #+#             */
-/*   Updated: 2020/04/14 01:25:37 by badam            ###   ########.fr       */
+/*   Updated: 2020/04/20 18:04:13 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	scene_defaults(t_scene *scene)
 {
 	scene->screen_w = 640;
 	scene->screen_h = 480;
+	scene->fov = FOV;
 	scene->ceil[0] = 50;
 	scene->ceil[1] = 90;
 	scene->ceil[2] = 235;
@@ -38,5 +39,6 @@ bool	validate_scene(t_scene *scene)
 		error(ERR_INV_CONFIG, "EA");
 	if (!scene->sprite.path || ft_strlen(scene->sprite.path) == 0)
 		error(ERR_INV_CONFIG, "S");
+	scene->vfov = scene->fov * (float)scene->screen_w / (float)scene->screen_h;
 	return (validate_map(scene));
 }
