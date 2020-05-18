@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 18:57:53 by badam             #+#    #+#             */
-/*   Updated: 2020/04/30 15:48:01 by badam            ###   ########.fr       */
+/*   Updated: 2020/05/15 00:06:55 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,23 @@ typedef	struct			s_texture
 	void				*data;
 }						t_texture;
 
-typedef struct			s_pos
+typedef struct			s_vec
 {
 	double				x;
 	double				y;
 	double				z;
-}						t_pos;
+}						t_vec;
+
+typedef t_vec			t_pos;
 
 typedef double			t_angle;
+
+typedef struct			s_base
+{
+	t_vec				u;
+	t_vec				v;
+	t_vec				n;
+}						t_base;
 
 typedef enum
 {
@@ -102,6 +111,8 @@ typedef struct			s_surface
 	t_angle				yaw;
 	t_texture			*texture;
 	float				distance;
+	t_base				base;
+	t_pos				o_t;
 	void				*next;
 }						t_surface;
 
@@ -132,8 +143,6 @@ typedef struct			s_scene
 
 	char				*save;
 }						t_scene;
-
-typedef t_pos			t_vec;
 
 typedef struct
 {
@@ -178,6 +187,8 @@ bool					validate_map(t_scene *scene);
 double					dist_2d(t_vec *a, t_vec *b);
 void					pos_dist(t_vec *pos_a, t_vec *pos_b);
 void					vec_rel_rot(t_vec *vec, t_axis axis, t_angle angle);
+double					dot_product(t_vec *a, t_vec *b);
+t_vec					cross_product(t_vec *a, t_vec *b);
 
 void					raytr_init(t_scene *scene);
 void					raytr_shutdown(t_scene *scene);

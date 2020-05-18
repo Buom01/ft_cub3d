@@ -6,27 +6,46 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 18:46:34 by badam             #+#    #+#             */
-/*   Updated: 2020/04/30 15:52:37 by badam            ###   ########.fr       */
+/*   Updated: 2020/05/15 00:15:21 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static bool	tr_surface(t_scene *sc, int x, int y, t_vec vec, t_surface *surf)
+static bool	tr_surface(t_scene *sc, t_ray *ray, t_surface *surf, t_color *color)
 {
+	t_vec	tmp;
+	t_vec	O_tr;
+	double	I_r;
+	double	I_u;
+	double	I_v;
+
+	// Attention; la base u v r est relative au plan
+	O_tr = ;
+	I_r = -dot_product(&(sc->base.x), &O_tr);
+	if (I_r < 0)
+		return (false);
+	tmp = cross_product(&O_tr, &(sc->base.y));
+	I_u = dot_product(tmp, sc->base.y);
+	if (I_u < 0 || I_u > 0)
+		return (false);
+	tmp = cross_product(&(sc->base.x), &O_tr);
+	I_v = dot_product(tmp, sc->base.y);
+	if (I_u < 0 || I_u > 0)
+		return (false);
 	(void)sc;
-	(void)x;
-	(void)y;
 	(void)vec;
 	(void)surf;
 	return (true);
 }
 
-static void	raytr_tr(t_scene *sc, int x, int y, t_vec vec, t_surface *surfs)
+static void	raytr_tr(t_scene *sc, int x, int y, t_ray *ray, t_surface *surfs)
 {
+	t_color	color;
+
 	while(surfs)
 	{
-		if (tr_surface(sc, x, y, vec, surfs))
+		if (tr_surface(sc, ray, surfs, &color))
 			return;
 		surfs = surfs->next;
 	}
@@ -37,11 +56,12 @@ void		raytr_render(t_scene *sc, t_vec p_vec)
 	int			x;
 	int			y;
 	t_vec		v_vec;
-	t_vec		h_vec;
+	t_ray		ray;
 	t_surface	*optisurfs;
 
 	x = 0;
 	y = 0;
+	ray.origin = sc->state.pos;
 	raytr_get_surfaces(sc, &optisurfs);
 	while (y < sc->screen_h)
 	{
@@ -50,10 +70,10 @@ void		raytr_render(t_scene *sc, t_vec p_vec)
 				(float)(y - sc->screen_h / 2) / sc->screen_h * sc->vfov);
 		while (x < sc->screen_w)
 		{
-			h_vec = v_vec;
-			vec_rel_rot(&h_vec, AXIS_YAW,
+			ray.direction = v_vec;
+			vec_rel_rot(&(ray.direction), AXIS_YAW,
 					(float)(x - sc->screen_w / 2) / sc->screen_w * sc->fov);
-			raytr_tr(sc, x++, y++, h_vec, optisurfs);
+			raytr_tr(sc, x++, y++, &ray, optisurfs);
 		}
 	}
 	raytr_free_surfs(optisurfs);

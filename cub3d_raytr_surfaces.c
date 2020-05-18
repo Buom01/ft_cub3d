@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 21:32:40 by badam             #+#    #+#             */
-/*   Updated: 2020/04/30 16:17:50 by badam            ###   ########.fr       */
+/*   Updated: 2020/05/15 00:15:21 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,22 @@ static bool	is_useful(t_surface *candidate, t_scene *scene)
 	return (fabs(fmod(candidate->yaw - scene->state.yaw, 360)) < 180);
 }
 
+void		surfaces_pre_tr(t_surface *surfs)
+{
+	while (surfs)
+	{
+		surfs->base.u.x = 0;
+		surfs->base.u.y = 0;
+		surfs->base.u.z = 1;
+
+
+		surfs->o_t.x = ;
+		surfs->o_t.y = ;
+		surfs->o_t.z = 0;
+		surfs = surfs->next;
+	}
+}
+
 void		raytr_get_surfaces(t_scene *scene, t_surface **surfs)
 {
 	t_surface	*lstsurf;
@@ -43,20 +59,19 @@ void		raytr_get_surfaces(t_scene *scene, t_surface **surfs)
 	t_vec		pos;
 
 	pos = scene->state.pos;
-	(void)pos;
-	(void)add_surface;
-	(void)surfs;
 	lstsurf = NULL;
+	*surfs = NULL;
 	candidate = scene->surfaces;
 	while (candidate)
 	{
 		if (is_useful(candidate, scene))
 		{
-			//add_surface(candidate, surfs, &lstsurf, pos);
+			add_surface(candidate, surfs, &lstsurf, pos);
 		}
 		candidate = candidate->next;
 	}
 	if (lstsurf)
 		lstsurf->next = NULL;
-	//surfaces_sort(surfs);
+	surfaces_sort(surfs);
+	surfaces_pre_tr(*surfs);
 }

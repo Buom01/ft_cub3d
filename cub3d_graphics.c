@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/13 22:24:50 by badam             #+#    #+#             */
-/*   Updated: 2020/04/30 15:49:28 by badam            ###   ########.fr       */
+/*   Updated: 2020/05/08 21:30:27 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	graphical_main(t_scene *scene)
 {
 	t_vec	p_vec;
 
-	//while (1)
+	while (1)
 	{
 		mlx_clear_window(scene->mlx, scene->window);
 		//controls_update(scene);

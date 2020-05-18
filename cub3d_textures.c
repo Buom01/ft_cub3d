@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/14 00:25:30 by badam             #+#    #+#             */
-/*   Updated: 2020/04/29 21:17:04 by badam            ###   ########.fr       */
+/*   Updated: 2020/05/08 17:09:03 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	loadtexture(t_texture *texture, void *mlx)
 
 static void	unloadtexture(t_texture *texture, void *mlx)
 {
-	if (texture->data)
+	if (!texture->data)
 		return;
 	mlx_destroy_image(mlx, texture->data);
 }
