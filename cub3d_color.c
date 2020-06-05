@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d_2d.c                                         :+:      :+:    :+:   */
+/*   cub3d_color.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/29 22:51:50 by badam             #+#    #+#             */
-/*   Updated: 2020/06/05 04:34:26 by badam            ###   ########.fr       */
+/*   Created: 2020/06/04 23:06:36 by badam             #+#    #+#             */
+/*   Updated: 2020/06/05 00:10:43 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-double	dist_2d(t_vec *a, t_vec *b)
+int	to_x_color(t_color color)
 {
-	double x;
-	double y;
+	int x_color;
 
-	x = a->x - b->x;
-	x *= x;
-	y = a->y - b->y;
-	y *= y;
-	return (sqrt(x + y));
+	x_color = color[0] << 16;
+	x_color += color[1] << 8;
+	x_color += color[2];
+	return (x_color);
 }

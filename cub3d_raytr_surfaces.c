@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 21:32:40 by badam             #+#    #+#             */
-/*   Updated: 2020/05/15 00:15:21 by badam            ###   ########.fr       */
+/*   Updated: 2020/06/05 05:33:38 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	add_surface(t_surface *src, t_surface **rst, t_surface **lst,
 	if (!(surf = malloc(sizeof(t_surface))))
 		error(ERR_MAP_MALLOC, NULL);
 	ft_memcpy(surf, src, sizeof(t_surface));
-	surf->distance = dist_2d(&(surf->pos), &pos); 
+	surf->distance = dist_2d(&(surf->pos), &pos);
 	if (!(*rst))
 		*rst = surf;
 	else
@@ -28,31 +28,38 @@ static void	add_surface(t_surface *src, t_surface **rst, t_surface **lst,
 	*lst = surf;
 }
 
-static bool	is_useful(t_surface *candidate, t_scene *scene)
+static bool	is_useful(t_surface *candidate, const t_scene *scene)
 {
+	return (true);
 	// this is not OK, should take the location in account
 	// should hide backface and offscreen
-
 	return (fabs(fmod(candidate->yaw - scene->state.yaw, 360)) < 180);
 }
 
-void		surfaces_pre_tr(t_surface *surfs)
+void		surfaces_pre_tr(t_surface *surfs, t_vec rayorigin)
 {
+	t_vec	o_t;
+	t_vec	o_tr;
+
 	while (surfs)
 	{
-		surfs->base.u.x = 0;
-		surfs->base.u.y = 0;
-		surfs->base.u.z = 1;
-
-
-		surfs->o_t.x = ;
-		surfs->o_t.y = ;
-		surfs->o_t.z = 0;
+		surfs->base.u.y = 1; 
+		surfs->base.v.x = cos(surfs->yaw * TORAD); 
+		surfs->base.v.z = sin(surfs->yaw * TORAD); 
+		surfs->base.n = cross_product(surfs->base.u, surfs->base.v); 
+		o_t.x = surfs->pos.x - cos(surfs->yaw * TORAD) * 0.5; 
+		o_t.y = surfs->pos.y - 0.5; 
+		o_t.z = surfs->pos.z - sin(surfs->yaw * TORAD) * 0.5; 
+		o_tr = vec_diff(rayorigin, o_t);
+		surfs->cache.n_dot_o_tr = dot_product(surfs->base.n, o_tr);
+		surfs->cache.o_tr_cross_v = cross_product(o_tr, surfs->base.v);
+		surfs->cache.u_cross_o_tr = cross_product(surfs->base.u, o_tr);
 		surfs = surfs->next;
 	}
 }
 
-void		raytr_get_surfaces(t_scene *scene, t_surface **surfs)
+void		raytr_get_surfaces(const t_scene *scene, t_surface **surfs,
+				t_vec rayorigin)
 {
 	t_surface	*lstsurf;
 	t_surface	*candidate;
@@ -73,5 +80,5 @@ void		raytr_get_surfaces(t_scene *scene, t_surface **surfs)
 	if (lstsurf)
 		lstsurf->next = NULL;
 	surfaces_sort(surfs);
-	surfaces_pre_tr(*surfs);
+	surfaces_pre_tr(*surfs, rayorigin);
 }

@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 18:57:53 by badam             #+#    #+#             */
-/*   Updated: 2020/05/15 00:06:55 by badam            ###   ########.fr       */
+/*   Updated: 2020/06/05 06:48:33 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,11 @@
 # define STDOUT STDOUT_FILENO
 # define STDERR STDERR_FILENO
 
+# define PI 3.14159265
 # define TORAD 3.14159265 / 180
 
 # define TEXTURE_SIZE 64
-# define FOV 90
+# define FOV 80 
 
 typedef unsigned char	t_byte;
 typedef t_byte			t_color[3];
@@ -42,6 +43,7 @@ typedef	struct			s_texture
 {
 	char				*path;
 	void				*data;
+	int					*colors;
 }						t_texture;
 
 typedef struct			s_vec
@@ -105,14 +107,21 @@ typedef struct			s_state
 	t_angle				yaw;
 }						t_state;
 
+typedef struct			s_surf_cache
+{
+	double				n_dot_o_tr;
+	t_vec				o_tr_cross_v;
+	t_vec				u_cross_o_tr;
+}						t_surf_cache;
+
 typedef struct			s_surface
 {
 	t_pos				pos;
 	t_angle				yaw;
 	t_texture			*texture;
-	float				distance;
+	double				distance;
 	t_base				base;
-	t_pos				o_t;
+	t_surf_cache		cache;
 	void				*next;
 }						t_surface;
 
@@ -122,11 +131,13 @@ typedef struct			s_scene
 
 	int					screen_w;
 	int					screen_h;
-	float				fov;
-	float				vfov;
+	double				fov;
+	double				vfov;
 
 	void				*mlx;
 	void				*window;
+	void				*frame;
+	int					*frame_colors;
 
 	t_texture			north;
 	t_texture			south;
@@ -136,6 +147,8 @@ typedef struct			s_scene
 
 	t_color				floor;
 	t_color				ceil;
+	int					x_floor;
+	int					x_ceil;
 
 	t_map				map;
 	t_state				state;
@@ -148,7 +161,6 @@ typedef struct
 {
 	t_pos				origin;
 	t_vec				direction;
-	int					level;
 }						t_ray;
 
 typedef enum
@@ -185,20 +197,26 @@ void					physics_init(t_map *map);
 bool					validate_map(t_scene *scene);
 
 double					dist_2d(t_vec *a, t_vec *b);
-void					pos_dist(t_vec *pos_a, t_vec *pos_b);
 void					vec_rel_rot(t_vec *vec, t_axis axis, t_angle angle);
-double					dot_product(t_vec *a, t_vec *b);
-t_vec					cross_product(t_vec *a, t_vec *b);
+double					dot_product(t_vec a, t_vec b);
+t_vec					cross_product(t_vec a, t_vec b);
+t_vec					vec_diff(t_vec a, t_vec b);
 
 void					raytr_init(t_scene *scene);
 void					raytr_shutdown(t_scene *scene);
-void					raytr_render(t_scene *scene, t_vec p_vec);
+void					raytr_render(const t_scene *scene, const t_vec p_vec);
 void					raytr_free_surfs(t_surface *surf);
-void					raytr_get_surfaces(t_scene *scene, t_surface **surfs);
+void					raytr_get_surfaces(const t_scene *scene,
+							t_surface **surfs, t_vec rayorigin);
 void					surfaces_sort(t_surface **surfs);
 
 void					graphical_run(t_scene *scene);
+void					controls_update(t_scene *scene, t_vec *player_vec);
 void					textures_load(t_scene *scene);
 void					textures_unload(t_scene *scene);
+int						get_texture_color(double x, double y, int *colors);
+void					set_texture_color(int *colors, int w,
+							int x, int y, int color);
+int						to_x_color(t_color color);
 
 #endif

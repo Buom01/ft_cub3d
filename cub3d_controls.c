@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d_2d.c                                         :+:      :+:    :+:   */
+/*   cub3d_controls.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/29 22:51:50 by badam             #+#    #+#             */
-/*   Updated: 2020/06/05 04:34:26 by badam            ###   ########.fr       */
+/*   Created: 2020/06/04 22:37:34 by badam             #+#    #+#             */
+/*   Updated: 2020/06/05 02:26:10 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-double	dist_2d(t_vec *a, t_vec *b)
+void	controls_update(t_scene *scene, t_vec *player_vec)
 {
-	double x;
-	double y;
+	player_vec->x = 1;
+	player_vec->y = 0;
+	player_vec->z = 0;
 
-	x = a->x - b->x;
-	x *= x;
-	y = a->y - b->y;
-	y *= y;
-	return (sqrt(x + y));
+	scene->state.yaw += 10;
+	vec_rel_rot(player_vec, AXIS_YAW, scene->state.yaw);
 }

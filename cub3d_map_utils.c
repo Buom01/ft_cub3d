@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/10 22:08:39 by badam             #+#    #+#             */
-/*   Updated: 2020/04/15 18:33:16 by badam            ###   ########.fr       */
+/*   Updated: 2020/06/05 01:28:18 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ size_t	map_find_textblock_height(char **rawmap)
 	size_t	height;
 
 	height = 0;
-	while (*(*rawmap + height))
-		height++;
+	while (*(rawmap + height++))
+		;
 	return (height);
 }
 
@@ -42,17 +42,17 @@ t_pos	i2pos(t_map *map, size_t i, t_direction dir)
 {
 	t_pos	pos;
 	
-	pos.y = (int)(i / map->width);
-	pos.x = (int)(i - (map->width * pos.y));
-	pos.z = 0.5;
+	pos.y = 0.5;
+	pos.z = (int)(i / map->width);
+	pos.x = (int)(i - (map->width * pos.z));
 	if (dir == DIR_NORTH)
-		pos.y -= 0.5;
-	if (dir == DIR_SOUTH)
-		pos.y += 0.5;
-	if (dir == DIR_WEST)
 		pos.x -= 0.5;
-	if (dir == DIR_EAST)
+	if (dir == DIR_SOUTH)
 		pos.x += 0.5;
+	if (dir == DIR_WEST)
+		pos.z -= 0.5;
+	if (dir == DIR_EAST)
+		pos.z += 0.5;
 	return (pos);
 }
 

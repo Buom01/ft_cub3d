@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 04:24:31 by badam             #+#    #+#             */
-/*   Updated: 2020/04/20 18:04:13 by badam            ###   ########.fr       */
+/*   Updated: 2020/06/05 06:20:11 by bastien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ bool	validate_scene(t_scene *scene)
 		error(ERR_INV_CONFIG, "EA");
 	if (!scene->sprite.path || ft_strlen(scene->sprite.path) == 0)
 		error(ERR_INV_CONFIG, "S");
-	scene->vfov = scene->fov * (float)scene->screen_w / (float)scene->screen_h;
+	scene->vfov = scene->fov * scene->screen_h / (double)scene->screen_w;
+	scene->x_floor = to_x_color(scene->floor);
+	scene->x_ceil = to_x_color(scene->ceil);
 	return (validate_map(scene));
 }
