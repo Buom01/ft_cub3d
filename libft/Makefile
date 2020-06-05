@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-Wall -Wextra -Werror
+CFLAGS=-Wall -Wextra -Werror -O2
 NAME=libft.a
 SRC= $(filter-out %_bonus.%,$(wildcard ft_*.c))
 OBJ= $(SRC:.c=.o)
