@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 18:46:34 by badam             #+#    #+#             */
-/*   Updated: 2020/06/05 06:50:40 by badam            ###   ########.fr       */
+/*   Updated: 2020/06/08 21:55:48 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,13 +93,13 @@ void		raytr_render(const t_scene *sc, const t_vec p_vec)
 	{
 		v_vec = p_vec;
 		vec_rel_rot(&v_vec, AXIS_PITCH,
-				sin((double)(y - h * 0.5) / h * PI ) * 0.5  * vfov);
+				((double)(y - h * 0.5) / h * PI ) * 0.5  * vfov);
 		x = 0;
 		while (x < w)
 		{
 			ray.direction = v_vec;
 			vec_rel_rot(&(ray.direction), AXIS_YAW,
-					sin((double)(x - w * 0.5) / w * PI) * 0.5 * fov);
+					((double)(x - w * 0.5) / w * PI) * 0.5 * fov);
 			raytr_tr(sc, x, y, ray, optisurfs);
 			++x;
 		}

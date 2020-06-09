@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 18:57:53 by badam             #+#    #+#             */
-/*   Updated: 2020/06/05 06:48:33 by badam            ###   ########.fr       */
+/*   Updated: 2020/06/09 01:38:51 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # include "libft.h"
 # include "gnl/get_next_line_bonus.h"
 
+#include "cub3d_mlx.h"
+
 # define STDIN STDIN_FILENO
 # define STDOUT STDOUT_FILENO
 # define STDERR STDERR_FILENO
@@ -33,8 +35,9 @@
 # define PI 3.14159265
 # define TORAD 3.14159265 / 180
 
+# define TITLE "Buom_01's Cub3D"
 # define TEXTURE_SIZE 64
-# define FOV 80 
+# define FOV 120
 
 typedef unsigned char	t_byte;
 typedef t_byte			t_color[3];
@@ -82,6 +85,22 @@ typedef enum
 
 typedef enum
 {
+	KEY_UNKNOWN,
+	KEY_ESC,
+	KEY_LSHIFT,
+	KEY_LCTRL,
+	KEY_F10,
+	KEY_F11,
+	KEY_SPACE,
+	KEY_UP,
+	KEY_RIGHT,
+	KEY_DOWN,
+	KEY_LEFT,
+	MAX_KEYS
+}	t_key;
+
+typedef enum
+{
 	MAP_AIR = 0,
 	MAP_WALL,
 	MAP_OBJECT,
@@ -105,6 +124,13 @@ typedef struct			s_state
 {
 	t_pos				pos;
 	t_angle				yaw;
+	t_angle				pitch;
+	bool				jumping;
+	double				jump_velocity;
+	bool				crouch;
+	bool				keyboard[MAX_KEYS];
+	double				mouse_x;
+	double				mouse_y;
 }						t_state;
 
 typedef struct			s_surf_cache
@@ -179,6 +205,8 @@ typedef enum
 	ERR_MLX_UNKNOWN
 }	t_error;
 
+t_key					cub3d_mlx_tokey(t_syskey keycode);
+
 void					error(t_error error, char *data);
 void					freeup_textblock(char **textblock);
 bool					has_extension(char *path, char *ext);
@@ -211,7 +239,15 @@ void					raytr_get_surfaces(const t_scene *scene,
 void					surfaces_sort(t_surface **surfs);
 
 void					graphical_run(t_scene *scene);
-void					controls_update(t_scene *scene, t_vec *player_vec);
+int						ctrl_keypress(t_syskey keycode, t_state *state);
+int						ctrl_keyrelease(t_syskey keycode, t_state *state);
+void					ctrl_update(t_state *state);
+void					ctrl_releaseall(t_state *state);
+void					move_forward(t_state *state, int direction);
+void					move_side(t_state *state, int direction);
+void					jump(t_state *state);
+void					move_update(t_state *state);
+
 void					textures_load(t_scene *scene);
 void					textures_unload(t_scene *scene);
 int						get_texture_color(double x, double y, int *colors);
