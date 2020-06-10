@@ -1,6 +1,18 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: badam <badam@student.42.fr>                +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2020/06/10 18:46:41 by badam             #+#    #+#              #
+#    Updated: 2020/06/10 23:46:05 by badam            ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 CC=gcc
-CFLAGS=-Wall -Wextra -Werror -fsanitize=address -g3 -Ilibft
-#CFLAGS=-Wall -Wextra -Werror -O4 -finline-functions -Ilibft
+#CFLAGS=-Wall -Wextra -Werror -fsanitize=address -g3 -Ilibft
+CFLAGS=-Wall -Wextra -Werror -O3 -flto -Ilibft
 NAME=cub3d
 DEPS=libft/libft.a -lmlx -lXext -lX11 -lbsd -lm
 HEADERS=cub3d.h gnl/get_next_line_bonus.h

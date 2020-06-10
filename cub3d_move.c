@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 22:14:45 by badam             #+#    #+#             */
-/*   Updated: 2020/06/09 02:02:01 by badam            ###   ########.fr       */
+/*   Updated: 2020/06/10 17:12:54 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void	move_forward(t_state *state, int direction)
 {
-	state->pos.z -= sin(-state->yaw * TORAD) * direction * 0.1;
-	state->pos.x += cos(-state->yaw * TORAD) * direction * 0.1;
+	state->pos.z += COS(state->yaw * TORAD) * direction * 0.1;
+	state->pos.x += SIN(state->yaw * TORAD) * direction * 0.1;
 }
 
 void	move_side(t_state *state, int direction)
 {
-	state->pos.z += cos(-state->yaw * TORAD) * direction * 0.1;
-	state->pos.x += sin(-state->yaw * TORAD) * direction * 0.1;
+	state->pos.z += SIN(state->yaw * TORAD) * direction * 0.1;
+	state->pos.x -= COS(state->yaw * TORAD) * direction * 0.1;
 }
 
 void	jump(t_state *state)
@@ -41,7 +41,7 @@ void	jump(t_state *state)
 void	move_update(t_state *state)
 {
 	if (state->crouch && !state->jumping)
-		state->pos.y = 0.2;
+		state->pos.y = 0.35;
 	else if (state->jumping)
 	{
 		state->jump_velocity -= 0.008;

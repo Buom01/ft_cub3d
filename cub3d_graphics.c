@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/13 22:24:50 by badam             #+#    #+#             */
-/*   Updated: 2020/06/09 01:39:13 by badam            ###   ########.fr       */
+/*   Updated: 2020/06/10 19:09:19 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static void	graphical_init(t_scene *sc)
 		sc->screen_w = display_w;
 	if (sc->screen_h > display_h)
 		sc->screen_h = display_h;
-	mlx_do_key_autorepeaton(sc->mlx);
 	textures_load(sc);
 	if (!(sc->window =
 			mlx_new_window(sc->mlx, sc->screen_w, sc->screen_h, TITLE)))
@@ -36,20 +35,14 @@ static void	graphical_init(t_scene *sc)
 	sc->frame_colors = (int*)mlx_get_data_addr(sc->frame, &mock, &mock, &mock);
 }
 
-static int	graphical_update(t_scene *scene)
+static int	graphical_update(t_scene *sc)
 {
 	t_state	*state;
-	t_vec	player_vec;
 
-	state = &(scene->state);
-	player_vec.x = 1;
-	player_vec.y = 0;
-	player_vec.z = 0;
+	state = &(sc->state);
 	ctrl_update(state);
 	move_update(state);
-	vec_rel_rot(&player_vec, AXIS_YAW, state->yaw);
-	vec_rel_rot(&player_vec, AXIS_PITCH, state->pitch);
-	raytr_render(scene, player_vec);
+	raytr_render(sc, state, sc->screen_w, sc->screen_h);
 	return (0);
 }
 

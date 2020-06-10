@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 18:57:53 by badam             #+#    #+#             */
-/*   Updated: 2020/06/09 01:38:51 by badam            ###   ########.fr       */
+/*   Updated: 2020/06/10 23:25:29 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,15 @@
 # define STDOUT STDOUT_FILENO
 # define STDERR STDERR_FILENO
 
+# define SIN sin
+# define COS cos
 # define PI 3.14159265
 # define TORAD 3.14159265 / 180
 
 # define TITLE "Buom_01's Cub3D"
 # define TEXTURE_SIZE 64
-# define FOV 120
-
+# define FOV 90
+				
 typedef unsigned char	t_byte;
 typedef t_byte			t_color[3];
 
@@ -75,13 +77,6 @@ typedef enum
 	DIR_WEST,
 	DIR_EAST
 }	t_direction;
-
-typedef enum
-{
-	AXIS_YAW,
-	AXIS_PITCH,
-	AXIS_ROLL
-}	t_axis;
 
 typedef enum
 {
@@ -147,6 +142,7 @@ typedef struct			s_surface
 	t_texture			*texture;
 	double				distance;
 	t_base				base;
+	t_vec				o_t;
 	t_surf_cache		cache;
 	void				*next;
 }						t_surface;
@@ -162,6 +158,8 @@ typedef struct			s_scene
 
 	void				*mlx;
 	void				*window;
+	double				*x2yaw;
+	double				*y2pitch;
 	void				*frame;
 	int					*frame_colors;
 
@@ -225,17 +223,19 @@ void					physics_init(t_map *map);
 bool					validate_map(t_scene *scene);
 
 double					dist_2d(t_vec *a, t_vec *b);
-void					vec_rel_rot(t_vec *vec, t_axis axis, t_angle angle);
+void					vec_from_angles(t_vec *vec, t_angle yaw, t_angle pitch);
 double					dot_product(t_vec a, t_vec b);
 t_vec					cross_product(t_vec a, t_vec b);
 t_vec					vec_diff(t_vec a, t_vec b);
 
 void					raytr_init(t_scene *scene);
 void					raytr_shutdown(t_scene *scene);
-void					raytr_render(const t_scene *scene, const t_vec p_vec);
+void					raytr_render(const t_scene *sc, const t_state *state,
+							int w, int h);
 void					raytr_free_surfs(t_surface *surf);
 void					raytr_get_surfaces(const t_scene *scene,
 							t_surface **surfs, t_vec rayorigin);
+void					update_surface(t_surface *surf);
 void					surfaces_sort(t_surface **surfs);
 
 void					graphical_run(t_scene *scene);
@@ -250,9 +250,10 @@ void					move_update(t_state *state);
 
 void					textures_load(t_scene *scene);
 void					textures_unload(t_scene *scene);
-int						get_texture_color(double x, double y, int *colors);
-void					set_texture_color(int *colors, int w,
-							int x, int y, int color);
+int						get_texture_color_at(double x, double y, const int *colors);
+int						*get_texture_color(int x, int y, int w, int *colors);
+void					set_texture_color(int x, int y, int w,
+							int *colors, int color);
 int						to_x_color(t_color color);
 
 #endif

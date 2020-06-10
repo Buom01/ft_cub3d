@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 22:37:34 by badam             #+#    #+#             */
-/*   Updated: 2020/06/09 01:51:59 by badam            ###   ########.fr       */
+/*   Updated: 2020/06/10 22:36:42 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,24 +41,30 @@ void	ctrl_releaseall(t_state *state)
 
 void	ctrl_update(t_state *state)
 {
+	if (state->keyboard[KEY_ESC])
+		exit(1);
 	state->crouch = state->keyboard[KEY_LSHIFT];
-	if (state->keyboard[KEY_UP])
-		move_forward(state, 1);
-	if (state->keyboard[KEY_DOWN])
-		move_forward(state, -1);
-	if (state->keyboard[KEY_LEFT])
+	if (state->keyboard[KEY_LCTRL])
 	{
-		if (state->keyboard[KEY_LCTRL])
-			move_side(state, -1);
-		else
-			state->yaw -= 3;
-	}
-	if (state->keyboard[KEY_RIGHT])
-	{
-		if (state->keyboard[KEY_LCTRL])
+		if (state->keyboard[KEY_UP])
+			state->pitch -= 3;
+		if (state->keyboard[KEY_DOWN])
+			state->pitch += 3;
+		if (state->keyboard[KEY_LEFT])
 			move_side(state, 1);
-		else
-			state->yaw += 3;
+		if (state->keyboard[KEY_RIGHT])
+			move_side(state, -1);
+	}
+	else
+	{
+		if (state->keyboard[KEY_UP])
+			move_forward(state, 1);
+		if (state->keyboard[KEY_DOWN])
+			move_forward(state, -1);
+		if (state->keyboard[KEY_LEFT])
+			state->yaw -= 5;
+		if (state->keyboard[KEY_RIGHT])
+			state->yaw += 5;
 	}
 	if (state->keyboard[KEY_SPACE])
 		jump(state);

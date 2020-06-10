@@ -6,36 +6,20 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 22:08:58 by badam             #+#    #+#             */
-/*   Updated: 2020/06/05 04:35:11 by badam            ###   ########.fr       */
+/*   Updated: 2020/06/10 23:11:31 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-inline void	vec_rel_rot(t_vec *vec, t_axis axis, t_angle alpha)
+inline void	vec_from_angles(t_vec *vec, t_angle yaw, t_angle pitch)
 {
-	t_vec	old;
-	double	cos_alpha;
-	double	sin_alpha;
+	double	cos_pitch;
 
-	cos_alpha = cosf(alpha * TORAD);
-	sin_alpha = sinf(alpha * TORAD);
-	old = *vec;
-	if (axis == AXIS_YAW)
-	{
-		vec->x = old.x * cos_alpha - old.z * sin_alpha;
-		vec->z = old.x * sin_alpha + old.z * cos_alpha;
-	}
-	else if (axis == AXIS_PITCH)
-	{
-		vec->y = old.y * cos_alpha - old.z * sin_alpha;
-		vec->z = old.y * sin_alpha + old.z * cos_alpha;
-	}
-	else if (axis == AXIS_ROLL)
-	{
-		vec->x = old.x * cos_alpha - old.y * sin_alpha;
-		vec->y = old.x * sin_alpha + old.y * cos_alpha;
-	}
+	cos_pitch = COS(pitch * TORAD);
+	vec->x = SIN(yaw * TORAD) * cos_pitch;
+	vec->z = COS(yaw * TORAD) * cos_pitch;
+	vec->y = -SIN(pitch * TORAD);
 }
 
 inline double	dot_product(t_vec a, t_vec b)

@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 00:07:12 by badam             #+#    #+#             */
-/*   Updated: 2020/04/15 21:36:36 by badam            ###   ########.fr       */
+/*   Updated: 2020/06/10 22:37:00 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,59 @@ static void	add_surfaces(t_map *map, size_t i, t_scene *scene,
 		add_surface(&scene->east, i2pos(map, i, DIR_EAST), 90, rst, lst);
 }
 
-void		raytr_init(t_scene *scene)
+static void	init_static_surfaces(t_scene *scene)
+{
+	t_surface *surfs;
+
+	surfs = scene->surfaces;
+	while (surfs)
+	{
+		update_surface(surfs);
+		surfs = surfs->next;
+	}
+
+}
+
+static void	generate_view_matrix(t_scene *scene, int w, int h,
+		double fov, double vfov)
+{
+	int		i;
+	double	min;
+	double	to_max;
+
+	if ( !(scene->x2yaw = malloc(sizeof(double) * w)) )
+		error(ERR_MAP_MALLOC, NULL);
+	if ( !(scene->y2pitch = malloc(sizeof(double) * h)) )
+		error(ERR_MAP_MALLOC, NULL);
+	min = -fov / 2 * TORAD;
+	to_max = fov * TORAD;
+	i = 0;
+	while (i < w)
+	{
+		scene->x2yaw[i] = sin(min + to_max * i / w) * fov;
+		++i;
+	}
+	min = -vfov / 2 * TORAD;
+	to_max = vfov * TORAD;
+	i = 0;
+	while (i < h)
+	{
+		scene->y2pitch[i] = sin(min + to_max * i / h) * vfov;
+		++i;
+	}
+}
+
+void		raytr_init(t_scene *sc)
 {
 	size_t 		i;
 	t_map		*map;
 	t_surface	*lstsurf;
 
 	i = 0;
-	lstsurf = scene->surfaces;
-	map = &scene->map;
+	lstsurf = sc->surfaces;
+	map = &sc->map;
 	while (i < map->length)
-		add_surfaces(map, i++, scene, &scene->surfaces, &lstsurf);
+		add_surfaces(map, i++, sc, &(sc->surfaces), &lstsurf);
+	init_static_surfaces(sc);
+	generate_view_matrix(sc, sc->screen_w, sc->screen_h, sc->fov, sc->vfov);
 }
