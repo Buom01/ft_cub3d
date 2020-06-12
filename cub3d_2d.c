@@ -12,14 +12,14 @@
 
 #include "cub3d.h"
 
-double	dist_2d(t_vec *a, t_vec *b)
+inline double	dist_2d(t_vec a, t_vec b)
 {
 	double x;
-	double y;
+	double z;
 
-	x = a->x - b->x;
+	x = a.x - b.x;
 	x *= x;
-	y = a->y - b->y;
-	y *= y;
-	return (sqrt(x + y));
+	z = a.z - b.z;
+	z *= z;
+	return (sqrt(x + z));
 }

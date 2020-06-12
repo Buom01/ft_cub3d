@@ -26,6 +26,8 @@ static inline bool	tr_surface(t_ray ray, t_vec n, t_surf_cache cache,
 	double	i_v;
 
 	rev_n_dot_r = 1.0 / dot_product(n, ray.direction);
+	if (rev_n_dot_r > 0)
+		return (false);
 	i_r = -cache.n_dot_o_tr * rev_n_dot_r;
 	if (i_r < 0)
 		return (false);

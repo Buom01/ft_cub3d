@@ -46,13 +46,13 @@ t_pos	i2pos(t_map *map, size_t i, t_direction dir)
 	pos.z = (int)(i / map->width);
 	pos.x = (int)(i - (map->width * pos.z));
 	if (dir == DIR_NORTH)
-		pos.x -= 0.5;
-	if (dir == DIR_SOUTH)
-		pos.x += 0.5;
-	if (dir == DIR_WEST)
 		pos.z -= 0.5;
-	if (dir == DIR_EAST)
+	if (dir == DIR_SOUTH)
 		pos.z += 0.5;
+	if (dir == DIR_WEST)
+		pos.x -= 0.5;
+	if (dir == DIR_EAST)
+		pos.x += 0.5;
 	return (pos);
 }
 
@@ -73,7 +73,7 @@ void	init_player(t_map *map, t_state *state)
 	if (player == MAP_PLAYER_S)
 		state->yaw = 180;
 	else if (player == MAP_PLAYER_E)
-		state->yaw = -90;
-	else if (player == MAP_PLAYER_W)
 		state->yaw = 90;
+	else if (player == MAP_PLAYER_W)
+		state->yaw = -90;
 }

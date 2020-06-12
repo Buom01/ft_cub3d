@@ -40,9 +40,9 @@ static void	add_surfaces(t_map *map, size_t i, t_scene *scene,
 	if (map->data[i + map->width] == MAP_WALL)
 		add_surface(&scene->south, i2pos(map, i, DIR_SOUTH), 0, rst, lst);
 	if (map->data[i - 1] == MAP_WALL)
-		add_surface(&scene->west, i2pos(map, i, DIR_WEST), -90, rst, lst);
+		add_surface(&scene->west, i2pos(map, i, DIR_WEST), 90, rst, lst);
 	if (map->data[i + 1] == MAP_WALL)
-		add_surface(&scene->east, i2pos(map, i, DIR_EAST), 90, rst, lst);
+		add_surface(&scene->east, i2pos(map, i, DIR_EAST), 270, rst, lst);
 }
 
 static void	init_static_surfaces(t_scene *scene)

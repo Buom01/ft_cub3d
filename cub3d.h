@@ -40,6 +40,7 @@
 # define TITLE "Buom_01's Cub3D"
 # define TEXTURE_SIZE 64
 # define FOV 90
+# define MAX_DISTANCE 10
 				
 typedef unsigned char	t_byte;
 typedef t_byte			t_color[3];
@@ -115,19 +116,6 @@ typedef struct			s_map
 	size_t				init_player_pos;
 }						t_map;
 
-typedef struct			s_state
-{
-	t_pos				pos;
-	t_angle				yaw;
-	t_angle				pitch;
-	bool				jumping;
-	double				jump_velocity;
-	bool				crouch;
-	bool				keyboard[MAX_KEYS];
-	double				mouse_x;
-	double				mouse_y;
-}						t_state;
-
 typedef struct			s_surf_cache
 {
 	double				n_dot_o_tr;
@@ -146,6 +134,19 @@ typedef struct			s_surface
 	t_surf_cache		cache;
 	void				*next;
 }						t_surface;
+
+typedef struct			s_state
+{
+	t_pos				pos;
+	t_angle				yaw;
+	t_angle				pitch;
+	bool				jumping;
+	double				jump_velocity;
+	bool				crouch;
+	bool				keyboard[MAX_KEYS];
+	double				mouse_x;
+	double				mouse_y;
+}						t_state;
 
 typedef struct			s_scene
 {
@@ -222,7 +223,7 @@ void					init_player(t_map *map, t_state *state);
 void					physics_init(t_map *map);
 bool					validate_map(t_scene *scene);
 
-double					dist_2d(t_vec *a, t_vec *b);
+double					dist_2d(t_vec a, t_vec b);
 void					vec_from_angles(t_vec *vec, t_angle yaw, t_angle pitch);
 double					dot_product(t_vec a, t_vec b);
 t_vec					cross_product(t_vec a, t_vec b);
@@ -234,7 +235,7 @@ void					raytr_render(const t_scene *sc, const t_state *state,
 							int w, int h);
 void					raytr_free_surfs(t_surface *surf);
 void					raytr_get_surfaces(const t_scene *scene,
-							t_surface **surfs, t_vec rayorigin);
+							t_surface **surfs, t_pos rayorigin);
 void					update_surface(t_surface *surf);
 void					surfaces_sort(t_surface **surfs);
 

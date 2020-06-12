@@ -14,7 +14,7 @@ CC=gcc
 #CFLAGS=-Wall -Wextra -Werror -fsanitize=address -g3 -Ilibft
 CFLAGS=-Wall -Wextra -Werror -O3 -flto -Ilibft
 NAME=cub3d
-DEPS=libft/libft.a -lmlx -lXext -lX11 -lbsd -lm
+DEPS=libft/libft.a -lmlx -lXext -lX11 -lm
 HEADERS=cub3d.h gnl/get_next_line_bonus.h
 SRC=cub3d.c cub3d_file.c cub3d_scene.c cub3d_scene_utils.c cub3d_map.c \
 	cub3d_error.c gnl/get_next_line_bonus.c gnl/get_next_line_utils_bonus.c \
