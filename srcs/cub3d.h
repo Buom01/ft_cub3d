@@ -23,10 +23,10 @@
 # include <mlx.h>
 # include <math.h>
 
-# include "libft.h"
-# include "gnl/get_next_line_bonus.h"
+# include "../libs/libft/libft.h"
+# include "../libs/gnl/get_next_line_bonus.h"
 
-#include "cub3d_mlx.h"
+#include "mlx/mlx.h"
 
 # define STDIN STDIN_FILENO
 # define STDOUT STDOUT_FILENO
