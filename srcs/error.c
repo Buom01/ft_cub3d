@@ -20,6 +20,8 @@ inline static void	print_error(t_error error)
 		ft_putstr_fd("--save need destination file\n", STDERR);
 	else if (error == ERR_UNKNOWN_ARG)
 		ft_putstr_fd("Unknown arg: ", STDERR);
+	else if (error == ERR_MALLOC)
+		ft_putstr_fd("Memory allocation failed\n", STDERR);
 	else if (error == ERR_SCENE_NOT_LOADED)
 		ft_putstr_fd("No scene loaded. Is the cub file correct ?\n", STDERR);
 	else if (error == ERR_OPENING_SCENE)
@@ -28,8 +30,6 @@ inline static void	print_error(t_error error)
 		ft_putstr_fd("Error while reading scene: ", STDERR);
 	else if (error == ERR_INV_CONFIG)
 		ft_putstr_fd("Misformatted or inalid configuration command: ", STDERR);
-	else if (error == ERR_MAP_MALLOC)
-		ft_putstr_fd("Memory allocation failed while parsing map\n", STDERR);
 	else if (error == ERR_MAP_UNKNOWN)
 		ft_putstr_fd("Unknown map object: ", STDERR);
 	else if (error == ERR_MLX_INIT)

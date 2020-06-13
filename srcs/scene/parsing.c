@@ -53,22 +53,22 @@ static void	parse_resolution(char *resstr, t_scene *scene)
 	scene->screen_h = ft_atoi(gna(&resstr, false));
 }
 
-bool		parse_line(char *line, t_scene *scene)
+bool		parse_line(char *line, t_scene *scene, char *scfile)
 {
 	if (ft_strlen(gna(&line, true)) == 0)
 		return (false);
 	else if (ft_strnstr(line, "R", 1))
 		parse_resolution(line, scene);
 	else if (ft_strnstr(line, "NO", 2))
-		scene->north.path = ft_strdup(gna(&line, false));
+		scene->north.path = relative_to(scfile, gna(&line, false));
 	else if (ft_strnstr(line, "SO", 2))
-		scene->south.path = ft_strdup(gna(&line, false));
+		scene->south.path = relative_to(scfile, gna(&line, false));
 	else if (ft_strnstr(line, "WE", 2))
-		scene->west.path = ft_strdup(gna(&line, false));
+		scene->west.path = relative_to(scfile, gna(&line, false));
 	else if (ft_strnstr(line, "EA", 2))
-		scene->east.path = ft_strdup(gna(&line, false));
+		scene->east.path = relative_to(scfile, gna(&line, false));
 	else if (ft_strnstr(line, "S", 1))
-		scene->sprite.path = ft_strdup(gna(&line, false));
+		scene->sprite.path = relative_to(scfile, gna(&line, false));
 	else if (ft_strnstr(line, "F", 1))
 		parse_color(gna(&line, false), scene->floor, "F");
 	else if (ft_strnstr(line, "C", 1))

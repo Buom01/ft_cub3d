@@ -18,7 +18,7 @@ static void	add_surface(t_texture *textr, t_pos pos, t_angle yaw,
 	t_surface	*surf;
 
 	if (!(surf = malloc(sizeof(t_surface))))
-		error(ERR_MAP_MALLOC, NULL);
+		error(ERR_MALLOC, NULL);
 	ft_memset(surf, 0, sizeof(t_surface));
 	surf->pos = pos;
 	surf->yaw = yaw;
@@ -70,9 +70,9 @@ static void	generate_view_matrix(t_scene *scene, int w, int h,
 	screen_w = tan(fov * TORAD / 2) * 2;
 	screen_h = tan(vfov * TORAD / 2) * 2;
 	if ( !(scene->x2yaw = malloc(sizeof(double) * w)) )
-		error(ERR_MAP_MALLOC, NULL);
+		error(ERR_MALLOC, NULL);
 	if ( !(scene->y2pitch = malloc(sizeof(double) * h)) )
-		error(ERR_MAP_MALLOC, NULL);
+		error(ERR_MALLOC, NULL);
 	min = -screen_w / 2;
 	to_max = screen_w;
 	i = 0;

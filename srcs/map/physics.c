@@ -33,7 +33,7 @@ void	physics_walkable(t_map *map, size_t pos)
 void	physics_init(t_map *map)
 {
 	if (!(map->walkable = malloc(map->length * sizeof(bool))))
-		error(ERR_MAP_MALLOC, NULL);
+		error(ERR_MALLOC, NULL);
 	ft_memset(map->walkable, 0, map->length * sizeof(bool));
 	physics_walkable(map, map->init_player_pos);
 }

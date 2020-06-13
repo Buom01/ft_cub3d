@@ -18,7 +18,7 @@ static void			add_surface(const t_surface *src, t_surface **rst,
 	t_surface	*surf;
 
 	if (!(surf = malloc(sizeof(t_surface))))
-		error(ERR_MAP_MALLOC, NULL);
+		error(ERR_MALLOC, NULL);
 	ft_memcpy(surf, src, sizeof(t_surface));
 	if (!(*rst))
 		*rst = surf;

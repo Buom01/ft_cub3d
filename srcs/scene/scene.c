@@ -21,7 +21,7 @@ static void	save_line(char *line, char ***textblock)
 	if (!(*textblock))
 	{
 		if (!(*textblock = malloc(sizeof(char**) * 2)))
-			error(ERR_MAP_MALLOC, NULL);
+			error(ERR_MALLOC, NULL);
 	}
 	else
 	{
@@ -32,7 +32,7 @@ static void	save_line(char *line, char ***textblock)
 		if (newtextblock == NULL)
 		{
 			freeup_textblock(*textblock);
-			error(ERR_MAP_MALLOC, NULL);
+			error(ERR_MALLOC, NULL);
 		}
 		*textblock = newtextblock;
 	}
@@ -40,7 +40,7 @@ static void	save_line(char *line, char ***textblock)
 	*(*textblock + lines + 1) = NULL;
 }
 
-void		parse_scene(char *path, t_scene *scene)
+void		parse_scene(char *scenefile, t_scene *scene)
 {
 	int		fd;
 	char	*line;
@@ -51,18 +51,18 @@ void		parse_scene(char *path, t_scene *scene)
 	is_map = false;
 	rawmap = NULL;
 	scene_defaults(scene);
-	if ((fd = open(path, O_RDONLY)) == -1)
-		error(ERR_OPENING_SCENE, path);
+	if ((fd = open(scenefile, O_RDONLY)) == -1)
+		error(ERR_OPENING_SCENE, scenefile);
 	while ((gnl_result = get_next_line(fd, &line)) == 1)
 	{
-		if (is_map || (is_map = parse_line(line, scene)))
+		if (is_map || (is_map = parse_line(line, scene, scenefile)))
 			save_line(line, &rawmap);
 		else
 			free(line);
 	}
 	close(fd);
 	if (gnl_result == -1)
-		error(ERR_READING_SCENE, path);
+		error(ERR_READING_SCENE, scenefile);
 	if (is_map)
 		parse_rawmap_free(rawmap, scene);
 	scene->loaded = validate_scene(scene);

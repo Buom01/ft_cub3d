@@ -203,11 +203,11 @@ typedef enum
 	ERR_NO_ARG,
 	ERR_MISSING_OUTPUT,
 	ERR_UNKNOWN_ARG,
+	ERR_MALLOC,
 	ERR_SCENE_NOT_LOADED,
 	ERR_OPENING_SCENE,
 	ERR_READING_SCENE,
 	ERR_INV_CONFIG,
-	ERR_MAP_MALLOC,
 	ERR_MAP_UNKNOWN,
 	ERR_MLX_INIT,
 	ERR_MLX_TEXTURE,
@@ -219,11 +219,12 @@ t_key					cub3d_mlx_tokey(t_syskey keycode);
 void					error(t_error error, char *data);
 void					freeup_textblock(char **textblock);
 bool					has_extension(char *path, char *ext);
+char					*relative_to(const char *file_from, const char *file);
 
 void					scene_defaults(t_scene *scene);
 bool					validate_scene(t_scene *scene);
-void					parse_scene(char *path, t_scene *scene);
-bool					parse_line(char *line, t_scene *scene);
+void					parse_scene(char *scenefile, t_scene *scene);
+bool					parse_line(char *line, t_scene *scene, char *scfile);
 
 size_t					map_find_longer_line(char **rawmap);
 size_t					map_find_textblock_height(char **rawmap);

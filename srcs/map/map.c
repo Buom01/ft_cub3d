@@ -75,7 +75,7 @@ void					parse_rawmap_free(char **rawmap, t_scene *scene)
 	if (!(map->data = malloc(sizeof(t_entity) * map->width * map->height)))
 	{
 		freeup_textblock(rawmap);
-		error(ERR_MAP_MALLOC, NULL);
+		error(ERR_MALLOC, NULL);
 	}
 	rawmapcpy = rawmap;
 	current_line = 0;

@@ -31,7 +31,7 @@ static void	graphical_init(t_scene *sc)
 		error(ERR_MLX_UNKNOWN, NULL);
 	raytr_init(sc);
 	if (!(sc->frame = mlx_new_image(sc->mlx, sc->screen_w, sc->screen_h)))
-		error(ERR_MAP_MALLOC, NULL);
+		error(ERR_MALLOC, NULL);
 	sc->frame_colors = (int*)mlx_get_data_addr(sc->frame, &mock, &mock, &mock);
 }
 

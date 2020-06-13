@@ -12,6 +12,24 @@
 
 #include "cub3d.h"
 
+char	*relative_to(const char *file_from, const char *file)
+{
+	size_t	last_slash;
+	char	*prefix_path;
+	char	*complete_path;
+
+	last_slash = ft_strlen(file_from);
+	while (last_slash && file_from[last_slash] != '/')
+		last_slash--;
+	if ( !(prefix_path = ft_strdup(file_from)) )
+		error(ERR_MALLOC, NULL);
+	prefix_path[last_slash + 1] = '\0';
+	if ( !(complete_path = ft_strjoin(prefix_path, file)) )
+		error(ERR_MALLOC, NULL);
+	free(prefix_path);
+	return (complete_path);
+}
+
 bool	has_extension(char *path, char *ext)
 {
 	char	*pathend;
