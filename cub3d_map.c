@@ -19,6 +19,7 @@ bool					validate_map(t_scene *scene)
 	scene->map.length = scene->map.width * scene->map.height;
 	init_player(&scene->map, &scene->state);
 	physics_init(&scene->map);
+	// create_walls()
 	return (true);
 }
 

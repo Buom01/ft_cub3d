@@ -14,14 +14,14 @@
 
 void	move_forward(t_state *state, int direction)
 {
-	state->pos.z += COS(state->yaw * TORAD) * direction * 0.1;
 	state->pos.x += SIN(state->yaw * TORAD) * direction * 0.1;
+	state->pos.z += COS(state->yaw * TORAD) * direction * 0.1;
 }
 
 void	move_side(t_state *state, int direction)
 {
-	state->pos.z += SIN(state->yaw * TORAD) * direction * 0.1;
 	state->pos.x -= COS(state->yaw * TORAD) * direction * 0.1;
+	state->pos.z += SIN(state->yaw * TORAD) * direction * 0.1;
 }
 
 void	jump(t_state *state)

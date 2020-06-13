@@ -27,7 +27,7 @@ void	scene_defaults(t_scene *scene)
 
 bool	validate_scene(t_scene *scene)
 {
-	if (scene->screen_w <= 0 && scene->screen_h <= 0)
+	if (scene->screen_w <= 0 || scene->screen_h <= 0)
 		error(ERR_INV_CONFIG, "R");
 	if (!scene->north.path || ft_strlen(scene->north.path) == 0)
 		error(ERR_INV_CONFIG, "NO");
@@ -39,7 +39,9 @@ bool	validate_scene(t_scene *scene)
 		error(ERR_INV_CONFIG, "EA");
 	if (!scene->sprite.path || ft_strlen(scene->sprite.path) == 0)
 		error(ERR_INV_CONFIG, "S");
-	scene->vfov = scene->fov * scene->screen_h / (double)scene->screen_w;
+	if (scene->fov > 180)
+		scene->fov = 180;
+	scene->vfov = scene->fov * (scene->screen_h / (double)scene->screen_w);
 	scene->x_floor = to_x_color(scene->floor);
 	scene->x_ceil = to_x_color(scene->ceil);
 	return (validate_map(scene));

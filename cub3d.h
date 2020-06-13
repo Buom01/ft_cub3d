@@ -34,13 +34,16 @@
 
 # define SIN sin
 # define COS cos
-# define PI 3.14159265
-# define TORAD 3.14159265 / 180
+# define PI acos(-1.0)
+# define TORAD PI / 180.0
+# define TODEG 180.0 / PI
 
 # define TITLE "Buom_01's Cub3D"
 # define TEXTURE_SIZE 64
+# define COLOR_TRANSPARENT (255 * 65535 + 0 * 255 + 255 * 1)
 # define FOV 90
-# define MAX_DISTANCE 10
+# define MAX_DIST 7
+# define SHADOW_DIST (MAX_DIST - 2)
 				
 typedef unsigned char	t_byte;
 typedef t_byte			t_color[3];
@@ -118,6 +121,7 @@ typedef struct			s_map
 
 typedef struct			s_surf_cache
 {
+	double				distance;
 	double				n_dot_o_tr;
 	t_vec				o_tr_cross_v;
 	t_vec				u_cross_o_tr;
@@ -128,7 +132,6 @@ typedef struct			s_surface
 	t_pos				pos;
 	t_angle				yaw;
 	t_texture			*texture;
-	double				distance;
 	t_base				base;
 	t_vec				o_t;
 	t_surf_cache		cache;
@@ -190,6 +193,13 @@ typedef struct
 
 typedef enum
 {
+	TR_NOT_HIT,
+	TR_FLOOR,
+	TR_HIT
+}	t_raytrace_return;
+
+typedef enum
+{
 	ERR_NO_ARG,
 	ERR_MISSING_OUTPUT,
 	ERR_UNKNOWN_ARG,
@@ -234,8 +244,8 @@ void					raytr_shutdown(t_scene *scene);
 void					raytr_render(const t_scene *sc, const t_state *state,
 							int w, int h);
 void					raytr_free_surfs(t_surface *surf);
-void					raytr_get_surfaces(const t_scene *scene,
-							t_surface **surfs, t_pos rayorigin);
+void					raytr_get_surfaces(t_surface **surfs, t_ray ray,
+								t_surface *scsurfs, const t_state *state);
 void					update_surface(t_surface *surf);
 void					surfaces_sort(t_surface **surfs);
 
@@ -256,5 +266,6 @@ int						*get_texture_color(int x, int y, int w, int *colors);
 void					set_texture_color(int x, int y, int w,
 							int *colors, int color);
 int						to_x_color(t_color color);
+void					color_darken(int *color, double dark_ratio);
 
 #endif

@@ -52,7 +52,8 @@ void		surfaces_sort(t_surface **surfs)
 		current = surfs;
 		while (j++ <= i - 1 )
 		{
-			if ((*current)->distance > ((t_surface*)(*current)->next)->distance)
+			if ((*current)->cache.distance >
+						((t_surface*)(*current)->next)->cache.distance)
 				swap_surfaces(current, (t_surface**)(&(*current)->next));
 			current = (t_surface**)(&((*current)->next));
 		}

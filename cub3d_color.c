@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-int	to_x_color(t_color color)
+int		to_x_color(t_color color)
 {
 	int x_color;
 
@@ -20,4 +20,23 @@ int	to_x_color(t_color color)
 	x_color += color[1] << 8;
 	x_color += color[2];
 	return (x_color);
+}
+
+void	color_darken(int *color, double dark_ratio)
+{
+	t_color	darked;
+	double	factor;
+
+	if (dark_ratio < 0)
+		return;
+	if (dark_ratio > 1)
+	{
+		*color = 0;
+		return;
+	}
+	factor = 1 - dark_ratio;
+	darked[0] = (unsigned char)(*color >> 16) * factor;
+	darked[1] = (unsigned char)(*color >> 8) * factor;
+	darked[2] = (unsigned char)(*color) * factor;
+	*color = to_x_color(darked);
 }
