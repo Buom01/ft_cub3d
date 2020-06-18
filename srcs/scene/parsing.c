@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d_scene_parsing.c                              :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/11 01:14:43 by badam             #+#    #+#             */
-/*   Updated: 2020/04/20 18:03:00 by badam            ###   ########.fr       */
+/*   Updated: 2020/06/18 03:38:39 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static char	*gna(char **line, bool is_first)
 	return (*line);
 }
 
-static void	parse_color(char *colorstr, t_color out, char *cmd)
+static void	parse_color(char *colorstr, t_color *out, char *cmd, t_scene *scene)
 {
 	char	*red;
 	char	*green;
@@ -32,18 +32,18 @@ static void	parse_color(char *colorstr, t_color out, char *cmd)
 	green = gna(&colorstr, false);
 	blue = gna(&colorstr, false);
 	if (ft_strlen(red) == 0)
-		error(ERR_INV_CONFIG, cmd);
+		error(scene, ERR_INV_CONFIG, cmd);
 	if (green == blue || ft_strlen(blue) == 0)
 	{
-		out[0] = atoi(red);
-		out[1] = out[0];
-		out[2] = out[0];
+		out->red = atoi(red);
+		out->green = out->red;
+		out->blue = out->red;
 	}
 	else
 	{
-		out[0] = atoi(red);
-		out[1] = atoi(green);
-		out[2] = atoi(blue);
+		out->red = atoi(red);
+		out->green = atoi(green);
+		out->blue = atoi(blue);
 	}
 }
 
@@ -60,22 +60,22 @@ bool		parse_line(char *line, t_scene *scene, char *scfile)
 	else if (ft_strnstr(line, "R", 1))
 		parse_resolution(line, scene);
 	else if (ft_strnstr(line, "NO", 2))
-		scene->north.path = relative_to(scfile, gna(&line, false));
+		scene->north.path = relative_to(scfile, gna(&line, false), scene);
 	else if (ft_strnstr(line, "SO", 2))
-		scene->south.path = relative_to(scfile, gna(&line, false));
+		scene->south.path = relative_to(scfile, gna(&line, false), scene);
 	else if (ft_strnstr(line, "WE", 2))
-		scene->west.path = relative_to(scfile, gna(&line, false));
+		scene->west.path = relative_to(scfile, gna(&line, false), scene);
 	else if (ft_strnstr(line, "EA", 2))
-		scene->east.path = relative_to(scfile, gna(&line, false));
+		scene->east.path = relative_to(scfile, gna(&line, false), scene);
 	else if (ft_strnstr(line, "S", 1))
-		scene->sprite.path = relative_to(scfile, gna(&line, false));
+		scene->sprite.path = relative_to(scfile, gna(&line, false), scene);
 	else if (ft_strnstr(line, "F", 1))
-		parse_color(gna(&line, false), scene->floor, "F");
+		parse_color(gna(&line, false), &(scene->floor), "F", scene);
 	else if (ft_strnstr(line, "C", 1))
-		parse_color(gna(&line, false), scene->ceil, "C");
+		parse_color(gna(&line, false), &(scene->ceil), "C", scene);
 	else if (ft_isdigit(*line))
 		return (true);
 	else
-		error(ERR_INV_CONFIG, line);
+		error(scene, ERR_INV_CONFIG, line);
 	return (false);
 }

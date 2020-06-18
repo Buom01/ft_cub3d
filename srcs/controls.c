@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d_controls.c                                   :+:      :+:    :+:   */
+/*   controls.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 22:37:34 by badam             #+#    #+#             */
-/*   Updated: 2020/06/10 22:36:42 by badam            ###   ########.fr       */
+/*   Updated: 2020/06/18 03:12:33 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,13 @@ void	ctrl_releaseall(t_state *state)
 	state->mouse_y = 0;
 }
 
-void	ctrl_update(t_state *state)
+void	ctrl_update(t_scene *scene, t_state *state)
 {
 	if (state->keyboard[KEY_ESC])
-		exit(1);
+	{
+		graphical_shutdown(scene);
+		exit(EXIT_SUCCESS);
+	}
 	state->crouch = state->keyboard[KEY_LSHIFT];
 	if (state->keyboard[KEY_LCTRL])
 	{

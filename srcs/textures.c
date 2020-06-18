@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d_textures.c                                   :+:      :+:    :+:   */
+/*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/14 00:25:30 by badam             #+#    #+#             */
-/*   Updated: 2020/06/05 06:26:43 by badam            ###   ########.fr       */
+/*   Updated: 2020/06/18 03:51:00 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	loadtexture(t_texture *texture, void *mlx)
+static void	loadtexture(t_texture *texture, void *mlx, t_scene *scene)
 {
 	int	size;
 	int mock;
@@ -22,7 +22,7 @@ static void	loadtexture(t_texture *texture, void *mlx)
 		return;
 	if (!(texture->data =
 			mlx_xpm_file_to_image(mlx, texture->path, &size, &size)))
-		error(ERR_MLX_TEXTURE, texture->path);
+		error(scene, ERR_MLX_TEXTURE, texture->path);
 	texture->colors = (int*)mlx_get_data_addr(texture->data,
 			&mock, &mock, &mock);
 }
@@ -37,18 +37,24 @@ static void	unloadtexture(t_texture *texture, void *mlx)
 
 void	textures_load(t_scene *scene)
 {
-	loadtexture(&scene->north, scene->mlx);
-	loadtexture(&scene->south, scene->mlx);
-	loadtexture(&scene->west, scene->mlx);
-	loadtexture(&scene->east, scene->mlx);
-	loadtexture(&scene->sprite, scene->mlx);
+	void	*mlx;
+
+	mlx = scene->mlx;
+	loadtexture(&scene->north, mlx, scene);
+	loadtexture(&scene->south, mlx, scene);
+	loadtexture(&scene->west, mlx, scene);
+	loadtexture(&scene->east, mlx, scene);
+	loadtexture(&scene->sprite, mlx, scene);
 }
 
 void	textures_unload(t_scene *scene)
 {
-	unloadtexture(&scene->north, scene->mlx);
-	unloadtexture(&scene->south, scene->mlx);
-	unloadtexture(&scene->west, scene->mlx);
-	unloadtexture(&scene->east, scene->mlx);
-	unloadtexture(&scene->sprite, scene->mlx);
+	void	*mlx;
+
+	mlx = scene->mlx;
+	unloadtexture(&scene->north, mlx);
+	unloadtexture(&scene->south, mlx);
+	unloadtexture(&scene->west, mlx);
+	unloadtexture(&scene->east, mlx);
+	unloadtexture(&scene->sprite, mlx);
 }

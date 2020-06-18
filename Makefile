@@ -6,14 +6,14 @@
 #    By: badam <badam@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/10 18:46:41 by badam             #+#    #+#              #
-#    Updated: 2020/06/10 23:46:05 by badam            ###   ########.fr        #
+#    Updated: 2020/06/18 02:27:02 by badam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC=gcc
-#CFLAGS=-Wall -Wextra -Werror -fsanitize=address -g3 -Ilibft
-CFLAGS=-Wall -Wextra -Werror -O3 -flto -Ilibs/libft -Isrcs 
-NAME=cub3d
+CFLAGS=-Wall -Wextra -Werror -O3 -flto -fsanitize=address -g3 -Isrcs -Ilibs/libft
+#CFLAGS=-Wall -Wextra -Werror -O3 -flto -Isrcs -Ilibs/libft
+NAME=Cub3D
 DEPS=libs/libft/libft.a -lmlx -lXext -lX11 -lm
 HEADERS= \
 	srcs/cub3d.h \
@@ -28,16 +28,19 @@ SRC= \
 	srcs/utils/color.c \
 	srcs/utils/file.c \
 	srcs/utils/image.c \
-	srcs/map/map.c \
 	srcs/map/utils.c \
+	srcs/map/parsing.c \
+	srcs/map/map.c \
 	srcs/map/physics.c \
+	srcs/surfaces.c \
+	srcs/entities/walls.c \
 	srcs/raytracing/surfaces.c \
 	srcs/raytracing/init.c \
 	srcs/raytracing/render.c \
-	srcs/raytracing/shutdown.c \
 	srcs/scene/utils.c \
 	srcs/scene/parsing.c \
 	srcs/scene/scene.c \
+	srcs/scene/shutdown.c \
 	srcs/mlx/mlx.c \
 	srcs/error.c \
 	srcs/textures.c \

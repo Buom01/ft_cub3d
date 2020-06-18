@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d_raytr_surfaces.c                             :+:      :+:    :+:   */
+/*   surfaces.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 21:32:40 by badam             #+#    #+#             */
-/*   Updated: 2020/06/10 23:16:58 by badam            ###   ########.fr       */
+/*   Updated: 2020/06/18 03:33:42 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void			add_surface(const t_surface *src, t_surface **rst,
-		t_surface **lst)
+inline static void	add_render_surface(const t_surface *src, t_surface **rst,
+		t_surface **lst, t_scene *scene)
 {
 	t_surface	*surf;
 
 	if (!(surf = malloc(sizeof(t_surface))))
-		error(ERR_MALLOC, NULL);
+		error(scene, ERR_MALLOC, NULL);
 	ft_memcpy(surf, src, sizeof(t_surface));
 	if (!(*rst))
 		*rst = surf;
@@ -71,18 +71,20 @@ void				update_surface(t_surface *surf)
 }
 
 void				raytr_get_surfaces(t_surface **surfs, t_ray ray,
-		t_surface *scsurfs, const t_state *state)
+		t_surface *scsurfs, t_scene *scene)
 {
 	t_surface	*lstsurf;
 	t_surface	*candidate;
+	t_state		*state;
 
+	state = &(scene->state);
 	lstsurf = NULL;
 	*surfs = NULL;
 	candidate = scsurfs;
 	while (candidate)
 	{
 		if (is_useful(candidate, ray, state->yaw))
-			add_surface(candidate, surfs, &lstsurf);
+			add_render_surface(candidate, surfs, &lstsurf, scene);
 		candidate = candidate->next;
 	}
 	if (lstsurf)

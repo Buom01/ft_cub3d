@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d_error.c                                      :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 21:45:04 by badam             #+#    #+#             */
-/*   Updated: 2020/04/14 00:44:52 by badam            ###   ########.fr       */
+/*   Updated: 2020/06/18 03:46:47 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ inline static void	print_error(t_error error)
 		ft_putstr_fd("Unknown error\n", STDERR);
 }
 
-void				error(t_error error, char *data)
+void				error(t_scene *scene, t_error error, char *data)
 {
 	ft_putstr_fd("Error\n", STDERR);
 	print_error(error);
@@ -56,5 +56,10 @@ void				error(t_error error, char *data)
 			ft_putchar_fd('\n', STDERR);
 		}
 	}
-	exit(1);
+	if (scene)
+	{
+		graphical_shutdown(scene);
+		main_shutdown(scene);
+	}
+	exit(EXIT_FAILURE);
 }

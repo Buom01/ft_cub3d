@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d_file.c                                       :+:      :+:    :+:   */
+/*   file.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 00:23:37 by badam             #+#    #+#             */
-/*   Updated: 2020/04/11 00:54:02 by badam            ###   ########.fr       */
+/*   Updated: 2020/06/18 03:17:38 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-char	*relative_to(const char *file_from, const char *file)
+char	*relative_to(const char *file_from, const char *file, t_scene *scene)
 {
 	size_t	last_slash;
 	char	*prefix_path;
@@ -22,10 +22,10 @@ char	*relative_to(const char *file_from, const char *file)
 	while (last_slash && file_from[last_slash] != '/')
 		last_slash--;
 	if ( !(prefix_path = ft_strdup(file_from)) )
-		error(ERR_MALLOC, NULL);
+		error(scene, ERR_MALLOC, NULL);
 	prefix_path[last_slash + 1] = '\0';
 	if ( !(complete_path = ft_strjoin(prefix_path, file)) )
-		error(ERR_MALLOC, NULL);
+		error(scene, ERR_MALLOC, NULL);
 	free(prefix_path);
 	return (complete_path);
 }

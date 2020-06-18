@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d_graphics.c                                   :+:      :+:    :+:   */
+/*   graphics.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/13 22:24:50 by badam             #+#    #+#             */
-/*   Updated: 2020/06/10 19:09:19 by badam            ###   ########.fr       */
+/*   Updated: 2020/06/18 03:48:54 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	graphical_init(t_scene *sc)
 	int mock;
 
 	if (!(sc->mlx = mlx_init()))
-		error(ERR_MLX_INIT, NULL);
+		error(sc, ERR_MLX_INIT, NULL);
 	mlx_get_screen_size(sc->mlx, &display_w, &display_h);
 	if (sc->screen_w > display_w)
 		sc->screen_w = display_w;
@@ -28,10 +28,12 @@ static void	graphical_init(t_scene *sc)
 	textures_load(sc);
 	if (!(sc->window =
 			mlx_new_window(sc->mlx, sc->screen_w, sc->screen_h, TITLE)))
-		error(ERR_MLX_UNKNOWN, NULL);
+		error(sc, ERR_MLX_UNKNOWN, NULL);
+	physics_init(&(sc->map), sc);
+	walls_init(sc);
 	raytr_init(sc);
 	if (!(sc->frame = mlx_new_image(sc->mlx, sc->screen_w, sc->screen_h)))
-		error(ERR_MALLOC, NULL);
+		error(sc, ERR_MALLOC, NULL);
 	sc->frame_colors = (int*)mlx_get_data_addr(sc->frame, &mock, &mock, &mock);
 }
 
@@ -40,7 +42,7 @@ static int	graphical_update(t_scene *sc)
 	t_state	*state;
 
 	state = &(sc->state);
-	ctrl_update(state);
+	ctrl_update(sc, state);
 	move_update(state);
 	raytr_render(sc, state, sc->screen_w, sc->screen_h);
 	return (0);
@@ -57,13 +59,20 @@ static void	graphical_main(t_scene *sc)
 	mlx_loop(sc->mlx);
 }
 
-static void	graphical_shutdown(t_scene *scene)
+void		graphical_shutdown(t_scene *scene)
 {
-	mlx_destroy_image(scene->mlx, scene->frame);
-	mlx_destroy_window(scene->mlx, scene->window);
-	raytr_shutdown(scene);
-	textures_unload(scene);
-	free(scene->mlx);
+	if (scene->frame)
+		mlx_destroy_image(scene->mlx, scene->frame);
+	if (scene->window)
+		mlx_destroy_window(scene->mlx, scene->window);
+	if (scene->mlx)
+	{
+		textures_unload(scene);
+		free(scene->mlx);
+	}
+	physics_shutdown(&(scene->map));
+	walls_shutdown(scene);
+	scene_shutdown(scene);
 }
 
 void		graphical_run(t_scene *scene)

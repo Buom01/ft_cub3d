@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d_raytr_render.c                               :+:      :+:    :+:   */
+/*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 18:46:34 by badam             #+#    #+#             */
-/*   Updated: 2020/06/10 23:31:06 by badam            ###   ########.fr       */
+/*   Updated: 2020/06/18 03:35:21 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static inline int	tr_surface(t_ray ray, t_vec n, t_surf_cache cache,
 	if (i_v < 0 || i_v > 1)
 		return (TR_NOT_HIT);
 	*color = get_texture_color_at(i_v, i_u, texture_colors);
-	if (*color == COLOR_TRANSPARENT)
+	if ((unsigned char)(*color >> 24) > 127)
 		return (TR_NOT_HIT);
 	if (MAX_DIST)
 		color_darken(color, (i_r - MAX_DIST + SHADOW_DIST) / SHADOW_DIST);
@@ -74,7 +74,7 @@ static inline void	raytr_tr(const t_scene *sc, int pixel_index,
 		*pixel = sc->x_ceil;
 }
 
-inline void			raytr_render(const t_scene *sc, const t_state *state,
+inline void			raytr_render(t_scene *sc, const t_state *state,
 		int w, int h)
 {
 	register int	x;
@@ -87,7 +87,7 @@ inline void			raytr_render(const t_scene *sc, const t_state *state,
 	ray.origin = state->pos;
 	direction_p = &(ray.direction);
 	vec_from_angles(direction_p, state->yaw, state->pitch);
-	raytr_get_surfaces(&optisurfs, ray, sc->surfaces, state);
+	raytr_get_surfaces(&optisurfs, ray, sc->surfaces, sc);
 	pixel_index = 0;
 	y = 0;
 	while (y < h)
@@ -107,5 +107,5 @@ inline void			raytr_render(const t_scene *sc, const t_state *state,
 		++y;
 	}
 	draw_frame(sc);
-	raytr_free_surfs(optisurfs);
+	free_surfaces(optisurfs);
 }

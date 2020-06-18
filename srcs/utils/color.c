@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d_color.c                                      :+:      :+:    :+:   */
+/*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,13 +12,14 @@
 
 #include "cub3d.h"
 
-int		to_x_color(t_color color)
+int		to_x_color(t_color *color)
 {
 	int x_color;
 
-	x_color = color[0] << 16;
-	x_color += color[1] << 8;
-	x_color += color[2];
+	x_color = color->alpha << 24;
+	x_color = color->red << 16;
+	x_color += color->green << 8;
+	x_color += color->blue;
 	return (x_color);
 }
 
@@ -35,8 +36,10 @@ void	color_darken(int *color, double dark_ratio)
 		return;
 	}
 	factor = 1 - dark_ratio;
-	darked[0] = (unsigned char)(*color >> 16) * factor;
-	darked[1] = (unsigned char)(*color >> 8) * factor;
-	darked[2] = (unsigned char)(*color) * factor;
-	*color = to_x_color(darked);
+	// transparent ?
+	darked.alpha = (unsigned char)(*color >> 24);
+	darked.red = (unsigned char)(*color >> 16) * factor;
+	darked.green = (unsigned char)(*color >> 8) * factor;
+	darked.blue = (unsigned char)(*color) * factor;
+	*color = to_x_color(&darked);
 }
