@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 18:46:34 by badam             #+#    #+#             */
-/*   Updated: 2020/06/18 03:35:21 by badam            ###   ########.fr       */
+/*   Updated: 2020/06/20 17:27:08 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,20 +74,19 @@ static inline void	raytr_tr(const t_scene *sc, int pixel_index,
 		*pixel = sc->x_ceil;
 }
 
-inline void			raytr_render(t_scene *sc, const t_state *state,
-		int w, int h)
+inline void			raytr_render(t_scene *sc, t_surface **surfs,
+		t_ray ray, int w, int h)
 {
+	t_state			*state;
 	register int	x;
 	register int	y;
-	t_ray			ray;
-	t_surface		*optisurfs;
 	t_vec			*direction_p;
 	int				pixel_index;
 
-	ray.origin = state->pos;
+	state = &(sc->state);
 	direction_p = &(ray.direction);
-	vec_from_angles(direction_p, state->yaw, state->pitch);
-	raytr_get_surfaces(&optisurfs, ray, sc->surfaces, sc);
+	surfaces_sort(surfs);
+	surfaces_pre_tr(*surfs, ray.origin);
 	pixel_index = 0;
 	y = 0;
 	while (y < h)
@@ -100,12 +99,11 @@ inline void			raytr_render(t_scene *sc, const t_state *state,
 				sc->x2yaw[x] + state->yaw,
 				sc->y2pitch[y] + state->pitch
 			);
-			raytr_tr(sc, pixel_index, ray, optisurfs);
+			raytr_tr(sc, pixel_index, ray, *surfs);
 			++pixel_index;
 			++x;
 		}
 		++y;
 	}
 	draw_frame(sc);
-	free_surfaces(optisurfs);
 }

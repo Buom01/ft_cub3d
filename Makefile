@@ -6,7 +6,7 @@
 #    By: badam <badam@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/10 18:46:41 by badam             #+#    #+#              #
-#    Updated: 2020/06/18 02:27:02 by badam            ###   ########.fr        #
+#    Updated: 2020/06/20 20:21:31 by badam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRC= \
 	srcs/map/physics.c \
 	srcs/surfaces.c \
 	srcs/entities/walls.c \
+	srcs/entities/sprites.c \
 	srcs/raytracing/surfaces.c \
 	srcs/raytracing/init.c \
 	srcs/raytracing/render.c \
@@ -47,6 +48,7 @@ SRC= \
 	srcs/graphics.c \
 	srcs/move.c \
 	srcs/controls.c \
+	srcs/controls_events.c \
 	srcs/cub3d.c
 OBJ=$(SRC:.c=.o)
 SRC_BONUS=

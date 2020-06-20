@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 18:57:53 by badam             #+#    #+#             */
-/*   Updated: 2020/06/18 03:46:06 by badam            ###   ########.fr       */
+/*   Updated: 2020/06/20 20:12:00 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,10 @@ typedef enum
 	KEY_UNKNOWN,
 	KEY_ESC,
 	KEY_LSHIFT,
-	KEY_LCTRL,
-	KEY_F10,
-	KEY_F11,
+	KEY_W,
+	KEY_A,
+	KEY_S,
+	KEY_D,
 	KEY_SPACE,
 	KEY_UP,
 	KEY_RIGHT,
@@ -148,8 +149,9 @@ typedef struct			s_sprite
 {
 	t_pos				pos;
 	t_texture			*texture;
-	bool				facing;
+	void				*next;
 }						t_sprite;
+	bool				facing;
 
 typedef struct			s_state
 {
@@ -172,6 +174,8 @@ typedef struct			s_scene
 	int					screen_h;
 	double				fov;
 	double				vfov;
+	int					mouse_origin_x;
+	int					mouse_origin_y;
 
 	void				*mlx;
 	void				*window;
@@ -250,34 +254,48 @@ t_pos					i2pos(t_map *map, size_t i, t_direction dir);
 void					init_player(t_map *map, t_scene *scene);
 void					add_surface(t_texture *textr, t_pos pos, t_angle yaw,
 							t_surface **list, t_surface **last, t_scene *scene);
+bool					is_surface_useful(t_surface *candidate,
+							t_ray ray, t_angle yaw);
 void					free_surfaces(t_surface *surf);
 
 void					walls_init(t_scene *scene);
+void					walls_update(t_scene *sc, t_state *state, t_ray ray,
+							t_surface **lst_surf, t_surface **surfs);
 void					walls_shutdown(t_scene *scene);
 void					physics_init(t_map *map, t_scene *scene);
 void					physics_shutdown(t_map *map);
 bool					validate_map(t_scene *scene);
 
+void					sprites_init(t_scene *scene);
+void					sprites_update(t_scene *sc, t_state *state, t_ray ray,
+							 t_surface **lst_surf);
+void					sprites_shutdown(t_scene *scene);
+
 double					dist_2d(t_vec a, t_vec b);
+t_angle					point_to(t_pos from, t_pos to);
 void					vec_from_angles(t_vec *vec, t_angle yaw, t_angle pitch);
 double					dot_product(t_vec a, t_vec b);
 t_vec					cross_product(t_vec a, t_vec b);
 t_vec					vec_diff(t_vec a, t_vec b);
 
 void					raytr_init(t_scene *scene);
-void					raytr_render(t_scene *sc, const t_state *state,
-							int w, int h);
-void					raytr_get_surfaces(t_surface **surfs, t_ray ray,
-								t_surface *scsurfs, t_scene *scene);
+void					raytr_render(t_scene *sc, t_surface **surfs,
+							t_ray ray, int w, int h);
+void					add_render_surface(const t_surface *src,
+							t_surface **lst, t_scene *scene);
 void					update_surface(t_surface *surf);
+void					surfaces_pre_tr(t_surface *surfs, t_pos origin);
 void					surfaces_sort(t_surface **surfs);
 
 void					graphical_run(t_scene *scene);
 void					graphical_shutdown(t_scene *scene);
+void					ctrl_init(t_scene *sc);
+void					ctrl_update(t_scene *scene, t_state *state);
+void					ctrl_shutdown(t_scene *scene);
 int						ctrl_keypress(t_syskey keycode, t_state *state);
 int						ctrl_keyrelease(t_syskey keycode, t_state *state);
-void					ctrl_update(t_scene *scene, t_state *state);
 void					ctrl_releaseall(t_state *state);
+int						ctrl_mousemove(int x, int y, t_scene *sc);
 void					move_forward(t_state *state, int direction);
 void					move_side(t_state *state, int direction);
 void					jump(t_state *state);
@@ -291,5 +309,6 @@ void					set_texture_color(int x, int y, int w,
 							int *colors, int color);
 int						to_x_color(t_color *color);
 void					color_darken(int *color, double dark_ratio);
+int						fade_color(int c1, int c2, double balance);
 
 #endif

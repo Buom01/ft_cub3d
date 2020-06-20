@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d_mlx.c                                        :+:      :+:    :+:   */
+/*   mlx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 20:36:49 by badam             #+#    #+#             */
-/*   Updated: 2020/06/08 21:18:19 by badam            ###   ########.fr       */
+/*   Updated: 2020/06/20 18:36:23 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,14 @@ t_key	cub3d_mlx_tokey(t_syskey keycode)
 		return (KEY_ESC);
 	else if (keycode == SYSKEY_LSHIFT)
 		return (KEY_LSHIFT);
-	else if (keycode == SYSKEY_LCTRL)
-		return (KEY_LCTRL);
-	else if (keycode == SYSKEY_F10)
-		return (KEY_F10);
-	else if (keycode == SYSKEY_F11)
-		return (KEY_F11);
+	else if (keycode == SYSKEY_W)
+		return (KEY_W);
+	else if (keycode == SYSKEY_A)
+		return (KEY_A);
+	else if (keycode == SYSKEY_S)
+		return (KEY_S);
+	else if (keycode == SYSKEY_D)
+		return (KEY_D);
 	else if (keycode == SYSKEY_SPACE)
 		return (KEY_SPACE);
 	else if (keycode == SYSKEY_UP)

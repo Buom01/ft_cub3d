@@ -6,13 +6,13 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 23:06:36 by badam             #+#    #+#             */
-/*   Updated: 2020/06/05 00:10:43 by badam            ###   ########.fr       */
+/*   Updated: 2020/06/18 04:41:49 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		to_x_color(t_color *color)
+int			to_x_color(t_color *color)
 {
 	int x_color;
 
@@ -23,7 +23,7 @@ int		to_x_color(t_color *color)
 	return (x_color);
 }
 
-void	color_darken(int *color, double dark_ratio)
+void		color_darken(int *color, double dark_ratio)
 {
 	t_color	darked;
 	double	factor;
@@ -36,10 +36,28 @@ void	color_darken(int *color, double dark_ratio)
 		return;
 	}
 	factor = 1 - dark_ratio;
-	// transparent ?
 	darked.alpha = (unsigned char)(*color >> 24);
 	darked.red = (unsigned char)(*color >> 16) * factor;
 	darked.green = (unsigned char)(*color >> 8) * factor;
 	darked.blue = (unsigned char)(*color) * factor;
 	*color = to_x_color(&darked);
+}
+
+inline int	fade_color(int c1, int c2, double balance)
+{
+	// Should make use of this function
+	int	a;
+	int	r;
+	int	g;
+	int	b;
+
+	a = (unsigned char)(c1 >> 24) * (1 - balance)
+			+ (unsigned char)(c2 >> 24) * balance;
+	r = (unsigned char)(c1 >> 16) * (1 - balance)
+			+ (unsigned char)(c2 >> 16) * balance;
+	g = (unsigned char)(c1 >> 8) * (1 - balance)
+			+ (unsigned char)(c2 >> 8) * balance;
+	b = (unsigned char)(c1) * (1 - balance)
+			+ (unsigned char)(c2) * balance;
+	return ((a << 24) + (r << 16) + (g << 8) + b);
 }

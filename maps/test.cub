@@ -1,15 +1,15 @@
-R	640 400 
-NO	./assets/test.xpm
-SO	./assets/test.xpm
-WE	./assets/test.xpm
-EA ./assets/test.xpm
-S ./assets/test.xpm
+R	800 400 
+NO	./assets/test_n.xpm
+SO	./assets/test_s.xpm
+WE	./assets/test_w.xpm
+EA ./assets/test_e.xpm
+S ./assets/table.xpm
 
 F 220,100,0
 C 0,30,255
 
 11111
 10001
-10E11
+10E21
 10001
 11111

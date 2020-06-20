@@ -6,28 +6,26 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 21:32:40 by badam             #+#    #+#             */
-/*   Updated: 2020/06/18 03:33:42 by badam            ###   ########.fr       */
+/*   Updated: 2020/06/19 12:59:45 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-inline static void	add_render_surface(const t_surface *src, t_surface **rst,
-		t_surface **lst, t_scene *scene)
+inline void	add_render_surface(const t_surface *src, t_surface **lst,
+		t_scene *scene)
 {
 	t_surface	*surf;
 
 	if (!(surf = malloc(sizeof(t_surface))))
 		error(scene, ERR_MALLOC, NULL);
 	ft_memcpy(surf, src, sizeof(t_surface));
-	if (!(*rst))
-		*rst = surf;
-	else
+	if (*lst)
 		(*lst)->next = surf;
 	*lst = surf;
 }
 
-static inline bool	is_useful(t_surface *candidate, t_ray ray, t_angle yaw)
+inline bool	is_surface_useful(t_surface *candidate, t_ray ray, t_angle yaw)
 {
 	t_vec	diff;
 	t_pos	filter_origin;
@@ -45,7 +43,7 @@ static inline bool	is_useful(t_surface *candidate, t_ray ray, t_angle yaw)
 	return (true);
 }
 
-static void			surfaces_pre_tr(t_surface *surfs, t_pos origin)
+void		surfaces_pre_tr(t_surface *surfs, t_pos origin)
 {
 	t_vec	o_tr;
 
@@ -59,7 +57,7 @@ static void			surfaces_pre_tr(t_surface *surfs, t_pos origin)
 	}
 }
 
-void				update_surface(t_surface *surf)
+void		update_surface(t_surface *surf)
 {
 	surf->base.u.y = 1; 
 	surf->base.v.x = COS(surf->yaw * TORAD);
@@ -68,27 +66,4 @@ void				update_surface(t_surface *surf)
 	surf->o_t.x = surf->pos.x - COS(surf->yaw * TORAD) * 0.5;
 	surf->o_t.y = surf->pos.y - 0.5;
 	surf->o_t.z = surf->pos.z - SIN(surf->yaw * TORAD) * 0.5;
-}
-
-void				raytr_get_surfaces(t_surface **surfs, t_ray ray,
-		t_surface *scsurfs, t_scene *scene)
-{
-	t_surface	*lstsurf;
-	t_surface	*candidate;
-	t_state		*state;
-
-	state = &(scene->state);
-	lstsurf = NULL;
-	*surfs = NULL;
-	candidate = scsurfs;
-	while (candidate)
-	{
-		if (is_useful(candidate, ray, state->yaw))
-			add_render_surface(candidate, surfs, &lstsurf, scene);
-		candidate = candidate->next;
-	}
-	if (lstsurf)
-		lstsurf->next = NULL;
-	surfaces_sort(surfs);
-	surfaces_pre_tr(*surfs, ray.origin);
 }

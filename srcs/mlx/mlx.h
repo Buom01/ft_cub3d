@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d_mlx.h                                        :+:      :+:    :+:   */
+/*   mlx.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 17:51:25 by badam             #+#    #+#             */
-/*   Updated: 2020/06/08 20:33:41 by badam            ###   ########.fr       */
+/*   Updated: 2020/06/20 18:47:04 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ typedef enum
 	SCROLLRIGHT
 }	t_mouse;
 
-# ifdef __APPLE__
 typedef enum
 {
+# ifdef __APPLE__
 	SYSKEY_ESC = 53,
 	SYSKEY_TAB = 48,
 	SYSKEY_LSHIFT = 257,
@@ -64,15 +64,16 @@ typedef enum
 	SYSKEY_F10 = 109,
 	SYSKEY_F11 = 103,
 	SYSKEY_F12 = 111,
+	SYSKEY_W = 13,
+	SYSKEY_A = 0,
+	SYSKEY_S = 1,
+	SYSKEY_D = 2,
 	SYSKEY_SPACE = 49,
 	SYSKEY_UP = 126,
 	SYSKEY_RIGHT = 124,
 	SYSKEY_DOWN = 125,
 	SYSKEY_LEFT = 123
-}	t_syskey;
 #else
-typedef enum
-{
 	SYSKEY_ESC = 65307,
 	SYSKEY_TAB = 65289,
 	SYSKEY_LSHIFT = 65505,
@@ -92,12 +93,16 @@ typedef enum
 	SYSKEY_F10 = 65479,
 	SYSKEY_F11 = 65480,
 	SYSKEY_F12 = 65481,
+	SYSKEY_W = 119,
+	SYSKEY_A = 97,
+	SYSKEY_S = 115,
+	SYSKEY_D = 100,
 	SYSKEY_SPACE = 32,
 	SYSKEY_UP = 65362,
 	SYSKEY_RIGHT = 65363,
 	SYSKEY_DOWN = 65364,
 	SYSKEY_LEFT = 65361
-}	t_syskey;
 # endif
+}	t_syskey;
 
 #endif

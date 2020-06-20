@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 15:21:00 by badam             #+#    #+#             */
-/*   Updated: 2020/06/18 03:30:46 by badam            ###   ########.fr       */
+/*   Updated: 2020/06/19 13:44:27 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,26 @@ void		walls_init(t_scene *scene)
 		update_surface(surf);
 		surf = surf->next;
 	}
+}
+
+inline void	walls_update(t_scene *sc, t_state *state, t_ray ray,
+		t_surface **lst_surf, t_surface **surfs)
+{
+	t_surface	*candidate;
+
+	candidate = sc->surfaces;
+	while (candidate)
+	{
+		if (is_surface_useful(candidate, ray, state->yaw))
+		{
+			add_render_surface(candidate, lst_surf, sc);
+			if (!(*surfs))
+				*surfs = *lst_surf;
+		}
+		candidate = candidate->next;
+	}
+	if (*lst_surf)
+		(*lst_surf)->next = NULL;
 }
 
 void	walls_shutdown(t_scene *scene)
