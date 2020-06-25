@@ -243,7 +243,7 @@ static char * test_xpm[] = {
 "q+	c #FF001E",
 "r+	c #FF0011",
 "s+	c #FF0004",
-". + @ # $ % & * = - ; > , ' ) ! ~ { ] ^ / ( _ : < [ } | 1 2 3 4 5 6 7 8 9 0 a b c d e f g h i j k l m n o p q r s t u v w x y z ",
+"^ + @ # $ % & * = - ; > , ' ) ! ~ { ] ^ / ( _ : < [ } | 1 2 3 4 5 6 7 8 9 0 a b c d e f g h i j k l m n o p q r s t u v w x y ^ ",
 "+ @ # A % & B = C ; > D ' ) ! ~ E ] ^ / F _ : G H } I 1 2 J 4 K L 7 8 9 0 a M c N e O P Q R S T l m n o U V r s t u v w x y z W ",
 "@ X A % & B Y - ; > D Z ) ! ` {  .../ F _ : G [ } | 1 2 3 4 5 L 7 8 9 0 a b c N +.O P h R j T l @.n o p q #.s t u v w x y z W $.",
 "# A %.& * = C &.> , ' ) ! ~ { ] ^ / F _ : < [ } I 1 2 J 4 5 L 7 8 9 0 *.M c N e O P h i S T l @.n o U V r s t =.v w x -.z W $.;.",
@@ -306,4 +306,4 @@ static char * test_xpm[] = {
 "w x y z W 7.;.~.].(.2.3.5.e.b.c.g.k.l.m.o.v.y.x.H.A.D.F.I.K.M.N.O.Q.S.X.W..+@+#+=+*+-+;+{+'+!+~+:+_+[+}+1+2+4+8+0+a+b+e+m+j+n+o+",
 "z.y a.W 7.;.~./.(.[.3.5.e.b.c.g.i.l.m.u.r.w.x.H.C.E.F.I.K.M.N.O.Q.S.U. +.+@+#+=+*+-+5+,+(+!+]+^+<+[+}+3+2+4+8+0+a+b+h+i+j+n+p+q+",
 "y z W $.!.~./.(.2.8.5.9.b.c.g.i.l.m.o.v.y.x.B.C.D.V.I.L.M.N.P.R.S.X. +Y.@+$+=+>+-+5+,+'+!+~+^+<+[+}+3+2+4+8+9+g+d+h+i+j+l+o+q+r+",
-"z W $.;.~.].(.[.3.5.e.b.c.g.i.q.m.u.r.y.x.B.C.D.F.T.L.M.N.P.Q.S.U.W..+@+#+=+>+-+;+,+(+!+~+^+_+[+}+3+2+4+7+0+a+d+e+i+j+n+o+q+r+s+"};
+"^ W $.;.~.].(.[.3.5.e.b.c.g.i.q.m.u.r.y.x.B.C.D.F.T.L.M.N.P.Q.S.U.W..+@+#+=+>+-+;+,+(+!+~+^+_+[+}+3+2+4+7+0+a+d+e+i+j+n+o+q+r+^+"};

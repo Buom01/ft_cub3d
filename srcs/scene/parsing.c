@@ -6,76 +6,57 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/11 01:14:43 by badam             #+#    #+#             */
-/*   Updated: 2020/06/18 03:38:39 by badam            ###   ########.fr       */
+/*   Updated: 2020/06/22 22:54:00 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static char	*gna(char **line, bool is_first)
+static bool	parse_additionnal(char *line, t_scene *sc, char *scfile)
 {
-	if (!is_first)
-		while (**line && !ft_isspace(**line) && **line != ',')
-			(*line)++;
-	while (**line && (ft_isspace(**line) || **line == ','))
-		(*line)++;
-	return (*line);
-}
-
-static void	parse_color(char *colorstr, t_color *out, char *cmd, t_scene *scene)
-{
-	char	*red;
-	char	*green;
-	char	*blue;
-
-	red = colorstr;
-	green = gna(&colorstr, false);
-	blue = gna(&colorstr, false);
-	if (ft_strlen(red) == 0)
-		error(scene, ERR_INV_CONFIG, cmd);
-	if (green == blue || ft_strlen(blue) == 0)
-	{
-		out->red = atoi(red);
-		out->green = out->red;
-		out->blue = out->red;
-	}
+	if (ft_strnstr(line, "SHADOW", 6))
+		sc->shadow = ft_atoi(gna(&line, false));
+	else if (ft_strnstr(line, "shadow_fade", 11))
+		sc->shadow_fade = ft_atoi(gna(&line, false));
+	else if (ft_strnstr(line, "NOCLIP", 6))
+		sc->noclip = true;
+	else if (ft_strnstr(line, "DOOR", 4))
+		sc->door.path = relative_to(scfile, gna(&line, false), sc);
+	else if (ft_strnstr(line, "GRIDDOOR", 8))
+		sc->griddoor.path = relative_to(scfile, gna(&line, false), sc);
+	else if (ft_strnstr(line, "KEY", 3))
+		sc->key.path = relative_to(scfile, gna(&line, false), sc);
 	else
 	{
-		out->red = atoi(red);
-		out->green = atoi(green);
-		out->blue = atoi(blue);
+		free(scfile);
+		error(sc, ERR_INV_CONFIG, line);
 	}
+	return (false);
 }
 
-static void	parse_resolution(char *resstr, t_scene *scene)
-{
-	scene->screen_w = ft_atoi(gna(&resstr, false));
-	scene->screen_h = ft_atoi(gna(&resstr, false));
-}
-
-bool		parse_line(char *line, t_scene *scene, char *scfile)
+bool		parse_line(char *line, t_scene *sc, char *scfile)
 {
 	if (ft_strlen(gna(&line, true)) == 0)
 		return (false);
 	else if (ft_strnstr(line, "R", 1))
-		parse_resolution(line, scene);
+		parse_resolution(line, sc);
 	else if (ft_strnstr(line, "NO", 2))
-		scene->north.path = relative_to(scfile, gna(&line, false), scene);
+		sc->north.path = relative_to(scfile, gna(&line, false), sc);
 	else if (ft_strnstr(line, "SO", 2))
-		scene->south.path = relative_to(scfile, gna(&line, false), scene);
+		sc->south.path = relative_to(scfile, gna(&line, false), sc);
 	else if (ft_strnstr(line, "WE", 2))
-		scene->west.path = relative_to(scfile, gna(&line, false), scene);
+		sc->west.path = relative_to(scfile, gna(&line, false), sc);
 	else if (ft_strnstr(line, "EA", 2))
-		scene->east.path = relative_to(scfile, gna(&line, false), scene);
+		sc->east.path = relative_to(scfile, gna(&line, false), sc);
 	else if (ft_strnstr(line, "S", 1))
-		scene->sprite.path = relative_to(scfile, gna(&line, false), scene);
+		sc->sprite.path = relative_to(scfile, gna(&line, false), sc);
 	else if (ft_strnstr(line, "F", 1))
-		parse_color(gna(&line, false), &(scene->floor), "F", scene);
+		parse_colortexture(gna(&line, false), &(sc->floor), scfile, "F", sc);
 	else if (ft_strnstr(line, "C", 1))
-		parse_color(gna(&line, false), &(scene->ceil), "C", scene);
+		parse_colortexture(gna(&line, false), &(sc->ceil), scfile, "C", sc);
 	else if (ft_isdigit(*line))
 		return (true);
 	else
-		error(scene, ERR_INV_CONFIG, line);
+		return (parse_additionnal(line, sc, scfile));
 	return (false);
 }

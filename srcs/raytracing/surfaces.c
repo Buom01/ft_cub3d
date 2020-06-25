@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 21:32:40 by badam             #+#    #+#             */
-/*   Updated: 2020/06/19 12:59:45 by badam            ###   ########.fr       */
+/*   Updated: 2020/06/22 17:38:13 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ inline void	add_render_surface(const t_surface *src, t_surface **lst,
 	*lst = surf;
 }
 
-inline bool	is_surface_useful(t_surface *candidate, t_ray ray, t_angle yaw)
+inline bool	is_surface_useful(t_surface *candidate, t_ray ray, t_angle yaw,
+		t_scene *sc)
 {
 	t_vec	diff;
 	t_pos	filter_origin;
@@ -34,8 +35,8 @@ inline bool	is_surface_useful(t_surface *candidate, t_ray ray, t_angle yaw)
 	filter_origin.x = ray.origin.x - SIN(yaw * TORAD) / 2;
 	filter_origin.z = ray.origin.z - COS(yaw * TORAD) / 2;
 	candidate->cache.distance = dist_2d(candidate->pos, ray.origin);
-	if (MAX_DIST)
-		if (candidate->cache.distance > MAX_DIST + 0.5)
+	if (sc->shadow)
+		if (candidate->cache.distance > sc->shadow + 0.5)
 			return (false);
 	diff = vec_diff(candidate->pos, filter_origin);
 	if (dot_product(diff, ray.direction) < 0)

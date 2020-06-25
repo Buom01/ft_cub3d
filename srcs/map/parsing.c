@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 14:16:15 by badam             #+#    #+#             */
-/*   Updated: 2020/06/18 03:23:02 by badam            ###   ########.fr       */
+/*   Updated: 2020/06/22 22:50:47 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ inline static t_entity	rawchar_to_entity(char c, t_scene *scene)
 		return (MAP_WALL);
 	else if (c == '2')
 		return (MAP_OBJECT);
+	else if (c == '3')
+		return (MAP_FAKEWALL);
 	else if (c == 'N')
 		return (MAP_PLAYER_N);
 	else if (c == 'S')
@@ -28,6 +30,12 @@ inline static t_entity	rawchar_to_entity(char c, t_scene *scene)
 		return (MAP_PLAYER_W);
 	else if (c == 'E')
 		return (MAP_PLAYER_E);
+	else if (c == 'H')
+		return (MAP_DOOR);
+	else if (c == '#')
+		return (MAP_GRIDDOOR);
+	else if (c == 'F')
+		return (MAP_KEY);
 	else
 	{
 		error(scene, ERR_MAP_UNKNOWN, ft_ctoa(c));

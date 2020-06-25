@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/18 22:03:26 by badam             #+#    #+#             */
-/*   Updated: 2020/06/20 16:12:54 by badam            ###   ########.fr       */
+/*   Updated: 2020/06/22 19:30:53 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ inline void	sprites_update(t_scene *sc, t_state *state, t_ray ray,
 		surf.pos = candidate->pos;
 		surf.texture = candidate->texture;
 		surf.yaw = point_to(candidate->pos, ray.origin);
-		if (is_surface_useful(surf_p, ray, state->yaw))
+		if (is_surface_useful(surf_p, ray, state->yaw, sc))
 		{
 			update_surface(surf_p);
 			add_render_surface(surf_p, lst_surf, sc);

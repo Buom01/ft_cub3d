@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 04:24:31 by badam             #+#    #+#             */
-/*   Updated: 2020/06/18 03:36:54 by badam            ###   ########.fr       */
+/*   Updated: 2020/06/22 18:49:21 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ void	scene_defaults(t_scene *scene)
 	scene->screen_w = 640;
 	scene->screen_h = 480;
 	scene->fov = FOV;
-	scene->ceil.red = 50;
-	scene->ceil.green = 90;
-	scene->ceil.blue = 235;
-	scene->floor.red = 50;
-	scene->floor.green = 50;
-	scene->floor.blue = 50;
+	scene->ceil.color.red = 50;
+	scene->ceil.color.green = 90;
+	scene->ceil.color.blue = 235;
+	scene->floor.color.red = 50;
+	scene->floor.color.green = 50;
+	scene->floor.color.blue = 50;
 }
 
 bool	validate_scene(t_scene *scene)
@@ -42,7 +42,8 @@ bool	validate_scene(t_scene *scene)
 	if (scene->fov > 180)
 		scene->fov = 180;
 	scene->vfov = scene->fov * (scene->screen_h / (double)scene->screen_w);
-	scene->x_floor = to_x_color(&(scene->floor));
-	scene->x_ceil = to_x_color(&(scene->ceil));
+	scene->x_floor = to_x_color(&(scene->floor.color));
+	scene->x_ceil = to_x_color(&(scene->ceil.color));
+	scene->shadow_begin = scene->shadow - scene->shadow_fade;
 	return (validate_map(scene));
 }

@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 22:37:34 by badam             #+#    #+#             */
-/*   Updated: 2020/06/20 20:17:32 by badam            ###   ########.fr       */
+/*   Updated: 2020/06/22 22:25:04 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,6 @@ void		ctrl_update(t_scene *scene, t_state *state)
 
 void		ctrl_shutdown(t_scene *scene)
 {
-	mlx_mouse_show(scene->mlx, scene->window);
+	if (scene->mlx && scene->window)
+		mlx_mouse_show(scene->mlx, scene->window);
 }

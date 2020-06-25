@@ -6,12 +6,12 @@
 #    By: badam <badam@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/10 18:46:41 by badam             #+#    #+#              #
-#    Updated: 2020/06/20 20:21:31 by badam            ###   ########.fr        #
+#    Updated: 2020/06/22 22:39:56 by badam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC=gcc
-CFLAGS=-Wall -Wextra -Werror -O3 -flto -fsanitize=address -g3 -Isrcs -Ilibs/libft
+CFLAGS=-Wall -Wextra -Werror -O3 -fsanitize=address -g3 -Isrcs -Ilibs/libft
 #CFLAGS=-Wall -Wextra -Werror -O3 -flto -Isrcs -Ilibs/libft
 NAME=Cub3D
 DEPS=libs/libft/libft.a -lmlx -lXext -lX11 -lm
@@ -40,6 +40,7 @@ SRC= \
 	srcs/raytracing/render.c \
 	srcs/scene/utils.c \
 	srcs/scene/parsing.c \
+	srcs/scene/parsing_utils.c \
 	srcs/scene/scene.c \
 	srcs/scene/shutdown.c \
 	srcs/mlx/mlx.c \

@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 18:57:53 by badam             #+#    #+#             */
-/*   Updated: 2020/06/20 20:12:00 by badam            ###   ########.fr       */
+/*   Updated: 2020/06/22 22:41:00 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@
 # define TITLE "Buom_01's Cub3D"
 # define TEXTURE_SIZE 64
 # define FOV 90
-# define MAX_DIST 7
-# define SHADOW_DIST (MAX_DIST - 2)
 				
 typedef unsigned char	t_byte;
 
@@ -60,6 +58,13 @@ typedef	struct			s_texture
 	void				*data;
 	int					*colors;
 }						t_texture;
+
+typedef	struct			s_colortexture
+{
+	bool				is_texture;
+	t_color				color;
+	t_texture			texture;
+}						t_colortexture;
 
 typedef struct			s_vec
 {
@@ -109,11 +114,15 @@ typedef enum
 {
 	MAP_AIR = 0,
 	MAP_WALL,
-	MAP_OBJECT,
+	MAP_FAKEWALL,
 	MAP_PLAYER_N,
 	MAP_PLAYER_S,
 	MAP_PLAYER_W,
-	MAP_PLAYER_E
+	MAP_PLAYER_E,
+	MAP_OBJECT,
+	MAP_DOOR,
+	MAP_GRIDDOOR,
+	MAP_KEY
 }	t_entity;
 
 typedef struct			s_map
@@ -177,6 +186,11 @@ typedef struct			s_scene
 	int					mouse_origin_x;
 	int					mouse_origin_y;
 
+	double				shadow;
+	double				shadow_fade;
+	double				shadow_begin;
+	bool				noclip;
+
 	void				*mlx;
 	void				*window;
 	double				*x2yaw;
@@ -189,9 +203,12 @@ typedef struct			s_scene
 	t_texture			west;
 	t_texture			east;
 	t_texture			sprite;
+	t_texture			door;
+	t_texture			griddoor;
+	t_texture			key;
 
-	t_color				floor;
-	t_color				ceil;
+	t_colortexture		floor;
+	t_colortexture		ceil;
 	int					x_floor;
 	int					x_ceil;
 
@@ -243,8 +260,13 @@ char					*relative_to(const char *file_from, const char *file,
 
 void					scene_defaults(t_scene *scene);
 bool					validate_scene(t_scene *scene);
+char					*gna(char **line, bool is_first);
 void					parse_scene(char *scenefile, t_scene *scene);
 bool					parse_line(char *line, t_scene *scene, char *scfile);
+void					parse_color(char *colorstr, t_color *out);
+void					parse_colortexture(char *str, t_colortexture *out,
+							char *scfile, char *cmd, t_scene *scene);
+void					parse_resolution(char *resstr, t_scene *scene);
 void					scene_shutdown(t_scene *scene);
 
 size_t					map_find_longer_line(char **rawmap);
@@ -255,7 +277,7 @@ void					init_player(t_map *map, t_scene *scene);
 void					add_surface(t_texture *textr, t_pos pos, t_angle yaw,
 							t_surface **list, t_surface **last, t_scene *scene);
 bool					is_surface_useful(t_surface *candidate,
-							t_ray ray, t_angle yaw);
+							t_ray ray, t_angle yaw, t_scene *sc);
 void					free_surfaces(t_surface *surf);
 
 void					walls_init(t_scene *scene);
@@ -271,6 +293,7 @@ void					sprites_update(t_scene *sc, t_state *state, t_ray ray,
 							 t_surface **lst_surf);
 void					sprites_shutdown(t_scene *scene);
 
+double					fast_cos(double angle);
 double					dist_2d(t_vec a, t_vec b);
 t_angle					point_to(t_pos from, t_pos to);
 void					vec_from_angles(t_vec *vec, t_angle yaw, t_angle pitch);

@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/14 00:25:30 by badam             #+#    #+#             */
-/*   Updated: 2020/06/18 03:51:00 by badam            ###   ########.fr       */
+/*   Updated: 2020/06/22 22:59:56 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,26 @@
 
 static void	loadtexture(t_texture *texture, void *mlx, t_scene *scene)
 {
-	int	size;
-	int mock;
+	int		size;
+	int 	mock;
+	char	*alternative_path;
 	
 	size = TEXTURE_SIZE;
 	if (!texture->path || texture->data)
 		return;
 	if (!(texture->data =
 			mlx_xpm_file_to_image(mlx, texture->path, &size, &size)))
-		error(scene, ERR_MLX_TEXTURE, texture->path);
+	{
+		alternative_path = ft_strjoin(texture->path, ".xpm");
+		if ((texture->data =
+				mlx_xpm_file_to_image(mlx, alternative_path, &size, &size)))
+		{
+			free(texture->path);
+			texture->path = alternative_path;
+		}	
+		else
+			error(scene, ERR_MLX_TEXTURE, texture->path);
+	}
 	texture->colors = (int*)mlx_get_data_addr(texture->data,
 			&mock, &mock, &mock);
 }

@@ -6,20 +6,21 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 18:46:34 by badam             #+#    #+#             */
-/*   Updated: 2020/06/20 17:27:08 by badam            ###   ########.fr       */
+/*   Updated: 2020/06/22 18:48:53 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static inline void	draw_frame(const t_scene *sc)
+void				draw_frame(const t_scene *sc)
 {
 	mlx_put_image_to_window(sc->mlx, sc->window, sc->frame, 0, 0);
 }
 
 static inline int	tr_surface(t_ray ray, t_vec n, t_surf_cache cache, 
-		const int *texture_colors, int *color)
+		const int *texture_colors, int *color, const t_scene *sc)
 {
+	double	n_dot_r;
 	double	rev_n_dot_r;
 	double	i_r;
 	double	i_u;
@@ -27,11 +28,11 @@ static inline int	tr_surface(t_ray ray, t_vec n, t_surf_cache cache,
 
 	if (fabs(ray.direction.y * cache.distance) > 1)
 		return (TR_FLOOR); 
-
-	rev_n_dot_r = 1.0 / dot_product(n, ray.direction);
-	if (rev_n_dot_r > 0)
+	n_dot_r = dot_product(n, ray.direction);
+	rev_n_dot_r = 1 / n_dot_r;
+	if (n_dot_r > 0)
 		return (TR_NOT_HIT);
-	i_r = -cache.n_dot_o_tr * rev_n_dot_r;
+	i_r = -cache.n_dot_o_tr * n_dot_r;
 	if (i_r < 0)
 		return (TR_NOT_HIT);
 	i_u = dot_product(cache.o_tr_cross_v, ray.direction) * rev_n_dot_r;
@@ -43,8 +44,8 @@ static inline int	tr_surface(t_ray ray, t_vec n, t_surf_cache cache,
 	*color = get_texture_color_at(i_v, i_u, texture_colors);
 	if ((unsigned char)(*color >> 24) > 127)
 		return (TR_NOT_HIT);
-	if (MAX_DIST)
-		color_darken(color, (i_r - MAX_DIST + SHADOW_DIST) / SHADOW_DIST);
+	if (sc->shadow)
+		color_darken(color, (i_r - sc->shadow_begin) / sc->shadow_fade);
 	return (TR_HIT);
 }
 
@@ -60,7 +61,7 @@ static inline void	raytr_tr(const t_scene *sc, int pixel_index,
 	while (surf)
 	{
 		tr_result = tr_surface(ray, surf->base.n, surf->cache,
-				surf->texture->colors, pixel);
+				surf->texture->colors, pixel, sc);
 		if (tr_result == TR_HIT)
 			return;
 		else if (tr_result == TR_FLOOR)
