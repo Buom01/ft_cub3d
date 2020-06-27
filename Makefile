@@ -6,13 +6,13 @@
 #    By: badam <badam@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/10 18:46:41 by badam             #+#    #+#              #
-#    Updated: 2020/06/22 22:39:56 by badam            ###   ########.fr        #
+#    Updated: 2020/06/26 19:26:52 by badam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC=gcc
-CFLAGS=-Wall -Wextra -Werror -O3 -fsanitize=address -g3 -Isrcs -Ilibs/libft
-#CFLAGS=-Wall -Wextra -Werror -O3 -flto -Isrcs -Ilibs/libft
+#CFLAGS=-Wall -Wextra -Werror -O3 -fsanitize=address -g3 -Isrcs -Ilibs/libft
+CFLAGS=-Wall -Wextra -Werror -O3 -flto -Isrcs -Ilibs/libft
 NAME=Cub3D
 DEPS=libs/libft/libft.a -lmlx -lXext -lX11 -lm
 HEADERS= \
