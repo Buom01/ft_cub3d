@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 23:06:36 by badam             #+#    #+#             */
-/*   Updated: 2020/06/18 04:41:49 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/02 19:56:29 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ void		color_darken(int *color, double dark_ratio)
 	double	factor;
 
 	if (dark_ratio < 0)
-		return;
+		return ;
 	if (dark_ratio > 1)
 	{
 		*color = 0;
-		return;
+		return ;
 	}
 	factor = 1 - dark_ratio;
 	darked.alpha = (unsigned char)(*color >> 24);
@@ -45,7 +45,6 @@ void		color_darken(int *color, double dark_ratio)
 
 inline int	fade_color(int c1, int c2, double balance)
 {
-	// Should make use of this function
 	int	a;
 	int	r;
 	int	g;

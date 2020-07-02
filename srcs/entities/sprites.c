@@ -6,13 +6,13 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/18 22:03:26 by badam             #+#    #+#             */
-/*   Updated: 2020/06/22 19:30:53 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/02 20:33:45 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	sprites_init(t_scene *scene)
+void		sprites_init(t_scene *scene)
 {
 	size_t		i;
 	t_map		*map;
@@ -26,7 +26,7 @@ void	sprites_init(t_scene *scene)
 	{
 		if (map->data[i] == MAP_OBJECT)
 		{
-			if ( !(sprite = malloc(sizeof(t_sprite))) )
+			if (!(sprite = malloc(sizeof(t_sprite))))
 				error(scene, ERR_MALLOC, NULL);
 			ft_memset(sprite, 0, sizeof(t_sprite));
 			sprite->texture = &(scene->sprite);
@@ -67,7 +67,7 @@ inline void	sprites_update(t_scene *sc, t_state *state, t_ray ray,
 		(*lst_surf)->next = NULL;
 }
 
-void	sprites_shutdown(t_scene *scene)
+void		sprites_shutdown(t_scene *scene)
 {
 	t_sprite	*sprite;
 	t_sprite	*next;

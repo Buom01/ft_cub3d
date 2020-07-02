@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 18:57:53 by badam             #+#    #+#             */
-/*   Updated: 2020/06/22 22:41:00 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/02 22:54:17 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include "../libs/libft/libft.h"
 # include "../libs/gnl/get_next_line_bonus.h"
 
-# include "mlx/mlx.h"
+# include "mlx/cub3d_mlx.h"
 
 # define STDIN STDIN_FILENO
 # define STDOUT STDOUT_FILENO
@@ -274,8 +274,8 @@ size_t					map_find_textblock_height(char **rawmap);
 void					parse_rawmap_free(char **rawmap, t_scene *scene);
 t_pos					i2pos(t_map *map, size_t i, t_direction dir);
 void					init_player(t_map *map, t_scene *scene);
-void					add_surface(t_texture *textr, t_pos pos, t_angle yaw,
-							t_surface **list, t_surface **last, t_scene *scene);
+t_surface				*add_surface(t_surface **list, t_surface **last,
+							t_scene *scene);
 bool					is_surface_useful(t_surface *candidate,
 							t_ray ray, t_angle yaw, t_scene *sc);
 void					free_surfaces(t_surface *surf);
@@ -328,8 +328,6 @@ void					textures_load(t_scene *scene);
 void					textures_unload(t_scene *scene);
 int						get_texture_color_at(double x, double y, const int *colors);
 int						*get_texture_color(int x, int y, int w, int *colors);
-void					set_texture_color(int x, int y, int w,
-							int *colors, int color);
 int						to_x_color(t_color *color);
 void					color_darken(int *color, double dark_ratio);
 int						fade_color(int c1, int c2, double balance);

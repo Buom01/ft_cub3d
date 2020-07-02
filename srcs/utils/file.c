@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 00:23:37 by badam             #+#    #+#             */
-/*   Updated: 2020/06/18 03:17:38 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/02 20:00:55 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ char	*relative_to(const char *file_from, const char *file, t_scene *scene)
 	last_slash = ft_strlen(file_from);
 	while (last_slash && file_from[last_slash] != '/')
 		last_slash--;
-	if ( !(prefix_path = ft_strdup(file_from)) )
+	if (!(prefix_path = ft_strdup(file_from)))
 		error(scene, ERR_MALLOC, NULL);
 	prefix_path[last_slash + 1] = '\0';
-	if ( !(complete_path = ft_strjoin(prefix_path, file)) )
+	if (!(complete_path = ft_strjoin(prefix_path, file)))
 		error(scene, ERR_MALLOC, NULL);
 	free(prefix_path);
 	return (complete_path);

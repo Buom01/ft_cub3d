@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d_surfaces_utils.c                             :+:      :+:    :+:   */
+/*   surfaces.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 23:33:41 by badam             #+#    #+#             */
-/*   Updated: 2020/04/30 16:08:39 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/02 19:55:18 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void		surfaces_sort(t_surface **surfs)
 	{
 		j = 0;
 		current = surfs;
-		while (j++ <= i - 1 )
+		while (j++ <= i - 1)
 		{
 			if ((*current)->cache.distance >
 						((t_surface*)(*current)->next)->cache.distance)
@@ -59,4 +59,3 @@ void		surfaces_sort(t_surface **surfs)
 		}
 	}
 }
-

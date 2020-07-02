@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 21:45:04 by badam             #+#    #+#             */
-/*   Updated: 2020/06/22 22:49:19 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/02 20:15:52 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ inline static void	print_error(t_error error)
 		ft_putstr_fd("MiniLibX initialization failed\n", STDERR);
 	else if (error == ERR_MLX_INIT)
 		ft_putstr_fd("Texture failed to load: ", STDERR);
-	else if (error == ERR_MLX_UNKNOWN)
-		ft_putstr_fd("Unknown MiniLibX error\n", STDERR);
 	else
 		ft_putstr_fd("Unknown error\n", STDERR);
 }

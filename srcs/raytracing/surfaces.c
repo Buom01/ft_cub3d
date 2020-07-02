@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 21:32:40 by badam             #+#    #+#             */
-/*   Updated: 2020/06/22 17:38:13 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/02 17:16:44 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ inline bool	is_surface_useful(t_surface *candidate, t_ray ray, t_angle yaw,
 
 	filter_origin.y = ray.origin.y;
 	filter_origin.x = ray.origin.x - SIN(yaw * TORAD) / 2;
-	filter_origin.z = ray.origin.z - COS(yaw * TORAD) / 2;
+	filter_origin.z = ray.origin.z + COS(yaw * TORAD) / 2;
 	candidate->cache.distance = dist_2d(candidate->pos, ray.origin);
 	if (sc->shadow)
 		if (candidate->cache.distance > sc->shadow + 0.5)

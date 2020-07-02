@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 22:14:45 by badam             #+#    #+#             */
-/*   Updated: 2020/06/18 04:43:01 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/02 16:50:31 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void	move_forward(t_state *state, int direction)
 {
+	state->pos.z -= COS(state->yaw * TORAD) * direction * 0.08;
 	state->pos.x += SIN(state->yaw * TORAD) * direction * 0.08;
-	state->pos.z += COS(state->yaw * TORAD) * direction * 0.08;
 }
 
 void	move_side(t_state *state, int direction)
 {
+	state->pos.z -= SIN(state->yaw * TORAD) * direction * 0.08;
 	state->pos.x -= COS(state->yaw * TORAD) * direction * 0.08;
-	state->pos.z += SIN(state->yaw * TORAD) * direction * 0.08;
 }
 
 void	jump(t_state *state)

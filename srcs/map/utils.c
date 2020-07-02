@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/10 22:08:39 by badam             #+#    #+#             */
-/*   Updated: 2020/06/26 19:48:40 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/02 20:17:57 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ size_t	map_find_textblock_height(char **rawmap)
 t_pos	i2pos(t_map *map, size_t i, t_direction dir)
 {
 	t_pos	pos;
-	
+
 	pos.y = 0.5;
 	pos.z = (int)(i / map->width);
 	pos.x = (int)(i - (map->width * pos.z));

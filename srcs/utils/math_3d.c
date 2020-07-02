@@ -6,19 +6,19 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 22:08:58 by badam             #+#    #+#             */
-/*   Updated: 2020/06/22 05:47:48 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/02 19:52:52 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-inline void	vec_from_angles(t_vec *vec, t_angle yaw, t_angle pitch)
+inline void		vec_from_angles(t_vec *vec, t_angle yaw, t_angle pitch)
 {
 	double	cos_pitch;
 
 	cos_pitch = COS(pitch * TORAD);
 	vec->x = SIN(yaw * TORAD) * cos_pitch;
-	vec->z = COS(yaw * TORAD) * cos_pitch;
+	vec->z = -COS(yaw * TORAD) * cos_pitch;
 	vec->y = -SIN(pitch * TORAD);
 }
 

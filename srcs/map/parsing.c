@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 14:16:15 by badam             #+#    #+#             */
-/*   Updated: 2020/06/22 22:50:47 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/02 20:38:46 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,8 @@ inline static t_entity	rawchar_to_entity(char c, t_scene *scene)
 	else if (c == 'F')
 		return (MAP_KEY);
 	else
-	{
 		error(scene, ERR_MAP_UNKNOWN, ft_ctoa(c));
-		return (MAP_AIR);
-	}
+	return (MAP_AIR);
 }
 
 static void				parse_rawmap_line(t_map *map, char *line, size_t linen,
@@ -84,4 +82,3 @@ void					parse_rawmap_free(char **rawmap, t_scene *scene)
 	}
 	free(rawmap);
 }
-

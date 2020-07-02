@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 15:21:00 by badam             #+#    #+#             */
-/*   Updated: 2020/06/22 19:30:27 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/02 20:35:57 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,38 @@
 static void	add_wall_block(t_map *map, size_t i, t_scene *sc,
 	t_surface **rst, t_surface **lst)
 {
+	t_surface	*surf;
+
 	if (!map->walkable[i])
-		return;
+		return ;
 	if (map->data[i - map->width] == MAP_WALL)
-		add_surface(&(sc->north), i2pos(map, i, DIR_NORTH), 180, rst, lst, sc);
+	{
+		surf = add_surface(rst, lst, sc);
+		surf->pos = i2pos(map, i, DIR_NORTH);
+		surf->yaw = 180;
+		surf->texture = &(sc->north);
+	}
 	if (map->data[i + map->width] == MAP_WALL)
-		add_surface(&(sc->south), i2pos(map, i, DIR_SOUTH), 0, rst, lst, sc);
+	{
+		surf = add_surface(rst, lst, sc);
+		surf->pos = i2pos(map, i, DIR_SOUTH);
+		surf->yaw = 0;
+		surf->texture = &(sc->south);
+	}
 	if (map->data[i - 1] == MAP_WALL)
-		add_surface(&(sc->west), i2pos(map, i, DIR_WEST), 90, rst, lst, sc);
+	{
+		surf = add_surface(rst, lst, sc);
+		surf->pos = i2pos(map, i, DIR_WEST);
+		surf->yaw = 90;
+		surf->texture = &(sc->west);
+	}
 	if (map->data[i + 1] == MAP_WALL)
-		add_surface(&(sc->east), i2pos(map, i, DIR_EAST), 270, rst, lst, sc);
+	{
+		surf = add_surface(rst, lst, sc);
+		surf->pos = i2pos(map, i, DIR_EAST);
+		surf->yaw = 270;
+		surf->texture = &(sc->east);
+	}
 }
 
 void		walls_init(t_scene *scene)
@@ -66,7 +88,7 @@ inline void	walls_update(t_scene *sc, t_state *state, t_ray ray,
 		(*lst_surf)->next = NULL;
 }
 
-void	walls_shutdown(t_scene *scene)
+void		walls_shutdown(t_scene *scene)
 {
 	free_surfaces(scene->surfaces);
 	scene->surfaces = NULL;

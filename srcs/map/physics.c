@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 01:13:22 by badam             #+#    #+#             */
-/*   Updated: 2020/06/18 03:51:53 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/02 20:17:12 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ inline static void	physics_walkable_tree(t_map *map, size_t pos, t_scene *sc)
 			pos % map->width == 0 || pos % map->width == map->width - 1)
 		error(sc, ERR_MAP_UNKNOWN, NULL);
 	if (map->walkable[pos])
-		return;
+		return ;
 	map->walkable[pos] = true;
 	if (map->data[pos - map->width] != MAP_WALL)
 		physics_walkable_tree(map, pos - map->width, sc);
