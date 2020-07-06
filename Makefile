@@ -6,7 +6,7 @@
 #    By: badam <badam@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/10 18:46:41 by badam             #+#    #+#              #
-#    Updated: 2020/07/02 19:54:06 by badam            ###   ########.fr        #
+#    Updated: 2020/07/06 18:46:44 by badam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRC= \
 	srcs/surfaces.c \
 	srcs/entities/walls.c \
 	srcs/entities/sprites.c \
+	srcs/raytracing/utils.c \
 	srcs/raytracing/surfaces.c \
 	srcs/raytracing/init.c \
 	srcs/raytracing/render.c \

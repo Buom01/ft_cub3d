@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 18:57:53 by badam             #+#    #+#             */
-/*   Updated: 2020/07/02 22:54:17 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/06 19:02:31 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@
 
 # define SIN sin
 # define COS cos
-# define PI acos(-1.0)
-# define TORAD PI / 180.0
-# define TODEG 180.0 / PI
+# define PI 3.141592654
+# define TORAD 0.01745329252
+# define TODEG 57.29577951
 
 # define TITLE "Buom_01's Cub3D"
 # define TEXTURE_SIZE 64
 # define FOV 90
-				
+
 typedef unsigned char	t_byte;
 
 typedef struct			s_color
@@ -160,7 +160,6 @@ typedef struct			s_sprite
 	t_texture			*texture;
 	void				*next;
 }						t_sprite;
-	bool				facing;
 
 typedef struct			s_state
 {
@@ -178,6 +177,7 @@ typedef struct			s_state
 typedef struct			s_scene
 {
 	bool				loaded;
+	char				*file;
 
 	int					screen_w;
 	int					screen_h;
@@ -220,7 +220,7 @@ typedef struct			s_scene
 	char				*save;
 }						t_scene;
 
-typedef struct
+typedef struct			s_ray
 {
 	t_pos				origin;
 	t_vec				direction;
@@ -262,10 +262,10 @@ void					scene_defaults(t_scene *scene);
 bool					validate_scene(t_scene *scene);
 char					*gna(char **line, bool is_first);
 void					parse_scene(char *scenefile, t_scene *scene);
-bool					parse_line(char *line, t_scene *scene, char *scfile);
+bool					parse_line(char *line, t_scene *scene);
 void					parse_color(char *colorstr, t_color *out);
 void					parse_colortexture(char *str, t_colortexture *out,
-							char *scfile, char *cmd, t_scene *scene);
+							char *cmd, t_scene *scene);
 void					parse_resolution(char *resstr, t_scene *scene);
 void					scene_shutdown(t_scene *scene);
 
@@ -281,7 +281,7 @@ bool					is_surface_useful(t_surface *candidate,
 void					free_surfaces(t_surface *surf);
 
 void					walls_init(t_scene *scene);
-void					walls_update(t_scene *sc, t_state *state, t_ray ray,
+void					walls_update(t_scene *sc, t_ray ray,
 							t_surface **lst_surf, t_surface **surfs);
 void					walls_shutdown(t_scene *scene);
 void					physics_init(t_map *map, t_scene *scene);
@@ -290,7 +290,7 @@ bool					validate_map(t_scene *scene);
 
 void					sprites_init(t_scene *scene);
 void					sprites_update(t_scene *sc, t_state *state, t_ray ray,
-							 t_surface **lst_surf);
+							t_surface **lst_surf);
 void					sprites_shutdown(t_scene *scene);
 
 double					fast_cos(double angle);
@@ -303,12 +303,14 @@ t_vec					vec_diff(t_vec a, t_vec b);
 
 void					raytr_init(t_scene *scene);
 void					raytr_render(t_scene *sc, t_surface **surfs,
-							t_ray ray, int w, int h);
+							t_ray ray, t_state *state);
 void					add_render_surface(const t_surface *src,
 							t_surface **lst, t_scene *scene);
 void					update_surface(t_surface *surf);
 void					surfaces_pre_tr(t_surface *surfs, t_pos origin);
 void					surfaces_sort(t_surface **surfs);
+int						tr_correctify_color(int *color, double i_r,
+							const t_scene *sc);
 
 void					graphical_run(t_scene *scene);
 void					graphical_shutdown(t_scene *scene);
@@ -326,7 +328,8 @@ void					move_update(t_state *state);
 
 void					textures_load(t_scene *scene);
 void					textures_unload(t_scene *scene);
-int						get_texture_color_at(double x, double y, const int *colors);
+int						get_texture_color_at(double x, double y,
+							const int *colors);
 int						*get_texture_color(int x, int y, int w, int *colors);
 int						to_x_color(t_color *color);
 void					color_darken(int *color, double dark_ratio);

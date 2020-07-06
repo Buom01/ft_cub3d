@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 22:36:49 by badam             #+#    #+#             */
-/*   Updated: 2020/06/22 22:41:00 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/06 18:19:35 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	parse_color(char *colorstr, t_color *out)
 	}
 }
 
-void	parse_colortexture(char *str, t_colortexture *out, char *scfile,
+void	parse_colortexture(char *str, t_colortexture *out,
 		char *cmd, t_scene *scene)
 {
 	if (ft_strlen(str) == 0)
@@ -57,7 +57,7 @@ void	parse_colortexture(char *str, t_colortexture *out, char *scfile,
 	else
 	{
 		out->is_texture = true;
-		out->texture.path = relative_to(scfile, str, scene);
+		out->texture.path = relative_to(scene->file, str, scene);
 	}
 }
 

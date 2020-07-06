@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 00:40:12 by badam             #+#    #+#             */
-/*   Updated: 2020/06/18 03:39:54 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/06 18:15:53 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,10 @@ void		parse_scene(char *scenefile, t_scene *scene)
 	scene_defaults(scene);
 	if ((fd = open(scenefile, O_RDONLY)) == -1)
 		error(scene, ERR_OPENING_SCENE, scenefile);
+	scene->file = scenefile;
 	while ((gnl_result = get_next_line(fd, &line)) == 1)
 	{
-		if (is_map || (is_map = parse_line(line, scene, scenefile)))
+		if (is_map || (is_map = parse_line(line, scene)))
 			save_line(line, &rawmap, scene);
 		else
 			free(line);

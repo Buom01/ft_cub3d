@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/14 00:25:30 by badam             #+#    #+#             */
-/*   Updated: 2020/06/22 22:59:56 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/06 18:09:52 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 static void	loadtexture(t_texture *texture, void *mlx, t_scene *scene)
 {
 	int		size;
-	int 	mock;
+	int		mock;
 	char	*alternative_path;
-	
+
 	size = TEXTURE_SIZE;
 	if (!texture->path || texture->data)
-		return;
+		return ;
 	if (!(texture->data =
 			mlx_xpm_file_to_image(mlx, texture->path, &size, &size)))
 	{
@@ -30,9 +30,11 @@ static void	loadtexture(t_texture *texture, void *mlx, t_scene *scene)
 		{
 			free(texture->path);
 			texture->path = alternative_path;
-		}	
+		}
 		else
+		{
 			error(scene, ERR_MLX_TEXTURE, texture->path);
+		}
 	}
 	texture->colors = (int*)mlx_get_data_addr(texture->data,
 			&mock, &mock, &mock);
@@ -41,12 +43,12 @@ static void	loadtexture(t_texture *texture, void *mlx, t_scene *scene)
 static void	unloadtexture(t_texture *texture, void *mlx)
 {
 	if (!texture->data)
-		return;
+		return ;
 	mlx_destroy_image(mlx, texture->data);
 	texture->colors = NULL;
 }
 
-void	textures_load(t_scene *scene)
+void		textures_load(t_scene *scene)
 {
 	void	*mlx;
 
@@ -58,7 +60,7 @@ void	textures_load(t_scene *scene)
 	loadtexture(&scene->sprite, mlx, scene);
 }
 
-void	textures_unload(t_scene *scene)
+void		textures_unload(t_scene *scene)
 {
 	void	*mlx;
 

@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 21:32:40 by badam             #+#    #+#             */
-/*   Updated: 2020/07/02 17:16:44 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/06 18:32:55 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void		surfaces_pre_tr(t_surface *surfs, t_pos origin)
 
 void		update_surface(t_surface *surf)
 {
-	surf->base.u.y = 1; 
+	surf->base.u.y = 1;
 	surf->base.v.x = COS(surf->yaw * TORAD);
 	surf->base.v.z = SIN(surf->yaw * TORAD);
 	surf->base.n = cross_product(surf->base.u, surf->base.v);
