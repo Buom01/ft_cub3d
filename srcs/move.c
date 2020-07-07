@@ -6,25 +6,39 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 22:14:45 by badam             #+#    #+#             */
-/*   Updated: 2020/07/02 16:50:31 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/07 17:46:51 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	move_forward(t_state *state, int direction)
+static double	get_speed_ratio(t_state *state)
 {
-	state->pos.z -= COS(state->yaw * TORAD) * direction * 0.08;
-	state->pos.x += SIN(state->yaw * TORAD) * direction * 0.08;
+	if (state->crouch)
+		return (0.03);
+	else
+		return (0.08);
 }
 
-void	move_side(t_state *state, int direction)
+void			move_forward(t_state *state, int direction)
 {
-	state->pos.z -= SIN(state->yaw * TORAD) * direction * 0.08;
-	state->pos.x -= COS(state->yaw * TORAD) * direction * 0.08;
+	double	speed_ratio;
+
+	speed_ratio = get_speed_ratio(state);
+	state->move_x += SIN(state->yaw * TORAD) * direction * speed_ratio;
+	state->move_z -= COS(state->yaw * TORAD) * direction * speed_ratio;
 }
 
-void	jump(t_state *state)
+void			move_side(t_state *state, int direction)
+{
+	double	speed_ratio;
+
+	speed_ratio = get_speed_ratio(state);
+	state->move_x -= COS(state->yaw * TORAD) * direction * speed_ratio;
+	state->move_z -= SIN(state->yaw * TORAD) * direction * speed_ratio;
+}
+
+void			jump(t_state *state)
 {
 	if (!state->crouch)
 	{
@@ -38,13 +52,13 @@ void	jump(t_state *state)
 	}
 }
 
-void	move_update(t_state *state)
+void			move_update(t_state *state)
 {
 	if (state->crouch && !state->jumping)
 		state->pos.y = 0.35;
 	else if (state->jumping)
 	{
-		state->jump_velocity -= 0.008;
+		state->jump_velocity -= 0.006;
 		state->pos.y += state->jump_velocity;
 		if (state->pos.y <= 0.5)
 		{

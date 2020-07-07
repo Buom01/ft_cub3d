@@ -1,0 +1,21 @@
+R			600 400
+SHADOW		8
+SHADOW_FADE	4
+
+NO			./assets/test
+SO			./assets/test
+WE			./assets/test
+EA			./assets/test
+F			./assets/floor
+C			./assets/ceil
+
+S			./assets/object
+DOOR		./assets/door
+GRIDDOOR	./assets/grid
+KEY			./assets/key
+
+11111
+10001
+10N01
+10001
+11111

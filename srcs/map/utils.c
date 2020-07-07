@@ -6,13 +6,13 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/10 22:08:39 by badam             #+#    #+#             */
-/*   Updated: 2020/07/02 20:17:57 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/07 17:54:05 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-size_t	map_find_longer_line(char **rawmap)
+size_t		map_find_longer_line(char **rawmap)
 {
 	size_t	longer;
 	size_t	length;
@@ -28,7 +28,7 @@ size_t	map_find_longer_line(char **rawmap)
 	return (longer);
 }
 
-size_t	map_find_textblock_height(char **rawmap)
+size_t		map_find_textblock_height(char **rawmap)
 {
 	size_t	height;
 
@@ -38,7 +38,7 @@ size_t	map_find_textblock_height(char **rawmap)
 	return (height);
 }
 
-t_pos	i2pos(t_map *map, size_t i, t_direction dir)
+t_pos		i2pos(const t_map *map, size_t i, t_direction dir)
 {
 	t_pos	pos;
 
@@ -56,7 +56,17 @@ t_pos	i2pos(t_map *map, size_t i, t_direction dir)
 	return (pos);
 }
 
-void	init_player(t_map *map, t_scene *scene)
+long long	pos2i(const t_map *map, t_pos pos)
+{
+	long long	i;
+
+	i = roundl(pos.z) * map->width + roundl(pos.x);
+	if (i < 0 || i >= (long long)map->length)
+		return (-1);
+	return (i);
+}
+
+void		init_player(t_map *map, t_scene *scene)
 {
 	size_t		i;
 	t_entity	player;

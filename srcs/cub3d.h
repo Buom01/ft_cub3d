@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 18:57:53 by badam             #+#    #+#             */
-/*   Updated: 2020/07/06 19:02:31 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/06 22:55:18 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@
 # define TITLE "Buom_01's Cub3D"
 # define TEXTURE_SIZE 64
 # define FOV 90
+# define PLAYER_RADIUS 0.2
 
 typedef unsigned char	t_byte;
 
@@ -164,6 +165,8 @@ typedef struct			s_sprite
 typedef struct			s_state
 {
 	t_pos				pos;
+	double				move_x;
+	double				move_z;
 	t_angle				yaw;
 	t_angle				pitch;
 	bool				jumping;
@@ -272,7 +275,8 @@ void					scene_shutdown(t_scene *scene);
 size_t					map_find_longer_line(char **rawmap);
 size_t					map_find_textblock_height(char **rawmap);
 void					parse_rawmap_free(char **rawmap, t_scene *scene);
-t_pos					i2pos(t_map *map, size_t i, t_direction dir);
+t_pos					i2pos(const t_map *map, size_t i, t_direction dir);
+long long				pos2i(const t_map *map, t_pos pos);
 void					init_player(t_map *map, t_scene *scene);
 t_surface				*add_surface(t_surface **list, t_surface **last,
 							t_scene *scene);
@@ -293,7 +297,7 @@ void					sprites_update(t_scene *sc, t_state *state, t_ray ray,
 							t_surface **lst_surf);
 void					sprites_shutdown(t_scene *scene);
 
-double					fast_cos(double angle);
+int						sign(double n);
 double					dist_2d(t_vec a, t_vec b);
 t_angle					point_to(t_pos from, t_pos to);
 void					vec_from_angles(t_vec *vec, t_angle yaw, t_angle pitch);
@@ -321,6 +325,7 @@ int						ctrl_keypress(t_syskey keycode, t_state *state);
 int						ctrl_keyrelease(t_syskey keycode, t_state *state);
 void					ctrl_releaseall(t_state *state);
 int						ctrl_mousemove(int x, int y, t_scene *sc);
+void					physics_apply(t_scene *scene);
 void					move_forward(t_state *state, int direction);
 void					move_side(t_state *state, int direction);
 void					jump(t_state *state);

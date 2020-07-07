@@ -6,7 +6,7 @@
 #    By: badam <badam@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/10 18:46:41 by badam             #+#    #+#              #
-#    Updated: 2020/07/06 18:46:44 by badam            ###   ########.fr        #
+#    Updated: 2020/07/06 22:40:43 by badam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRC= \
 	libs/gnl/get_next_line_bonus.c \
 	srcs/utils/utils.c \
 	srcs/utils/surfaces.c \
+	srcs/utils/math.c \
 	srcs/utils/math_2d.c \
 	srcs/utils/math_3d.c \
 	srcs/utils/color.c \
@@ -48,6 +49,7 @@ SRC= \
 	srcs/error.c \
 	srcs/textures.c \
 	srcs/graphics.c \
+	srcs/physics.c \
 	srcs/move.c \
 	srcs/controls.c \
 	srcs/controls_events.c \
