@@ -6,12 +6,12 @@
 #    By: badam <badam@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/10 18:46:41 by badam             #+#    #+#              #
-#    Updated: 2020/07/06 22:40:43 by badam            ###   ########.fr        #
+#    Updated: 2020/07/13 00:16:53 by badam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC=gcc
-#CFLAGS=-Wall -Wextra -Werror -O3 -fsanitize=address -g3 -Isrcs -Ilibs/libft
+#CFLAGS=-Wall -Wextra -Werror -fsanitize=address -g3 -Isrcs -Ilibs/libft
 CFLAGS=-Wall -Wextra -Werror -O3 -flto -Isrcs -Ilibs/libft
 NAME=Cub3D
 DEPS=libs/libft/libft.a -lmlx -lXext -lX11 -lm
@@ -35,6 +35,7 @@ SRC= \
 	srcs/map/physics.c \
 	srcs/surfaces.c \
 	srcs/entities/walls.c \
+	srcs/entities/fakewalls.c \
 	srcs/entities/sprites.c \
 	srcs/raytracing/utils.c \
 	srcs/raytracing/surfaces.c \
@@ -49,7 +50,9 @@ SRC= \
 	srcs/error.c \
 	srcs/textures.c \
 	srcs/graphics.c \
-	srcs/physics.c \
+	srcs/images/bmp.c \
+	srcs/physics/utils.c \
+	srcs/physics/physics.c \
 	srcs/move.c \
 	srcs/controls.c \
 	srcs/controls_events.c \

@@ -6,19 +6,15 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/05 06:26:23 by badam             #+#    #+#             */
-/*   Updated: 2020/07/02 17:33:38 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/12 21:50:57 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-inline int		get_texture_color_at(double x, double y, const int *colors)
+inline int		get_texture_color_at(double x, double y, const t_texture *tex)
 {
-	return (colors[(int)((1 - x) * TEXTURE_SIZE)
-		+ TEXTURE_SIZE * (int)((1 - y) * TEXTURE_SIZE)]);
+	return (tex->colors[(int)((1 - x) * tex->width)
+		+ tex->width * (int)((1 - y) * tex->height)]);
 }
 
-inline int		*get_texture_color(int x, int y, int w, int *colors)
-{
-	return (colors + (y * w + x));
-}

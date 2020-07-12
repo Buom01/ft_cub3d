@@ -6,15 +6,22 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 18:46:34 by badam             #+#    #+#             */
-/*   Updated: 2020/07/06 19:00:41 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/12 19:54:17 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void				draw_frame(const t_scene *sc)
+static void			draw_frame(t_scene *sc)
 {
-	mlx_put_image_to_window(sc->mlx, sc->window, sc->frame, 0, 0);
+	if (sc->save)
+	{
+		if (!write_image(sc->save, sc->frame_colors,
+				sc->screen_w, sc->screen_h))
+			error(sc, ERR_WRITEIMAGE, sc->save);
+	}
+	else
+		mlx_put_image_to_window(sc->mlx, sc->window, sc->frame, 0, 0);
 }
 
 static inline int	tr_surface(t_ray ray, t_surface *surf, int *color,
@@ -32,7 +39,10 @@ static inline int	tr_surface(t_ray ray, t_surface *surf, int *color,
 	rev_n_dot_r = 1 / n_dot_r;
 	if (n_dot_r > 0)
 		return (TR_NOT_HIT);
-	i_r = -(surf->cache.n_dot_o_tr) * n_dot_r;
+	if (sc->shadow)
+		i_r = -(surf->cache.n_dot_o_tr) * rev_n_dot_r;
+	else
+		i_r = -(surf->cache.n_dot_o_tr) * n_dot_r;
 	if (i_r < 0)
 		return (TR_NOT_HIT);
 	i_u = dot_product(surf->cache.o_tr_cross_v, ray.direction) * rev_n_dot_r;
@@ -41,7 +51,7 @@ static inline int	tr_surface(t_ray ray, t_surface *surf, int *color,
 	i_v = dot_product(surf->cache.u_cross_o_tr, ray.direction) * rev_n_dot_r;
 	if (i_v < 0 || i_v > 1)
 		return (TR_NOT_HIT);
-	*color = get_texture_color_at(i_v, i_u, surf->texture->colors);
+	*color = get_texture_color_at(i_v, i_u, surf->texture);
 	return (tr_correctify_color(color, i_r, sc));
 }
 

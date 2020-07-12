@@ -6,31 +6,40 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/11 01:14:43 by badam             #+#    #+#             */
-/*   Updated: 2020/07/06 18:18:04 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/11 03:54:44 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+static bool	is_command(char *line, char *cmd)
+{
+	while (ft_isspace(*line) && *line != '\n' && *line)
+		line++;
+	while (*cmd && *line == *cmd)
+	{
+		line++;
+		cmd++;
+	}
+	return (!*cmd && (ft_isspace(*line) || *line == '\n' || !*line));
+}
+
 static bool	parse_additionnal(char *line, t_scene *sc)
 {
-	if (ft_strnstr(line, "SHADOW", 6))
+	if (is_command(line, "SHADOW"))
 		sc->shadow = ft_atoi(gna(&line, false));
-	else if (ft_strnstr(line, "shadow_fade", 11))
+	else if (is_command(line, "SHADOW_FADE"))
 		sc->shadow_fade = ft_atoi(gna(&line, false));
-	else if (ft_strnstr(line, "NOCLIP", 6))
+	else if (is_command(line, "NOCLIP"))
 		sc->noclip = true;
-	else if (ft_strnstr(line, "DOOR", 4))
+	else if (is_command(line, "DOOR"))
 		sc->door.path = relative_to(sc->file, gna(&line, false), sc);
-	else if (ft_strnstr(line, "GRIDDOOR", 8))
+	else if (is_command(line, "GRIDDOOR"))
 		sc->griddoor.path = relative_to(sc->file, gna(&line, false), sc);
-	else if (ft_strnstr(line, "KEY", 3))
+	else if (is_command(line, "KEY"))
 		sc->key.path = relative_to(sc->file, gna(&line, false), sc);
 	else
-	{
-		free(sc->file);
 		error(sc, ERR_INV_CONFIG, line);
-	}
 	return (false);
 }
 
@@ -38,21 +47,21 @@ bool		parse_line(char *line, t_scene *sc)
 {
 	if (ft_strlen(gna(&line, true)) == 0)
 		return (false);
-	else if (ft_strnstr(line, "R", 1))
+	else if (is_command(line, "R"))
 		parse_resolution(line, sc);
-	else if (ft_strnstr(line, "NO", 2))
+	else if (is_command(line, "NO"))
 		sc->north.path = relative_to(sc->file, gna(&line, false), sc);
-	else if (ft_strnstr(line, "SO", 2))
+	else if (is_command(line, "SO"))
 		sc->south.path = relative_to(sc->file, gna(&line, false), sc);
-	else if (ft_strnstr(line, "WE", 2))
+	else if (is_command(line, "WE"))
 		sc->west.path = relative_to(sc->file, gna(&line, false), sc);
-	else if (ft_strnstr(line, "EA", 2))
+	else if (is_command(line, "EA"))
 		sc->east.path = relative_to(sc->file, gna(&line, false), sc);
-	else if (ft_strnstr(line, "S", 1))
+	else if (is_command(line, "S"))
 		sc->sprite.path = relative_to(sc->file, gna(&line, false), sc);
-	else if (ft_strnstr(line, "F", 1))
+	else if (is_command(line, "F"))
 		parse_colortexture(gna(&line, false), &(sc->floor), "F", sc);
-	else if (ft_strnstr(line, "C", 1))
+	else if (is_command(line, "C"))
 		parse_colortexture(gna(&line, false), &(sc->ceil), "C", sc);
 	else if (ft_isdigit(*line))
 		return (true);

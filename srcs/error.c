@@ -6,11 +6,18 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 21:45:04 by badam             #+#    #+#             */
-/*   Updated: 2020/07/02 20:15:52 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/11 02:13:52 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+inline static void	print_extended_error(t_error error)
+{
+	if (error == ERR_WRITEIMAGE)
+		ft_putstr_fd("Error while creating image: ", STDERR);
+	else
+		ft_putstr_fd("Unknown error\n", STDERR);
+}
 
 inline static void	print_error(t_error error)
 {
@@ -34,10 +41,10 @@ inline static void	print_error(t_error error)
 		ft_putstr_fd("Unknown map object: ", STDERR);
 	else if (error == ERR_MLX_INIT)
 		ft_putstr_fd("MiniLibX initialization failed\n", STDERR);
-	else if (error == ERR_MLX_INIT)
+	else if (error == ERR_MLX_TEXTURE)
 		ft_putstr_fd("Texture failed to load: ", STDERR);
 	else
-		ft_putstr_fd("Unknown error\n", STDERR);
+		print_extended_error(error);
 }
 
 void				error(t_scene *scene, t_error error, char *data)

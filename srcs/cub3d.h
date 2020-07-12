@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 18:57:53 by badam             #+#    #+#             */
-/*   Updated: 2020/07/06 22:55:18 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/13 00:00:29 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,12 @@
 # define PI 3.141592654
 # define TORAD 0.01745329252
 # define TODEG 57.29577951
+# define EPSYLON 0.00000001
 
 # define TITLE "Buom_01's Cub3D"
 # define TEXTURE_SIZE 64
 # define FOV 90
-# define PLAYER_RADIUS 0.2
+# define PLAYER_RADIUS 0.20
 
 typedef unsigned char	t_byte;
 
@@ -58,6 +59,8 @@ typedef	struct			s_texture
 	char				*path;
 	void				*data;
 	int					*colors;
+	int					width;
+	int					height;
 }						t_texture;
 
 typedef	struct			s_colortexture
@@ -249,13 +252,36 @@ typedef enum
 	ERR_MAP_UNKNOWN,
 	ERR_MLX_INIT,
 	ERR_MLX_TEXTURE,
-	ERR_MLX_UNKNOWN
+	ERR_MLX_UNKNOWN,
+	ERR_WRITEIMAGE,
+	ERR_UNKNOWN
 }	t_error;
+
+typedef	struct			s_bmpheader
+{
+	t_byte				type[2];
+	t_byte				total_size[4];
+	t_byte				appli_1[2];
+	t_byte				appli_2[2];
+	t_byte				offset[4];
+	t_byte				dib_size[4];
+	t_byte				width[4];
+	t_byte				height[4];
+	t_byte				planes[2];
+	t_byte				bpp[2];
+	t_byte				compression[4];
+	t_byte				bitmap_size[4];
+	t_byte				v_print_res[4];
+	t_byte				h_print_res[4];
+	t_byte				palette_colors[4];
+	t_byte				importants_colors[4];
+}						t_bmpheader;
 
 t_key					cub3d_mlx_tokey(t_syskey keycode);
 
 void					error(t_scene *scene, t_error error, char *data);
 void					main_shutdown(t_scene *scene);
+int						main_stopall(t_scene *scene);
 void					freeup_textblock(char **textblock);
 bool					has_extension(char *path, char *ext);
 char					*relative_to(const char *file_from, const char *file,
@@ -292,6 +318,7 @@ void					physics_init(t_map *map, t_scene *scene);
 void					physics_shutdown(t_map *map);
 bool					validate_map(t_scene *scene);
 
+void					fakewalls_init(t_scene *scene);
 void					sprites_init(t_scene *scene);
 void					sprites_update(t_scene *sc, t_state *state, t_ray ray,
 							t_surface **lst_surf);
@@ -325,6 +352,9 @@ int						ctrl_keypress(t_syskey keycode, t_state *state);
 int						ctrl_keyrelease(t_syskey keycode, t_state *state);
 void					ctrl_releaseall(t_state *state);
 int						ctrl_mousemove(int x, int y, t_scene *sc);
+bool					physics_can_move(double x, double y,
+							const t_scene *scene);
+double					physics_get_closest_move(double axis);
 void					physics_apply(t_scene *scene);
 void					move_forward(t_state *state, int direction);
 void					move_side(t_state *state, int direction);
@@ -334,10 +364,11 @@ void					move_update(t_state *state);
 void					textures_load(t_scene *scene);
 void					textures_unload(t_scene *scene);
 int						get_texture_color_at(double x, double y,
-							const int *colors);
-int						*get_texture_color(int x, int y, int w, int *colors);
+							const t_texture *tex);
 int						to_x_color(t_color *color);
 void					color_darken(int *color, double dark_ratio);
 int						fade_color(int c1, int c2, double balance);
+bool					write_image(char *file, int *colors,
+							size_t width, size_t height);
 
 #endif
