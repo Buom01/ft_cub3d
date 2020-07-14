@@ -5,64 +5,41 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/06 21:02:00 by badam             #+#    #+#             */
-/*   Updated: 2020/07/11 04:20:48 by badam            ###   ########.fr       */
+/*   Created: 2020/04/15 01:13:22 by badam             #+#    #+#             */
+/*   Updated: 2020/07/14 14:06:05 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static double	move_back(double sim_x, double sim_z, const t_scene *sc)
+static void	physics_walkable_tree(t_map *map, size_t pos, t_scene *sc)
 {
-	if (sim_z == 0)
-		return (physics_get_closest_move(sc->state.pos.x));
-	else if (sim_x == 0)
-		return (physics_get_closest_move(sc->state.pos.z));
-	else
-		return (0);
+	if (pos <= map->width || pos >= map->length - map->width ||
+			pos % map->width == 0 || pos % map->width == map->width - 1)
+		error(sc, ERR_MAP_UNKNOWN, NULL);
+	if (map->walkable[pos])
+		return ;
+	map->walkable[pos] = true;
+	if (map->data[pos - map->width] != MAP_WALL)
+		physics_walkable_tree(map, pos - map->width, sc);
+	if (map->data[pos + map->width] != MAP_WALL)
+		physics_walkable_tree(map, pos + map->width, sc);
+	if (map->data[pos - 1] != MAP_WALL)
+		physics_walkable_tree(map, pos - 1, sc);
+	if (map->data[pos + 1] != MAP_WALL)
+		physics_walkable_tree(map, pos + 1, sc);
 }
 
-static void		solve_corner(double *x, double *z, double back_x, double back_z)
+void		physics_init(t_map *map, t_scene *scene)
 {
-	if (fabs(back_x) < fabs(back_z))
-		*z = back_z;
-	else
-		*x = back_x;
+	if (!(map->walkable = malloc(map->length * sizeof(bool))))
+		error(scene, ERR_MALLOC, NULL);
+	ft_memset(map->walkable, 0, map->length * sizeof(bool));
+	physics_walkable_tree(map, map->init_player_pos, scene);
 }
 
-static void		major_move(double *x, double *z, const t_scene *scene)
+void		physics_shutdown(t_map *map)
 {
-	double	sim_x;
-	double	sim_z;
-
-	sim_x = *x + sign(*x) * PLAYER_RADIUS;
-	sim_z = *z + sign(*z) * PLAYER_RADIUS;
-	if (physics_can_move(sim_x, 0, scene))
-	{
-		if (!physics_can_move(0, sim_z, scene))
-			*z = move_back(0, sim_z, scene);
-		else if (!physics_can_move(sim_x, sim_z, scene))
-			solve_corner(x, z,
-				move_back(sim_x, 0, scene), move_back(0, sim_z, scene));
-	}
-	else if (physics_can_move(0, sim_z, scene))
-	{
-		if (!physics_can_move(sim_x, 0, scene))
-			*x = move_back(sim_x, 0, scene);
-	}
-	else
-	{
-		*x = move_back(sim_x, 0, scene);
-		*z = move_back(0, sim_z, scene);
-	}
-}
-
-void			physics_apply(t_scene *scene)
-{
-	if (!(scene->noclip))
-		major_move(&(scene->state.move_x), &(scene->state.move_z), scene);
-	scene->state.pos.x += scene->state.move_x;
-	scene->state.pos.z += scene->state.move_z;
-	scene->state.move_x = 0;
-	scene->state.move_z = 0;
+	if (map->walkable)
+		free(map->walkable);
 }

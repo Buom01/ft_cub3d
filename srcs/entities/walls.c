@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 15:21:00 by badam             #+#    #+#             */
-/*   Updated: 2020/07/06 18:05:36 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/14 14:04:18 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void		walls_init(t_scene *scene)
 	}
 }
 
-inline void	walls_update(t_scene *sc, t_ray ray,
+void		walls_update(t_scene *sc, t_ray ray,
 		t_surface **lst_surf, t_surface **surfs)
 {
 	t_surface	*candidate;

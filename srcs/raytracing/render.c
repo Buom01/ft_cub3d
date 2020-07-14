@@ -6,13 +6,13 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 18:46:34 by badam             #+#    #+#             */
-/*   Updated: 2020/07/14 13:36:17 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/14 14:03:46 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void			draw_frame(t_scene *sc)
+static void	draw_frame(t_scene *sc)
 {
 	if (sc->save)
 	{
@@ -24,7 +24,7 @@ static void			draw_frame(t_scene *sc)
 		mlx_put_image_to_window(sc->mlx, sc->window, sc->frame, 0, 0);
 }
 
-static inline int	tr_surface(t_ray ray, t_surface *surf, int *color,
+static int	tr_surface(t_ray ray, t_surface *surf, int *color,
 		const t_scene *sc)
 {
 	double	n_dot_r;
@@ -52,7 +52,7 @@ static inline int	tr_surface(t_ray ray, t_surface *surf, int *color,
 	return (tr_correctify_color(color, i_r, sc));
 }
 
-static inline void	raytr_tr(const t_scene *sc, int pixel_index,
+static void	raytr_tr(const t_scene *sc, int pixel_index,
 		t_ray ray, t_surface *surfs)
 {
 	int			tr_result;
@@ -79,7 +79,7 @@ static inline void	raytr_tr(const t_scene *sc, int pixel_index,
 		*pixel = 0;
 }
 
-inline void			raytr_render(t_scene *sc, t_surface **surfs,
+void		raytr_render(t_scene *sc, t_surface **surfs,
 		t_ray ray, t_state *state)
 {
 	register int	x;

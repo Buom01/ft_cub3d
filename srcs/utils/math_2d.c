@@ -6,13 +6,13 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 22:51:50 by badam             #+#    #+#             */
-/*   Updated: 2020/07/02 19:53:42 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/14 14:00:41 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-inline double	dist_2d(t_vec a, t_vec b)
+double	dist_2d(t_vec a, t_vec b)
 {
 	double x;
 	double z;
@@ -24,7 +24,7 @@ inline double	dist_2d(t_vec a, t_vec b)
 	return (sqrt(x + z));
 }
 
-inline t_angle	point_to(t_pos from, t_pos to)
+t_angle	point_to(t_pos from, t_pos to)
 {
 	double	x;
 	double	z;

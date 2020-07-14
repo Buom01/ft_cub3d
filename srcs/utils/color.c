@@ -6,13 +6,19 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 23:06:36 by badam             #+#    #+#             */
-/*   Updated: 2020/07/11 04:13:34 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/14 14:09:59 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int			to_x_color(t_color *color)
+int		get_texture_color_at(double x, double y, const t_texture *tex)
+{
+	return (tex->colors[(int)((1 - x) * tex->width)
+		+ tex->width * (int)((1 - y) * tex->height)]);
+}
+
+int		to_x_color(t_color *color)
 {
 	int x_color;
 
@@ -23,7 +29,7 @@ int			to_x_color(t_color *color)
 	return (x_color);
 }
 
-void		color_darken(int *color, double dark_ratio)
+void	color_darken(int *color, double dark_ratio)
 {
 	t_color	darked;
 	double	factor;
@@ -43,7 +49,7 @@ void		color_darken(int *color, double dark_ratio)
 	*color = to_x_color(&darked);
 }
 
-inline int	fade_color(int c1, int c2, double balance)
+int		fade_color(int c1, int c2, double balance)
 {
 	int	a;
 	int	r;

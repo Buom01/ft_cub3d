@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   3d.c                                               :+:      :+:    :+:   */
+/*   math_3d.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 22:08:58 by badam             #+#    #+#             */
-/*   Updated: 2020/07/02 19:52:52 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/14 14:01:02 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-inline void		vec_from_angles(t_vec *vec, t_angle yaw, t_angle pitch)
+void	vec_from_angles(t_vec *vec, t_angle yaw, t_angle pitch)
 {
 	double	cos_pitch;
 
@@ -22,12 +22,12 @@ inline void		vec_from_angles(t_vec *vec, t_angle yaw, t_angle pitch)
 	vec->y = -SIN(pitch * TORAD);
 }
 
-inline double	dot_product(t_vec a, t_vec b)
+double	dot_product(t_vec a, t_vec b)
 {
 	return (a.x * b.x + a.y * b.y + a.z * b.z);
 }
 
-inline t_vec	cross_product(t_vec a, t_vec b)
+t_vec	cross_product(t_vec a, t_vec b)
 {
 	t_vec	c;
 
@@ -37,7 +37,7 @@ inline t_vec	cross_product(t_vec a, t_vec b)
 	return (c);
 }
 
-inline t_vec	vec_diff(t_vec a, t_vec b)
+t_vec	vec_diff(t_vec a, t_vec b)
 {
 	t_vec	c;
 

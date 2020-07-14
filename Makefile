@@ -6,7 +6,7 @@
 #    By: badam <badam@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/10 18:46:41 by badam             #+#    #+#              #
-#    Updated: 2020/07/14 13:03:35 by badam            ###   ########.fr        #
+#    Updated: 2020/07/14 14:10:17 by badam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,11 +28,9 @@ SRC= \
 	srcs/utils/math_3d.c \
 	srcs/utils/color.c \
 	srcs/utils/file.c \
-	srcs/utils/image.c \
 	srcs/map/utils.c \
 	srcs/map/parsing.c \
 	srcs/map/map.c \
-	srcs/map/physics.c \
 	srcs/surfaces.c \
 	srcs/entities/walls.c \
 	srcs/entities/fakewalls.c \
@@ -54,6 +52,7 @@ SRC= \
 	srcs/graphics.c \
 	srcs/images/bmp.c \
 	srcs/physics/utils.c \
+	srcs/physics/apply.c \
 	srcs/physics/physics.c \
 	srcs/move.c \
 	srcs/controls.c \

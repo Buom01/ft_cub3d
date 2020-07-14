@@ -6,13 +6,13 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 21:45:04 by badam             #+#    #+#             */
-/*   Updated: 2020/07/14 12:45:41 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/14 14:06:49 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-inline static void	print_extended_error(t_error error)
+static void	print_extended_error(t_error error)
 {
 	if (error == ERR_WRITEIMAGE)
 		ft_putstr_fd("Error while creating image: ", STDERR);
@@ -20,7 +20,7 @@ inline static void	print_extended_error(t_error error)
 		ft_putstr_fd("Unknown error\n", STDERR);
 }
 
-inline static void	print_error(t_error error)
+static void	print_error(t_error error)
 {
 	if (error == ERR_NO_ARG)
 		ft_putstr_fd("Usage: ./cub3d scene.cub [--save output]\n", STDERR);
@@ -48,7 +48,7 @@ inline static void	print_error(t_error error)
 		print_extended_error(error);
 }
 
-void				error(t_scene *scene, t_error error, char *data)
+void		error(t_scene *scene, t_error error, char *data)
 {
 	ft_putstr_fd("Error\n", STDERR);
 	print_error(error);

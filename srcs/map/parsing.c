@@ -6,13 +6,13 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 14:16:15 by badam             #+#    #+#             */
-/*   Updated: 2020/07/02 20:38:46 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/14 14:07:41 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-inline static t_entity	rawchar_to_entity(char c, t_scene *scene)
+static t_entity	rawchar_to_entity(char c, t_scene *scene)
 {
 	if (c == '0' || ft_isspace(c))
 		return (MAP_AIR);
@@ -41,7 +41,7 @@ inline static t_entity	rawchar_to_entity(char c, t_scene *scene)
 	return (MAP_AIR);
 }
 
-static void				parse_rawmap_line(t_map *map, char *line, size_t linen,
+static void		parse_rawmap_line(t_map *map, char *line, size_t linen,
 		t_scene *scene)
 {
 	t_entity	*mapline;
@@ -59,7 +59,7 @@ static void				parse_rawmap_line(t_map *map, char *line, size_t linen,
 	}
 }
 
-void					parse_rawmap_free(char **rawmap, t_scene *scene)
+void			parse_rawmap_free(char **rawmap, t_scene *scene)
 {
 	t_map	*map;
 	char	**rawmapcpy;

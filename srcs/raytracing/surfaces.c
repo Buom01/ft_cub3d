@@ -6,13 +6,13 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 21:32:40 by badam             #+#    #+#             */
-/*   Updated: 2020/07/14 13:33:49 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/14 14:01:48 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-inline void	add_render_surface(const t_surface *src, t_surface **lst,
+void	add_render_surface(const t_surface *src, t_surface **lst,
 		t_scene *scene)
 {
 	t_surface	*surf;
@@ -25,7 +25,7 @@ inline void	add_render_surface(const t_surface *src, t_surface **lst,
 	*lst = surf;
 }
 
-inline bool	is_surface_useful(t_surface *candidate, t_ray ray, t_angle yaw,
+bool	is_surface_useful(t_surface *candidate, t_ray ray, t_angle yaw,
 		t_scene *sc)
 {
 	t_vec	diff;
@@ -44,7 +44,7 @@ inline bool	is_surface_useful(t_surface *candidate, t_ray ray, t_angle yaw,
 	return (true);
 }
 
-void		surfaces_pre_tr(t_surface *surfs, t_pos origin)
+void	surfaces_pre_tr(t_surface *surfs, t_pos origin)
 {
 	t_vec	o_tr;
 
@@ -58,7 +58,7 @@ void		surfaces_pre_tr(t_surface *surfs, t_pos origin)
 	}
 }
 
-void		ceilfloor_pre_tr(t_scene *sc, t_pos origin)
+void	ceilfloor_pre_tr(t_scene *sc, t_pos origin)
 {
 	t_vec		o_tr;
 	t_surface	*surf;
@@ -75,7 +75,7 @@ void		ceilfloor_pre_tr(t_scene *sc, t_pos origin)
 	surf->cache.u_cross_o_tr = cross_product(surf->base.u, o_tr);
 }
 
-void		update_surface(t_surface *surf)
+void	update_surface(t_surface *surf)
 {
 	surf->base.u.y = 1;
 	surf->base.v.x = COS(surf->yaw * TORAD);

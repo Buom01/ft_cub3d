@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/18 22:03:26 by badam             #+#    #+#             */
-/*   Updated: 2020/07/02 20:33:45 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/14 14:04:41 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void		sprites_init(t_scene *scene)
 	}
 }
 
-inline void	sprites_update(t_scene *sc, t_state *state, t_ray ray,
+void		sprites_update(t_scene *sc, t_state *state, t_ray ray,
 		t_surface **lst_surf)
 {
 	t_sprite	*candidate;
