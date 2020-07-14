@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 02:28:49 by badam             #+#    #+#             */
-/*   Updated: 2020/07/10 04:20:56 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/14 12:51:22 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void	*generate_image(int *colors, size_t len, size_t pixels_c, size_t w)
 	return (data);
 }
 
-bool	write_image(char *file, int *colors, size_t width, size_t height)
+bool		write_image(char *file, int *colors, size_t width, size_t height)
 {
 	int			fd;
 	t_bmpheader	header;
@@ -74,7 +74,7 @@ bool	write_image(char *file, int *colors, size_t width, size_t height)
 	data_len = width * height * 3;
 	set_header(&header, width, height, data_len);
 	if (!(data = generate_image(colors, data_len, width * height, width))
-			|| (fd = open(file, O_RDWR|O_CREAT|O_TRUNC, 0666)) == -1
+			|| (fd = open(file, O_RDWR | O_CREAT | O_TRUNC, 0666)) == -1
 			|| write(fd, &header, sizeof(header)) != sizeof(header)
 			|| write(fd, data, data_len) != (ssize_t)data_len
 			|| close(fd) == -1)

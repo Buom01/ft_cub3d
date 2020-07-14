@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 22:37:34 by badam             #+#    #+#             */
-/*   Updated: 2020/07/13 00:00:45 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/14 12:46:17 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void		ctrl_init(t_scene *sc)
 	t_state	*state;
 
 	if (sc->save)
-		return;
+		return ;
 	state = &(sc->state);
 	sc->mouse_origin_x = sc->screen_w / 2;
 	sc->mouse_origin_y = sc->screen_h / 2;

@@ -1,0 +1,22 @@
+R	800 400 
+NO	./assets/test_n.xpm
+SO	./assets/test_s.xpm
+WE	./assets/test_w.xpm
+EA ./assets/test_e.xpm
+S ./assets/test2.xpm
+
+F 220,100,0
+C 0,30,255
+
+NOCLIP
+
+1111111111
+1000000001
+1000000001
+1000000001
+1000000001
+1000000001
+1000000001
+10E0000201
+1000000001
+1111111111

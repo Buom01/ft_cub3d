@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 18:57:53 by badam             #+#    #+#             */
-/*   Updated: 2020/07/13 00:00:29 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/14 13:03:00 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,6 +217,8 @@ typedef struct			s_scene
 	t_colortexture		ceil;
 	int					x_floor;
 	int					x_ceil;
+	t_surface			floor_surf;
+	t_surface			ceil_surf;
 
 	t_map				map;
 	t_state				state;
@@ -339,7 +341,10 @@ void					add_render_surface(const t_surface *src,
 							t_surface **lst, t_scene *scene);
 void					update_surface(t_surface *surf);
 void					surfaces_pre_tr(t_surface *surfs, t_pos origin);
+void					ceilfloor_pre_tr(t_scene *sc, t_pos origin);
 void					surfaces_sort(t_surface **surfs);
+void					tr_floor(t_ray ray, int *color, const t_scene *sc);
+void					tr_ceil(t_ray ray, int *color, const t_scene *sc);
 int						tr_correctify_color(int *color, double i_r,
 							const t_scene *sc);
 
@@ -361,6 +366,8 @@ void					move_side(t_state *state, int direction);
 void					jump(t_state *state);
 void					move_update(t_state *state);
 
+void					screen_init(t_scene *sc);
+void					screen_shutdown(t_scene *sc);
 void					textures_load(t_scene *scene);
 void					textures_unload(t_scene *scene);
 int						get_texture_color_at(double x, double y,

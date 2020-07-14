@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 21:32:40 by badam             #+#    #+#             */
-/*   Updated: 2020/07/06 18:32:55 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/14 13:33:49 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,23 @@ void		surfaces_pre_tr(t_surface *surfs, t_pos origin)
 		surfs->cache.u_cross_o_tr = cross_product(surfs->base.u, o_tr);
 		surfs = surfs->next;
 	}
+}
+
+void		ceilfloor_pre_tr(t_scene *sc, t_pos origin)
+{
+	t_vec		o_tr;
+	t_surface	*surf;
+
+	surf = &(sc->floor_surf);
+	o_tr = vec_diff(origin, surf->o_t);
+	surf->cache.n_dot_o_tr = dot_product(surf->base.n, o_tr);
+	surf->cache.o_tr_cross_v = cross_product(o_tr, surf->base.v);
+	surf->cache.u_cross_o_tr = cross_product(surf->base.u, o_tr);
+	surf = &(sc->ceil_surf);
+	o_tr = vec_diff(origin, surf->o_t);
+	surf->cache.n_dot_o_tr = dot_product(surf->base.n, o_tr);
+	surf->cache.o_tr_cross_v = cross_product(o_tr, surf->base.v);
+	surf->cache.u_cross_o_tr = cross_product(surf->base.u, o_tr);
 }
 
 void		update_surface(t_surface *surf)

@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 17:51:25 by badam             #+#    #+#             */
-/*   Updated: 2020/07/12 23:05:10 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/14 13:32:53 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,33 +43,32 @@
 # define CONFIGUREREQUEST 23
 # define GRAVITYNOTIFY 24
 
-# define NOEVENTMASK 0L
-# define KEYPRESSMASK (1L<<0)
-# define KEYRELEASEMASK (1L<<1)
-# define BUTTONPRESSMASK (1L<<2)
-# define BUTTONRELEASEMASK (1L<<3)
-# define ENTERWINDOWMASK (1L<<4)
-# define LEAVEWINDOWMASK (1L<<5)
-# define POINTERMOTIONMASK (1L<<6)
-# define POINTERMOTIONHINTMASK (1L<<7)
-# define BUTTON1MOTIONMASK (1L<<8)
-# define BUTTON2MOTIONMASK (1L<<9)
-# define BUTTON3MOTIONMASK (1L<<10)
-# define BUTTON4MOTIONMASK (1L<<11)
-# define BUTTON5MOTIONMASK (1L<<12)
-# define BUTTONMOTIONMASK (1L<<13)
-# define KEYMAPSTATEMASK (1L<<14)
-# define EXPOSUREMASK (1L<<15)
-# define VISIBILITYCHANGEMASK (1L<<16)
-# define STRUCTURENOTIFYMASK (1L<<17)
-# define RESIZEREDIRECTMASK (1L<<18)
-# define SUBSTRUCTURENOTIFYMASK (1L<<19)
-# define SUBSTRUCTUREREDIRECTMASK (1L<<20)
-# define FOCUSCHANGEMASK (1L<<21)
-# define PROPERTYCHANGEMASK (1L<<22)
-# define COLORMAPCHANGEMASK (1L<<23)
-# define OWNERGRABBUTTONMASK (1L<<24)
-
+# define NOEVENTMASK 0
+# define KEYPRESSMASK 1
+# define KEYRELEASEMASK 2
+# define BUTTONPRESSMASK 4
+# define BUTTONRELEASEMASK 8
+# define ENTERWINDOWMASK 16
+# define LEAVEWINDOWMASK 32
+# define POINTERMOTIONMASK 64
+# define POINTERMOTIONHINTMASK 128
+# define BUTTON1MOTIONMASK 256
+# define BUTTON2MOTIONMASK 512
+# define BUTTON3MOTIONMASK 1024
+# define BUTTON4MOTIONMASK 2048
+# define BUTTON5MOTIONMASK 4096
+# define BUTTONMOTIONMASK 8192
+# define KEYMAPSTATEMASK 16384
+# define EXPOSUREMASK 32768
+# define VISIBILITYCHANGEMASK 65536
+# define STRUCTURENOTIFYMASK 131072
+# define RESIZEREDIRECTMASK 262144
+# define SUBSTRUCTURENOTIFYMASK 524288
+# define SUBSTRUCTUREREDIRECTMASK 1048576
+# define FOCUSCHANGEMASK 2097152
+# define PROPERTYCHANGEMASK 4194304
+# define COLORMAPCHANGEMASK 8388608
+# define OWNERGRABBUTTONMASK 16777216
 
 typedef enum
 {

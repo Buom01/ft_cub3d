@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 18:46:34 by badam             #+#    #+#             */
-/*   Updated: 2020/07/12 19:54:17 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/14 13:36:17 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,10 @@ static inline int	tr_surface(t_ray ray, t_surface *surf, int *color,
 	if (fabs(ray.direction.y * surf->cache.distance) > 1)
 		return (TR_FLOOR);
 	n_dot_r = dot_product(surf->base.n, ray.direction);
-	rev_n_dot_r = 1 / n_dot_r;
 	if (n_dot_r > 0)
 		return (TR_NOT_HIT);
-	if (sc->shadow)
-		i_r = -(surf->cache.n_dot_o_tr) * rev_n_dot_r;
-	else
-		i_r = -(surf->cache.n_dot_o_tr) * n_dot_r;
+	rev_n_dot_r = 1 / n_dot_r;
+	i_r = -(surf->cache.n_dot_o_tr) * rev_n_dot_r;
 	if (i_r < 0)
 		return (TR_NOT_HIT);
 	i_u = dot_product(surf->cache.o_tr_cross_v, ray.direction) * rev_n_dot_r;
@@ -74,10 +71,12 @@ static inline void	raytr_tr(const t_scene *sc, int pixel_index,
 		else
 			surf = surf->next;
 	}
-	if (ray.direction.y < 0)
-		*pixel = sc->x_floor;
+	if (ray.direction.y < -0.0001)
+		tr_floor(ray, pixel, sc);
+	else if (ray.direction.y > 0.0001)
+		tr_ceil(ray, pixel, sc);
 	else
-		*pixel = sc->x_ceil;
+		*pixel = 0;
 }
 
 inline void			raytr_render(t_scene *sc, t_surface **surfs,
@@ -91,6 +90,7 @@ inline void			raytr_render(t_scene *sc, t_surface **surfs,
 	direction_p = &(ray.direction);
 	surfaces_sort(surfs);
 	surfaces_pre_tr(*surfs, ray.origin);
+	ceilfloor_pre_tr(sc, ray.origin);
 	pixel_index = 0;
 	y = 0;
 	while (y < sc->screen_h)

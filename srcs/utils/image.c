@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/05 06:26:23 by badam             #+#    #+#             */
-/*   Updated: 2020/07/12 21:50:57 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/14 13:32:31 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,4 +17,3 @@ inline int		get_texture_color_at(double x, double y, const t_texture *tex)
 	return (tex->colors[(int)((1 - x) * tex->width)
 		+ tex->width * (int)((1 - y) * tex->height)]);
 }
-

@@ -6,11 +6,12 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 21:45:04 by badam             #+#    #+#             */
-/*   Updated: 2020/07/11 02:13:52 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/14 12:45:41 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
 inline static void	print_extended_error(t_error error)
 {
 	if (error == ERR_WRITEIMAGE)

@@ -6,7 +6,7 @@
 #    By: badam <badam@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/10 18:46:41 by badam             #+#    #+#              #
-#    Updated: 2020/07/13 00:16:53 by badam            ###   ########.fr        #
+#    Updated: 2020/07/14 13:03:35 by badam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ SRC= \
 	srcs/raytracing/utils.c \
 	srcs/raytracing/surfaces.c \
 	srcs/raytracing/init.c \
+	srcs/raytracing/render_ceilfloor.c \
 	srcs/raytracing/render.c \
 	srcs/scene/utils.c \
 	srcs/scene/parsing.c \
@@ -49,6 +50,7 @@ SRC= \
 	srcs/mlx/mlx.c \
 	srcs/error.c \
 	srcs/textures.c \
+	srcs/screen.c \
 	srcs/graphics.c \
 	srcs/images/bmp.c \
 	srcs/physics/utils.c \
