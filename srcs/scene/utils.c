@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 04:24:31 by badam             #+#    #+#             */
-/*   Updated: 2020/07/14 12:47:55 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/14 14:21:27 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,15 @@ static void	create_ceilfloor(t_scene *scene)
 
 	surf = &(scene->floor_surf);
 	surf->texture = &(scene->floor.texture);
-	surf->base.u.x = 1;
-	surf->base.v.z = 1;
+	surf->base.u.z = 1;
+	surf->base.v.x = 1;
 	surf->base.n = cross_product(surf->base.u, surf->base.v);
 	surf->o_t.x = 0.5;
 	surf->o_t.z = 0.5;
 	surf = &(scene->ceil_surf);
 	surf->texture = &(scene->ceil.texture);
-	surf->base.u.x = 1;
-	surf->base.v.z = 1;
+	surf->base.u.z = 1;
+	surf->base.v.x = 1;
 	surf->base.n = cross_product(surf->base.u, surf->base.v);
 	surf->o_t.y = 1;
 	surf->o_t.x = 0.5;
