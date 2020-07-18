@@ -10,8 +10,9 @@ F			./assets/floor
 C			./assets/ceil
 
 S			./assets/object
-DOOR		./assets/door
-GRIDDOOR	./assets/grid
+DOOR_A		./assets/door
+DOOR_B		./assets/door
+DOOR_GRID	./assets/grid
 KEY			./assets/key
 
         1111111111111111111111111

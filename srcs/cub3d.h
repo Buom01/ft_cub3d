@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 18:57:53 by badam             #+#    #+#             */
-/*   Updated: 2020/07/14 13:03:00 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/18 14:38:00 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ typedef enum
 	MAP_PLAYER_E,
 	MAP_OBJECT,
 	MAP_DOOR,
-	MAP_GRIDDOOR,
+	MAP_DOOR_GRID,
 	MAP_KEY
 }	t_entity;
 
@@ -152,6 +152,7 @@ typedef struct			s_surface
 	t_pos				pos;
 	t_angle				yaw;
 	t_texture			*texture;
+	bool				backface;
 	t_base				base;
 	t_vec				o_t;
 	t_surf_cache		cache;
@@ -165,6 +166,42 @@ typedef struct			s_sprite
 	void				*next;
 }						t_sprite;
 
+typedef enum
+{
+	ITEM_EMPTY = 0,
+	ITEM_KEY,
+	MAX_ITEMS
+}	t_itemtype;
+
+typedef struct			s_item
+{
+	t_pos				pos;
+	t_itemtype			type;
+	t_texture			*texture;
+	bool				picked;
+	void				*next;
+}						t_item;
+
+typedef enum
+{
+	DOOR_STANDARD,
+	DOOR_GRID
+}	t_doortype;
+
+typedef struct			s_door
+{
+	t_pos				pos;
+	bool				vertical;
+	t_doortype			type;
+	t_texture			*texture;
+	t_texture			*texture_b;
+	bool				open;
+	float				state;
+	t_itemtype			key;
+	size_t				physic_index;
+	void				*next;
+}						t_door;
+
 typedef struct			s_state
 {
 	t_pos				pos;
@@ -175,6 +212,7 @@ typedef struct			s_state
 	bool				jumping;
 	double				jump_velocity;
 	bool				crouch;
+	bool				inventory[MAX_ITEMS];
 	bool				keyboard[MAX_KEYS];
 	double				mouse_x;
 	double				mouse_y;
@@ -185,8 +223,8 @@ typedef struct			s_scene
 	bool				loaded;
 	char				*file;
 
-	int					screen_w;
-	int					screen_h;
+	size_t				screen_w;
+	size_t				screen_h;
 	double				fov;
 	double				vfov;
 	int					mouse_origin_x;
@@ -209,8 +247,9 @@ typedef struct			s_scene
 	t_texture			west;
 	t_texture			east;
 	t_texture			sprite;
-	t_texture			door;
-	t_texture			griddoor;
+	t_texture			door_a;
+	t_texture			door_b;
+	t_texture			door_grid;
 	t_texture			key;
 
 	t_colortexture		floor;
@@ -224,6 +263,8 @@ typedef struct			s_scene
 	t_state				state;
 	t_surface			*surfaces;
 	t_sprite			*sprites;
+	t_item				*items;
+	t_door				*doors;
 
 	char				*save;
 }						t_scene;
@@ -325,6 +366,12 @@ void					sprites_init(t_scene *scene);
 void					sprites_update(t_scene *sc, t_state *state, t_ray ray,
 							t_surface **lst_surf);
 void					sprites_shutdown(t_scene *scene);
+void					doors_init(t_scene *scene);
+void					doors_update(t_scene *sc, t_ray ray,
+							t_surface **lst_surf);
+void					door_standard_update(t_door *door, t_ray ray,
+							t_scene *scene, t_surface **lst_surf);
+void					doors_shutdown(t_scene *scene);
 
 int						sign(double n);
 double					dist_2d(t_vec a, t_vec b);

@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/11 01:14:43 by badam             #+#    #+#             */
-/*   Updated: 2020/07/11 03:54:44 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/18 14:28:17 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,12 @@ static bool	parse_additionnal(char *line, t_scene *sc)
 		sc->shadow_fade = ft_atoi(gna(&line, false));
 	else if (is_command(line, "NOCLIP"))
 		sc->noclip = true;
-	else if (is_command(line, "DOOR"))
-		sc->door.path = relative_to(sc->file, gna(&line, false), sc);
-	else if (is_command(line, "GRIDDOOR"))
-		sc->griddoor.path = relative_to(sc->file, gna(&line, false), sc);
+	else if (is_command(line, "DOOR_A"))
+		sc->door_a.path = relative_to(sc->file, gna(&line, false), sc);
+	else if (is_command(line, "DOOR_B"))
+		sc->door_b.path = relative_to(sc->file, gna(&line, false), sc);
+	else if (is_command(line, "DOOR_GRID"))
+		sc->door_grid.path = relative_to(sc->file, gna(&line, false), sc);
 	else if (is_command(line, "KEY"))
 		sc->key.path = relative_to(sc->file, gna(&line, false), sc);
 	else

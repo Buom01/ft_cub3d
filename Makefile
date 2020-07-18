@@ -6,13 +6,13 @@
 #    By: badam <badam@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/10 18:46:41 by badam             #+#    #+#              #
-#    Updated: 2020/07/14 14:10:17 by badam            ###   ########.fr        #
+#    Updated: 2020/07/18 13:35:42 by badam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC=gcc
 #CFLAGS=-Wall -Wextra -Werror -fsanitize=address -g3 -Isrcs -Ilibs/libft
-CFLAGS=-Wall -Wextra -Werror -O3 -flto -Isrcs -Ilibs/libft
+CFLAGS=-Wall -Wextra -Werror -Ofast -flto -Isrcs -Ilibs/libft
 NAME=Cub3D
 DEPS=libs/libft/libft.a -lmlx -lXext -lX11 -lm
 HEADERS= \
@@ -34,7 +34,10 @@ SRC= \
 	srcs/surfaces.c \
 	srcs/entities/walls.c \
 	srcs/entities/fakewalls.c \
+	srcs/entities/items.c \
 	srcs/entities/sprites.c \
+	srcs/entities/doors/standard.c \
+	srcs/entities/doors/doors.c \
 	srcs/raytracing/utils.c \
 	srcs/raytracing/surfaces.c \
 	srcs/raytracing/init.c \
@@ -64,13 +67,13 @@ OBJ_BONUS=$(SRC_BONUS:.c=.o)
 
 all: $(NAME) 
 
+bonus: $(NAME) 
+
 $(NAME): $(DEPS) $(OBJ) $(HEADERS)
 	$(CC) -o $(NAME) $(CFLAGS) $(OBJ) ${DEPS}
 
 libs/libft/libft.a:
 	make -C libs/libft bonus
-
-bonus: $(DEPS) $(OBJ) $(OBJ_BONUS) $(HEADERS)
 
 %.o: %.c
 	$(CC) -o $@ -c $< $(CFLAGS)

@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 18:46:34 by badam             #+#    #+#             */
-/*   Updated: 2020/07/14 14:03:46 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/18 14:20:25 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	tr_surface(t_ray ray, t_surface *surf, int *color,
 	if (fabs(ray.direction.y * surf->cache.distance) > 1)
 		return (TR_FLOOR);
 	n_dot_r = dot_product(surf->base.n, ray.direction);
-	if (n_dot_r > 0)
+	if (!(surf->backface) && n_dot_r > 0)
 		return (TR_NOT_HIT);
 	rev_n_dot_r = 1 / n_dot_r;
 	i_r = -(surf->cache.n_dot_o_tr) * rev_n_dot_r;
@@ -55,9 +55,9 @@ static int	tr_surface(t_ray ray, t_surface *surf, int *color,
 static void	raytr_tr(const t_scene *sc, int pixel_index,
 		t_ray ray, t_surface *surfs)
 {
-	int			tr_result;
-	t_surface	*surf;
-	int			*pixel;
+	register int		tr_result;
+	register t_surface	*surf;
+	int					*pixel;
 
 	pixel = sc->frame_colors + pixel_index;
 	surf = (t_surface *)surfs;
@@ -82,10 +82,10 @@ static void	raytr_tr(const t_scene *sc, int pixel_index,
 void		raytr_render(t_scene *sc, t_surface **surfs,
 		t_ray ray, t_state *state)
 {
-	register int	x;
-	register int	y;
-	t_vec			*direction_p;
-	int				pixel_index;
+	register size_t	x;
+	register size_t	y;
+	register t_vec	*direction_p;
+	register int	pixel_index;
 
 	direction_p = &(ray.direction);
 	surfaces_sort(surfs);

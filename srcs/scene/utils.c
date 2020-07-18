@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 04:24:31 by badam             #+#    #+#             */
-/*   Updated: 2020/07/14 14:21:27 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/18 14:41:49 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,6 @@ bool		validate_scene(t_scene *scene)
 	scene->x_ceil = to_x_color(&(scene->ceil.color));
 	create_ceilfloor(scene);
 	scene->shadow_begin = scene->shadow - scene->shadow_fade;
+	scene->state.inventory[ITEM_EMPTY] = true;
 	return (validate_map(scene));
 }

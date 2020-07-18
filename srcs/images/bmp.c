@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 02:28:49 by badam             #+#    #+#             */
-/*   Updated: 2020/07/14 12:51:22 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/14 22:59:50 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	num2buff(size_t n, t_byte *buff, size_t len)
 {
-	size_t	i;
+	register size_t	i;
 
 	i = 0;
 	while (i < len)
@@ -44,10 +44,10 @@ static void	set_header(t_bmpheader *header, size_t w, size_t h, size_t len)
 
 static void	*generate_image(int *colors, size_t len, size_t pixels_c, size_t w)
 {
-	size_t	i;
-	size_t	in;
-	size_t	out;
-	void	*data;
+	register size_t	i;
+	register size_t	in;
+	register size_t	out;
+	void			*data;
 
 	if (!(data = malloc(len * sizeof(t_byte))))
 		return (NULL);

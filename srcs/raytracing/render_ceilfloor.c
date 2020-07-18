@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 11:07:38 by badam             #+#    #+#             */
-/*   Updated: 2020/07/14 12:54:30 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/14 22:47:29 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,12 @@ void	tr_floor(t_ray ray, int *color, const t_scene *sc)
 	double			i_u;
 	double			i_v;
 
-	fl = &(sc->floor_surf);
+	i_r = 0;
 	if (!sc->floor.is_texture)
 		*color = sc->x_floor;
 	if (sc->shadow || sc->floor.is_texture)
 	{
+		fl = &(sc->floor_surf);
 		rev_n_dot_r = 1 / dot_product(fl->base.n, ray.direction);
 		i_r = -(fl->cache.n_dot_o_tr) * rev_n_dot_r;
 	}
@@ -45,11 +46,12 @@ void	tr_ceil(t_ray ray, int *color, const t_scene *sc)
 	double			i_u;
 	double			i_v;
 
-	cl = &(sc->ceil_surf);
+	i_r = 0;
 	if (!sc->ceil.is_texture)
 		*color = sc->x_ceil;
 	if (sc->shadow || sc->ceil.is_texture)
 	{
+		cl = &(sc->ceil_surf);
 		rev_n_dot_r = 1 / dot_product(cl->base.n, ray.direction);
 		i_r = -(cl->cache.n_dot_o_tr) * rev_n_dot_r;
 	}

@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 12:55:21 by badam             #+#    #+#             */
-/*   Updated: 2020/07/14 13:04:13 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/14 23:19:06 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 void	screen_init(t_scene *sc)
 {
-	int mock;
-	int	display_w;
-	int	display_h;
+	int		mock;
+	size_t	display_w;
+	size_t	display_h;
 
 	if (!sc->save)
 	{
-		mlx_get_screen_size(sc->mlx, &display_w, &display_h);
+		mlx_get_screen_size(sc->mlx, (int *)(&display_w), (int *)(&display_h));
 		if (sc->screen_w > display_w)
 			sc->screen_w = display_w;
 		if (sc->screen_h > display_h)

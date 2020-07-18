@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 23:33:41 by badam             #+#    #+#             */
-/*   Updated: 2020/07/02 19:55:18 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/14 23:14:08 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 size_t		surfaces_len(t_surface *surfs)
 {
-	size_t	lstlen;
+	register size_t	lstlen;
 
 	lstlen = 0;
 	if (surfs)
@@ -41,9 +41,9 @@ static void	swap_surfaces(t_surface **a, t_surface **b)
 
 void		surfaces_sort(t_surface **surfs)
 {
-	size_t		i;
-	size_t		j;
-	t_surface	**current;
+	register size_t		i;
+	register size_t		j;
+	register t_surface	**current;
 
 	i = surfaces_len(*surfs);
 	while (i-- > 1)

@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 14:16:15 by badam             #+#    #+#             */
-/*   Updated: 2020/07/14 14:07:41 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/17 23:18:14 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static t_entity	rawchar_to_entity(char c, t_scene *scene)
 	else if (c == 'H')
 		return (MAP_DOOR);
 	else if (c == '#')
-		return (MAP_GRIDDOOR);
+		return (MAP_DOOR_GRID);
 	else if (c == 'F')
 		return (MAP_KEY);
 	else
