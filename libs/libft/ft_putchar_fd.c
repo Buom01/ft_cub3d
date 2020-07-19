@@ -15,7 +15,9 @@
 void	ft_putchar_fd(char c, int fd)
 {
 	unsigned char	buf[1];
+	ssize_t			rslt;
 
 	*buf = (unsigned char)c;
-	write(fd, (const void*)buf, 1);
+	rslt = write(fd, (const void*)buf, 1);
+	(void)rslt;
 }

@@ -15,10 +15,12 @@
 void	ft_putstr_fd(char *s, int fd)
 {
 	size_t	len;
+	ssize_t	rslt;
 
 	if (!s)
 		return ;
 	len = ft_strlen(s);
 	if (len)
-		write(fd, (const void*)s, len);
+		rslt = write(fd, (const void*)s, len);
+	(void)rslt;
 }
