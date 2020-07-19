@@ -6,15 +6,15 @@
 #    By: badam <badam@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/10 18:46:41 by badam             #+#    #+#              #
-#    Updated: 2020/07/18 13:35:42 by badam            ###   ########.fr        #
+#    Updated: 2020/07/19 21:40:07 by badam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC=gcc
 #CFLAGS=-Wall -Wextra -Werror -fsanitize=address -g3 -Isrcs -Ilibs/libft
-CFLAGS=-Wall -Wextra -Werror -Ofast -flto -Isrcs -Ilibs/libft
+CFLAGS=-Wall -Wextra -Werror -Ofast -flto -Isrcs -Ilibs/libft -Ilibs/minilibx
 NAME=Cub3D
-DEPS=libs/libft/libft.a -lmlx -lXext -lX11 -lm
+DEPS=libs/minilibx/libmlx.a libs/libft/libft.a -lXext -lX11 -lm
 HEADERS= \
 	srcs/cub3d.h \
 	libs/gnl/get_next_line_bonus.h
@@ -75,12 +75,16 @@ $(NAME): $(DEPS) $(OBJ) $(HEADERS)
 libs/libft/libft.a:
 	make -C libs/libft bonus
 
+libs/minilibx/libmlx.a:
+	make -C libs/minilibx
+
 %.o: %.c
 	$(CC) -o $@ -c $< $(CFLAGS)
 
 clean:
 	rm -rf $(OBJ)
 	make -C libs/libft clean
+	make -C libs/minilibx clean
 
 fclean:	clean	
 	rm -rf $(NAME)
