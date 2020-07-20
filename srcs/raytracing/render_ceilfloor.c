@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 11:07:38 by badam             #+#    #+#             */
-/*   Updated: 2020/07/14 22:47:29 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/19 23:09:59 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ void	tr_floor(t_ray ray, int *color, const t_scene *sc)
 	{
 		i_u = dot_product(fl->cache.o_tr_cross_v, ray.direction) * rev_n_dot_r;
 		i_v = dot_product(fl->cache.u_cross_o_tr, ray.direction) * rev_n_dot_r;
-		*color = get_texture_color_at(fmod(i_v, 1), fmod(i_u, 1), fl->texture);
+		*color = get_texture_color_at(fmod(i_v, 1), fmod(i_u, 1),
+				fl->texture, NULL);
 	}
 	tr_correctify_color(color, i_r, sc);
 }
@@ -59,7 +60,8 @@ void	tr_ceil(t_ray ray, int *color, const t_scene *sc)
 	{
 		i_u = dot_product(cl->cache.o_tr_cross_v, ray.direction) * rev_n_dot_r;
 		i_v = dot_product(cl->cache.u_cross_o_tr, ray.direction) * rev_n_dot_r;
-		*color = get_texture_color_at(fmod(i_v, 1), fmod(i_u, 1), cl->texture);
+		*color = get_texture_color_at(fmod(i_v, 1), fmod(i_u, 1),
+				cl->texture, NULL);
 	}
 	tr_correctify_color(color, i_r, sc);
 }

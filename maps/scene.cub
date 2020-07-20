@@ -2,16 +2,16 @@ R			600 400
 SHADOW		8
 SHADOW_FADE	4
 
-NO			./assets/test
-SO			./assets/test
-WE			./assets/test
-EA			./assets/test
+NO			./assets/north
+SO			./assets/south
+WE			./assets/west
+EA			./assets/east
 F			./assets/floor
 C			./assets/ceil
 
 S			./assets/object
-DOOR_A		./assets/door
-DOOR_B		./assets/door
+DOOR_A		./assets/door_a
+DOOR_B		./assets/door_b
 DOOR_GRID	./assets/grid
 KEY			./assets/key
 

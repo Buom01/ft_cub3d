@@ -6,12 +6,12 @@
 #    By: badam <badam@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/10 18:46:41 by badam             #+#    #+#              #
-#    Updated: 2020/07/19 21:40:07 by badam            ###   ########.fr        #
+#    Updated: 2020/07/20 00:57:34 by badam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC=gcc
-#CFLAGS=-Wall -Wextra -Werror -fsanitize=address -g3 -Isrcs -Ilibs/libft
+#CFLAGS=-Wall -Wextra -Werror -fsanitize=address -g3 -Isrcs -Ilibs/libft -Ilibs/minilibx
 CFLAGS=-Wall -Wextra -Werror -Ofast -flto -Isrcs -Ilibs/libft -Ilibs/minilibx
 NAME=Cub3D
 DEPS=libs/minilibx/libmlx.a libs/libft/libft.a -lXext -lX11 -lm
@@ -34,9 +34,14 @@ SRC= \
 	srcs/surfaces.c \
 	srcs/entities/walls.c \
 	srcs/entities/fakewalls.c \
-	srcs/entities/items.c \
+	srcs/entities/items/init.c \
+	srcs/entities/items/update.c \
+	srcs/entities/items/shutdown.c \
 	srcs/entities/sprites.c \
+	srcs/entities/doors/shared.c \
 	srcs/entities/doors/standard.c \
+	srcs/entities/doors/grid.c \
+	srcs/entities/doors/init.c \
 	srcs/entities/doors/doors.c \
 	srcs/raytracing/utils.c \
 	srcs/raytracing/surfaces.c \

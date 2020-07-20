@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 15:21:00 by badam             #+#    #+#             */
-/*   Updated: 2020/07/09 01:46:24 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/19 23:26:13 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,9 @@ static void	add_fakewall_block(t_scene *sc, size_t i,
 	}
 }
 
-void		fakewalls_init(t_scene *scene)
+void		fakewalls_init(t_scene *scene, t_map *map)
 {
 	size_t		i;
-	t_map		*map;
 	t_surface	*begin_new_surf;
 	t_surface	*surf;
 
@@ -61,7 +60,6 @@ void		fakewalls_init(t_scene *scene)
 	while (surf->next)
 		surf = surf->next;
 	begin_new_surf = surf;
-	map = &(scene->map);
 	while (i < map->length)
 		add_fakewall_block(scene, i++, map, &surf);
 	surf = begin_new_surf;

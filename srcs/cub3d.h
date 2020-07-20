@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 18:57:53 by badam             #+#    #+#             */
-/*   Updated: 2020/07/18 14:38:00 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/20 00:10:59 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@
 # define TODEG 57.29577951
 # define EPSYLON 0.00000001
 
+# define COLOR_ALPHA 4278190080
 # define TITLE "Buom_01's Cub3D"
-# define TEXTURE_SIZE 64
 # define FOV 90
 # define PLAYER_RADIUS 0.20
 
@@ -153,6 +153,9 @@ typedef struct			s_surface
 	t_angle				yaw;
 	t_texture			*texture;
 	bool				backface;
+	bool				special;
+	double				crop_x;
+	double				crop_y;
 	t_base				base;
 	t_vec				o_t;
 	t_surf_cache		cache;
@@ -178,7 +181,7 @@ typedef struct			s_item
 	t_pos				pos;
 	t_itemtype			type;
 	t_texture			*texture;
-	bool				picked;
+	double				animation;
 	void				*next;
 }						t_item;
 
@@ -195,8 +198,7 @@ typedef struct			s_door
 	t_doortype			type;
 	t_texture			*texture;
 	t_texture			*texture_b;
-	bool				open;
-	float				state;
+	double				state;
 	t_itemtype			key;
 	size_t				physic_index;
 	void				*next;
@@ -353,7 +355,7 @@ bool					is_surface_useful(t_surface *candidate,
 							t_ray ray, t_angle yaw, t_scene *sc);
 void					free_surfaces(t_surface *surf);
 
-void					walls_init(t_scene *scene);
+void					walls_init(t_scene *scene, t_map *map);
 void					walls_update(t_scene *sc, t_ray ray,
 							t_surface **lst_surf, t_surface **surfs);
 void					walls_shutdown(t_scene *scene);
@@ -361,19 +363,32 @@ void					physics_init(t_map *map, t_scene *scene);
 void					physics_shutdown(t_map *map);
 bool					validate_map(t_scene *scene);
 
-void					fakewalls_init(t_scene *scene);
-void					sprites_init(t_scene *scene);
+void					fakewalls_init(t_scene *scene, t_map *map);
+
+void					sprites_init(t_scene *scene, t_map *map);
 void					sprites_update(t_scene *sc, t_state *state, t_ray ray,
 							t_surface **lst_surf);
 void					sprites_shutdown(t_scene *scene);
-void					doors_init(t_scene *scene);
+
+void					items_init(t_scene *scene, t_map *map);
+void					items_update(t_scene *sc, t_state *state, t_ray ray,
+							t_surface **lst_surf);
+void					items_shutdown(t_scene *scene);
+
+t_surface				*init_door_surface(t_surface *surf, t_pos pos);
+void					submit_door_surface(t_surface *surf, t_ray ray,
+							t_scene *sc, t_surface **lst_surf);
+void					doors_init(t_scene *scene, t_map *map);
 void					doors_update(t_scene *sc, t_ray ray,
 							t_surface **lst_surf);
 void					door_standard_update(t_door *door, t_ray ray,
 							t_scene *scene, t_surface **lst_surf);
+void					door_grid_update(t_door *door, t_ray ray,
+							t_scene *scene, t_surface **lst_surf);
 void					doors_shutdown(t_scene *scene);
 
 int						sign(double n);
+float					born(float val, float min, float max);
 double					dist_2d(t_vec a, t_vec b);
 t_angle					point_to(t_pos from, t_pos to);
 void					vec_from_angles(t_vec *vec, t_angle yaw, t_angle pitch);
@@ -418,7 +433,7 @@ void					screen_shutdown(t_scene *sc);
 void					textures_load(t_scene *scene);
 void					textures_unload(t_scene *scene);
 int						get_texture_color_at(double x, double y,
-							const t_texture *tex);
+							const t_texture *tex, const t_surface *surf);
 int						to_x_color(t_color *color);
 void					color_darken(int *color, double dark_ratio);
 int						fade_color(int c1, int c2, double balance);

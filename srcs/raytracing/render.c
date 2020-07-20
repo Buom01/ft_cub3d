@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 18:46:34 by badam             #+#    #+#             */
-/*   Updated: 2020/07/18 14:20:25 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/19 22:52:57 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	tr_surface(t_ray ray, t_surface *surf, int *color,
 	i_v = dot_product(surf->cache.u_cross_o_tr, ray.direction) * rev_n_dot_r;
 	if (i_v < 0 || i_v > 1)
 		return (TR_NOT_HIT);
-	*color = get_texture_color_at(i_v, i_u, surf->texture);
+	*color = get_texture_color_at(i_v, i_u, surf->texture, surf);
 	return (tr_correctify_color(color, i_r, sc));
 }
 

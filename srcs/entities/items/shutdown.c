@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   math.c                                             :+:      :+:    :+:   */
+/*   shutdown.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/06 22:38:42 by badam             #+#    #+#             */
-/*   Updated: 2020/07/19 22:11:44 by badam            ###   ########.fr       */
+/*   Created: 2020/06/18 22:03:26 by badam             #+#    #+#             */
+/*   Updated: 2020/07/20 00:56:33 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		sign(double n)
+void		items_shutdown(t_scene *scene)
 {
-	if (n >= 0)
-		return (1);
-	else
-		return (-1);
-}
+	t_item	*item;
+	t_item	*next;
 
-float	born(float val, float min, float max)
-{
-	if (val < min)
-		val = min;
-	else if (val > max)
-		val = max;
-	return (val);
+	item = scene->items;
+	while (item)
+	{
+		next = item->next;
+		free(item);
+		item = next;
+	}
+	scene->items = NULL;
 }

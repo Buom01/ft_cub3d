@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   math.c                                             :+:      :+:    :+:   */
+/*   grid.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/06 22:38:42 by badam             #+#    #+#             */
-/*   Updated: 2020/07/19 22:11:44 by badam            ###   ########.fr       */
+/*   Created: 2020/07/18 13:33:20 by badam             #+#    #+#             */
+/*   Updated: 2020/07/19 23:45:39 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		sign(double n)
+void	door_grid_update(t_door *door, t_ray ray,
+		t_scene *scene, t_surface **lst_surf)
 {
-	if (n >= 0)
-		return (1);
-	else
-		return (-1);
-}
+	t_surface	surf;
+	t_surface	*surf_p;
 
-float	born(float val, float min, float max)
-{
-	if (val < min)
-		val = min;
-	else if (val > max)
-		val = max;
-	return (val);
+	surf_p = init_door_surface(&surf, door->pos);
+	surf.texture = door->texture;
+	if (door->vertical)
+		surf.yaw = 90;
+	surf.pos.y += door->state;
+	surf.crop_y = -door->state;
+	submit_door_surface(surf_p, ray, scene, lst_surf);
 }

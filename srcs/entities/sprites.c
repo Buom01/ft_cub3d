@@ -6,20 +6,18 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/18 22:03:26 by badam             #+#    #+#             */
-/*   Updated: 2020/07/14 14:04:41 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/19 23:25:30 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void		sprites_init(t_scene *scene)
+void		sprites_init(t_scene *scene, t_map *map)
 {
 	size_t		i;
-	t_map		*map;
 	t_sprite	*sprite;
 	t_sprite	*lst;
 
-	map = &(scene->map);
 	lst = NULL;
 	i = 0;
 	while (i < map->length)

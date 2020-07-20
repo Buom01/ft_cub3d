@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   math.c                                             :+:      :+:    :+:   */
+/*   shared.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/06 22:38:42 by badam             #+#    #+#             */
-/*   Updated: 2020/07/19 22:11:44 by badam            ###   ########.fr       */
+/*   Created: 2020/07/19 23:29:18 by badam             #+#    #+#             */
+/*   Updated: 2020/07/19 23:30:26 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		sign(double n)
+t_surface	*init_door_surface(t_surface *surf, t_pos pos)
 {
-	if (n >= 0)
-		return (1);
-	else
-		return (-1);
+	ft_memset(surf, 0, sizeof(t_surface));
+	surf->pos = pos;
+	surf->backface = true;
+	surf->special = true;
+	return (surf);
 }
 
-float	born(float val, float min, float max)
+void		submit_door_surface(t_surface *surf, t_ray ray, t_scene *sc,
+		t_surface **lst_surf)
 {
-	if (val < min)
-		val = min;
-	else if (val > max)
-		val = max;
-	return (val);
+	if (is_surface_useful(surf, ray, sc->state.yaw, sc))
+	{
+		update_surface(surf);
+		add_render_surface(surf, lst_surf, sc);
+	}
 }

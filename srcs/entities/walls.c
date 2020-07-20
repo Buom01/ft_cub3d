@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 15:21:00 by badam             #+#    #+#             */
-/*   Updated: 2020/07/14 14:04:18 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/19 23:27:06 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,13 @@ static void	add_wall_block(t_scene *sc, size_t i,
 	}
 }
 
-void		walls_init(t_scene *scene)
+void		walls_init(t_scene *scene, t_map *map)
 {
 	size_t		i;
-	t_map		*map;
 	t_surface	*surf;
 
 	i = 0;
 	surf = scene->surfaces;
-	map = &(scene->map);
 	while (i < map->length)
 		add_wall_block(scene, i++, map, &surf);
 	surf = scene->surfaces;
