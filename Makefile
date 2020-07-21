@@ -6,14 +6,13 @@
 #    By: badam <badam@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/10 18:46:41 by badam             #+#    #+#              #
-#    Updated: 2020/07/21 15:05:19 by badam            ###   ########.fr        #
+#    Updated: 2020/07/21 21:35:49 by badam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC=gcc
 INCLUDES=-Isrcs -Ilibs/libft -Ilibs/minilibx
 COMMON_CFLAGS=-Wall -Wextra -Werror
-#CFLAGS=$(COMMON_CFLAGS) -g3 -fsanitize=address $(INCLUDES)
 CFLAGS=$(COMMON_CFLAGS) -Ofast -flto $(INCLUDES)
 NAME=Cub3D
 DEPS=libs/minilibx/libmlx.a libs/libft/libft.a -lXext -lX11 -lm
@@ -72,7 +71,7 @@ SRC= \
 OBJ=$(SRC:.c=.o)
 SRC_BONUS=
 OBJ_BONUS=$(SRC_BONUS:.c=.o)
-NORM=lib/libft lib/gnl srcs
+NORM=libs/libft libs/gnl srcs
 
 all: $(NAME) 
 

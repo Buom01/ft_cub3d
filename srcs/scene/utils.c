@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 04:24:31 by badam             #+#    #+#             */
-/*   Updated: 2020/07/18 14:41:49 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/21 21:35:01 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,18 @@ static void	create_ceilfloor(t_scene *scene)
 	surf->o_t.z = 0.5;
 }
 
+static void	calculate_fov(t_scene *scene)
+{
+	if (scene->fov > 90)
+		scene->fov = 90;
+	scene->vfov = scene->fov * (scene->screen_h / (double)scene->screen_w);
+	if (scene->vfov > 90)
+	{
+		scene->vfov = 90;
+		scene->fov = scene->vfov / (scene->screen_h / (double)scene->screen_w);
+	}
+}
+
 bool		validate_scene(t_scene *scene)
 {
 	if (scene->screen_w <= 0 || scene->screen_h <= 0)
@@ -60,9 +72,7 @@ bool		validate_scene(t_scene *scene)
 		error(scene, ERR_INV_CONFIG, "EA");
 	if (!scene->sprite.path || ft_strlen(scene->sprite.path) == 0)
 		error(scene, ERR_INV_CONFIG, "S");
-	if (scene->fov > 180)
-		scene->fov = 180;
-	scene->vfov = scene->fov * (scene->screen_h / (double)scene->screen_w);
+	calculate_fov(scene);
 	scene->x_floor = to_x_color(&(scene->floor.color));
 	scene->x_ceil = to_x_color(&(scene->ceil.color));
 	create_ceilfloor(scene);

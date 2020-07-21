@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 22:37:34 by badam             #+#    #+#             */
-/*   Updated: 2020/07/20 21:30:26 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/21 21:16:48 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ void		ctrl_update(t_scene *scene, t_state *state)
 		state->yaw += 5;
 	if (state->keyboard[KEY_SPACE])
 		jump(state);
-	state->yaw += state->mouse_x * 0.04;
-	state->pitch += state->mouse_y * 0.04;
+	state->yaw += state->mouse_x * 0.07;
 	if (state->pitch > 90)
 		state->pitch = 90;
 	if (state->pitch < -90)
