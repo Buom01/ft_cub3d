@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/14 00:25:30 by badam             #+#    #+#             */
-/*   Updated: 2020/07/18 14:31:00 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/21 14:38:24 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,10 @@ static void	unloadtexture(t_texture *texture, void *mlx)
 	if (!texture->data)
 		return ;
 	mlx_destroy_image(mlx, texture->data);
+	texture->data = NULL;
 	texture->colors = NULL;
 	free(texture->path);
+	texture->path = NULL;
 }
 
 void		textures_load(t_scene *scene)
@@ -56,10 +58,12 @@ void		textures_load(t_scene *scene)
 	if (scene->ceil.is_texture)
 		loadtexture(&(scene->ceil.texture), mlx, scene);
 	loadtexture(&scene->sprite, mlx, scene);
+	loadtexture(&scene->pane, mlx, scene);
 	loadtexture(&scene->door_a, mlx, scene);
 	loadtexture(&scene->door_b, mlx, scene);
 	loadtexture(&scene->door_grid, mlx, scene);
 	loadtexture(&scene->key, mlx, scene);
+	loadtexture(&scene->treasure, mlx, scene);
 }
 
 void		textures_unload(t_scene *scene)
@@ -76,8 +80,10 @@ void		textures_unload(t_scene *scene)
 	if (scene->ceil.is_texture)
 		unloadtexture(&(scene->ceil.texture), mlx);
 	unloadtexture(&scene->sprite, mlx);
+	unloadtexture(&scene->pane, mlx);
 	unloadtexture(&scene->door_b, mlx);
 	unloadtexture(&scene->door_a, mlx);
 	unloadtexture(&scene->door_grid, mlx);
 	unloadtexture(&scene->key, mlx);
+	unloadtexture(&scene->treasure, mlx);
 }

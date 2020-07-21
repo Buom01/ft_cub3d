@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/14 12:55:21 by badam             #+#    #+#             */
-/*   Updated: 2020/07/14 23:19:06 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/20 17:52:46 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 void	screen_init(t_scene *sc)
 {
 	int		mock;
-	size_t	display_w;
-	size_t	display_h;
+	int		display_w;
+	int		display_h;
 
 	if (!sc->save)
 	{
-		mlx_get_screen_size(sc->mlx, (int *)(&display_w), (int *)(&display_h));
-		if (sc->screen_w > display_w)
-			sc->screen_w = display_w;
-		if (sc->screen_h > display_h)
-			sc->screen_h = display_h;
+		mlx_get_screen_size(sc->mlx, &display_w, &display_h);
+		if ((int)(sc->screen_w) > display_w)
+			sc->screen_w = (size_t)display_w;
+		if ((int)(sc->screen_h) > display_h)
+			sc->screen_h = (size_t)display_h;
 		if (!sc->save && !(sc->window =
 				mlx_new_window(sc->mlx, sc->screen_w, sc->screen_h, TITLE)))
 			error(sc, ERR_MLX_UNKNOWN, NULL);
@@ -40,4 +40,6 @@ void	screen_shutdown(t_scene *scene)
 		mlx_destroy_image(scene->mlx, scene->frame);
 	if (scene->window)
 		mlx_destroy_window(scene->mlx, scene->window);
+	scene->frame = NULL;
+	scene->window = NULL;
 }

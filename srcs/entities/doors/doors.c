@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/18 22:03:26 by badam             #+#    #+#             */
-/*   Updated: 2020/07/19 23:46:57 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/20 13:53:17 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	door_pre_update(t_scene *sc, t_door *candidate)
 	else if (sc->state.inventory[candidate->key])
 		candidate->state += 0.01;
 	sc->map.walkable[candidate->physic_index] =
-		((candidate->state = born(candidate->state, 0.0, 1.0)) > 0.85);
+		((candidate->state = born(candidate->state, 0.0, 1.0)) > 0.75);
 }
 
 void		doors_update(t_scene *sc, t_ray ray, t_surface **lst_surf)

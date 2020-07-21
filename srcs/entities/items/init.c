@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 00:22:22 by badam             #+#    #+#             */
-/*   Updated: 2020/07/20 00:22:54 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/20 13:39:37 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static bool	is_item(t_entity ent)
 {
-	return (ent == MAP_KEY);
+	return (ent == MAP_KEY || ent == MAP_TREASURE);
 }
 
 static void	init_item_from_type(t_item *item, t_entity ent, t_scene *sc)
@@ -23,6 +23,11 @@ static void	init_item_from_type(t_item *item, t_entity ent, t_scene *sc)
 	{
 		item->type = ITEM_KEY;
 		item->texture = &(sc->key);
+	}
+	else if (ent == MAP_TREASURE)
+	{
+		item->type = ITEM_TREASURE;
+		item->texture = &(sc->treasure);
 	}
 }
 

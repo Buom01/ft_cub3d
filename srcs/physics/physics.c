@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 01:13:22 by badam             #+#    #+#             */
-/*   Updated: 2020/07/14 14:06:05 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/20 16:58:37 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,5 @@ void		physics_shutdown(t_map *map)
 {
 	if (map->walkable)
 		free(map->walkable);
+	map->walkable = NULL;
 }

@@ -1,9 +1,9 @@
 R 1920 1080
-NO ./assets/test.xpm
-SO ./assets/test.xpm
-WE ./assets/test.xpm
-EA ./assets/test.xpm
-S ./assets/test.xpm
+NO ./assets/north
+SO ./assets/south
+WE ./assets/west
+EA ./assets/east
+S ./assets/sprite
 
 F 220,100,0
 C 225,30,0

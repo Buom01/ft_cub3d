@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/11 01:14:43 by badam             #+#    #+#             */
-/*   Updated: 2020/07/18 14:28:17 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/21 14:37:33 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,12 @@ static bool	parse_additionnal(char *line, t_scene *sc)
 		sc->door_b.path = relative_to(sc->file, gna(&line, false), sc);
 	else if (is_command(line, "DOOR_GRID"))
 		sc->door_grid.path = relative_to(sc->file, gna(&line, false), sc);
+	else if (is_command(line, "PANE"))
+		sc->pane.path = relative_to(sc->file, gna(&line, false), sc);
 	else if (is_command(line, "KEY"))
 		sc->key.path = relative_to(sc->file, gna(&line, false), sc);
+	else if (is_command(line, "TREASURE"))
+		sc->treasure.path = relative_to(sc->file, gna(&line, false), sc);
 	else
 		error(sc, ERR_INV_CONFIG, line);
 	return (false);

@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 00:40:12 by badam             #+#    #+#             */
-/*   Updated: 2020/07/06 18:15:53 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/20 17:37:20 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	save_line(char *line, char ***textblock, t_scene *scene)
 	{
 		if (!(*textblock = malloc(sizeof(char**) * 2)))
 			error(scene, ERR_MALLOC, NULL);
+		ft_memset(*textblock, 0, sizeof(char**) * 2);
 	}
 	else
 	{

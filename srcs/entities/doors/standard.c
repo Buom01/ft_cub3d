@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 13:33:20 by badam             #+#    #+#             */
-/*   Updated: 2020/07/19 23:44:15 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/21 14:28:39 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	door_standard_update(t_door *door, t_ray ray,
 	t_surface	*surf_a_p;
 	t_surface	*surf_b_p;
 
-	surf_a_p = init_door_surface(&surf_a, door->pos);
-	surf_b_p = init_door_surface(&surf_b, door->pos);
+	surf_a_p = init_door_surface(&surf_a, door->pos, door->state / 8);
+	surf_b_p = init_door_surface(&surf_b, door->pos, door->state / 8);
 	surf_a.texture = door->texture;
 	surf_b.texture = door->texture_b;
 	if (door->vertical)

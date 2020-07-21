@@ -6,11 +6,24 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/18 22:03:26 by badam             #+#    #+#             */
-/*   Updated: 2020/07/19 23:25:30 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/21 14:44:56 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static bool	is_sprite(t_entity ent)
+{
+	return (ent == MAP_OBJECT || ent == MAP_PANE);
+}
+
+static void	set_sprite_texture(t_sprite *sprite, t_entity ent, t_scene *scene)
+{
+	if (ent == MAP_OBJECT)
+		sprite->texture = &(scene->sprite);
+	else if (ent == MAP_PANE)
+		sprite->texture = &(scene->pane);
+}
 
 void		sprites_init(t_scene *scene, t_map *map)
 {
@@ -22,13 +35,14 @@ void		sprites_init(t_scene *scene, t_map *map)
 	i = 0;
 	while (i < map->length)
 	{
-		if (map->data[i] == MAP_OBJECT)
+		if (is_sprite(map->data[i]))
 		{
 			if (!(sprite = malloc(sizeof(t_sprite))))
 				error(scene, ERR_MALLOC, NULL);
 			ft_memset(sprite, 0, sizeof(t_sprite));
-			sprite->texture = &(scene->sprite);
+			set_sprite_texture(sprite, map->data[i], scene);
 			sprite->pos = i2pos(map, i, DIR_NONE);
+			map->walkable[i] = false;
 			if (!(scene->sprites))
 				scene->sprites = sprite;
 			if (lst)

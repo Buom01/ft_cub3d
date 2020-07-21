@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 18:57:53 by badam             #+#    #+#             */
-/*   Updated: 2020/07/20 00:10:59 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/21 14:37:51 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,9 @@
 # define EPSYLON 0.00000001
 
 # define COLOR_ALPHA 4278190080
+# define COLOR_VOID 16711935
 # define TITLE "Buom_01's Cub3D"
-# define FOV 90
+# define FOV 70
 # define PLAYER_RADIUS 0.20
 
 typedef unsigned char	t_byte;
@@ -124,9 +125,11 @@ typedef enum
 	MAP_PLAYER_W,
 	MAP_PLAYER_E,
 	MAP_OBJECT,
+	MAP_PANE,
 	MAP_DOOR,
 	MAP_DOOR_GRID,
-	MAP_KEY
+	MAP_KEY,
+	MAP_TREASURE
 }	t_entity;
 
 typedef struct			s_map
@@ -153,7 +156,7 @@ typedef struct			s_surface
 	t_angle				yaw;
 	t_texture			*texture;
 	bool				backface;
-	bool				special;
+	double				special;
 	double				crop_x;
 	double				crop_y;
 	t_base				base;
@@ -173,6 +176,7 @@ typedef enum
 {
 	ITEM_EMPTY = 0,
 	ITEM_KEY,
+	ITEM_TREASURE,
 	MAX_ITEMS
 }	t_itemtype;
 
@@ -249,10 +253,14 @@ typedef struct			s_scene
 	t_texture			west;
 	t_texture			east;
 	t_texture			sprite;
+
 	t_texture			door_a;
 	t_texture			door_b;
 	t_texture			door_grid;
+
+	t_texture			pane;
 	t_texture			key;
+	t_texture			treasure;
 
 	t_colortexture		floor;
 	t_colortexture		ceil;
@@ -353,7 +361,7 @@ t_surface				*add_surface(t_surface **list, t_surface **last,
 							t_scene *scene);
 bool					is_surface_useful(t_surface *candidate,
 							t_ray ray, t_angle yaw, t_scene *sc);
-void					free_surfaces(t_surface *surf);
+void					free_surfaces(t_surface *surfs);
 
 void					walls_init(t_scene *scene, t_map *map);
 void					walls_update(t_scene *sc, t_ray ray,
@@ -375,7 +383,8 @@ void					items_update(t_scene *sc, t_state *state, t_ray ray,
 							t_surface **lst_surf);
 void					items_shutdown(t_scene *scene);
 
-t_surface				*init_door_surface(t_surface *surf, t_pos pos);
+t_surface				*init_door_surface(t_surface *surf, t_pos pos,
+							double special);
 void					submit_door_surface(t_surface *surf, t_ray ray,
 							t_scene *sc, t_surface **lst_surf);
 void					doors_init(t_scene *scene, t_map *map);
@@ -396,7 +405,7 @@ double					dot_product(t_vec a, t_vec b);
 t_vec					cross_product(t_vec a, t_vec b);
 t_vec					vec_diff(t_vec a, t_vec b);
 
-void					raytr_init(t_scene *scene);
+void					raytr_init(t_scene *sc);
 void					raytr_render(t_scene *sc, t_surface **surfs,
 							t_ray ray, t_state *state);
 void					add_render_surface(const t_surface *src,
@@ -409,6 +418,7 @@ void					tr_floor(t_ray ray, int *color, const t_scene *sc);
 void					tr_ceil(t_ray ray, int *color, const t_scene *sc);
 int						tr_correctify_color(int *color, double i_r,
 							const t_scene *sc);
+void					raytr_shutdown(t_scene *sc);
 
 void					graphical_run(t_scene *scene);
 void					graphical_shutdown(t_scene *scene);

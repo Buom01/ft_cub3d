@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 17:45:22 by badam             #+#    #+#             */
-/*   Updated: 2020/07/14 23:21:01 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/21 13:44:45 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void		main_shutdown(t_scene *scene)
 {
 	if (scene->save)
 		free(scene->save);
+	ft_memset(scene, 0, sizeof(scene));
 }
 
 int			main(int argc, char **argv)
@@ -40,10 +41,10 @@ int			main(int argc, char **argv)
 	t_scene scene;
 	int		argi;
 
+	ft_memset(&scene, 0, sizeof(scene));
 	if (argc < 2)
 		error(&scene, ERR_NO_ARG, NULL);
 	argi = 1;
-	ft_memset(&scene, 0, sizeof(scene));
 	while (argi < argc)
 	{
 		parse_args(argc, argv, &argi, &scene);
@@ -59,5 +60,6 @@ int			main(int argc, char **argv)
 int			main_stopall(t_scene *scene)
 {
 	graphical_shutdown(scene);
+	main_shutdown(scene);
 	exit(EXIT_SUCCESS);
 }

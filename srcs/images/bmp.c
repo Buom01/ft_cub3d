@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/09 02:28:49 by badam             #+#    #+#             */
-/*   Updated: 2020/07/14 22:59:50 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/20 17:41:32 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	num2buff(size_t n, t_byte *buff, size_t len)
 
 static void	set_header(t_bmpheader *header, size_t w, size_t h, size_t len)
 {
-	ft_memset(header, 0, sizeof(header) * 8);
+	ft_memset(header, 0, sizeof(*header));
 	header->type[0] = 'B';
 	header->type[1] = 'M';
 	num2buff(54 + len, header->total_size, sizeof(header->total_size));
@@ -51,7 +51,7 @@ static void	*generate_image(int *colors, size_t len, size_t pixels_c, size_t w)
 
 	if (!(data = malloc(len * sizeof(t_byte))))
 		return (NULL);
-	ft_memset(data, 0, len);
+	ft_memset(data, 0, len * sizeof(t_byte));
 	i = pixels_c;
 	out = 0;
 	while (i > 1)

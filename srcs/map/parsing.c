@@ -6,11 +6,20 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 14:16:15 by badam             #+#    #+#             */
-/*   Updated: 2020/07/17 23:18:14 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/21 14:53:14 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static t_entity	additionnal_rawchar_to_entity(char c, t_scene *scene)
+{
+	if (c == '$')
+		return (MAP_TREASURE);
+	else
+		error(scene, ERR_MAP_UNKNOWN, ft_ctoa(c));
+	return (MAP_AIR);
+}
 
 static t_entity	rawchar_to_entity(char c, t_scene *scene)
 {
@@ -34,11 +43,11 @@ static t_entity	rawchar_to_entity(char c, t_scene *scene)
 		return (MAP_DOOR);
 	else if (c == '#')
 		return (MAP_DOOR_GRID);
+	else if (c == 'P')
+		return (MAP_PANE);
 	else if (c == 'F')
 		return (MAP_KEY);
-	else
-		error(scene, ERR_MAP_UNKNOWN, ft_ctoa(c));
-	return (MAP_AIR);
+	return (additionnal_rawchar_to_entity(c, scene));
 }
 
 static void		parse_rawmap_line(t_map *map, char *line, size_t linen,
@@ -73,6 +82,7 @@ void			parse_rawmap_free(char **rawmap, t_scene *scene)
 		freeup_textblock(rawmap);
 		error(scene, ERR_MALLOC, NULL);
 	}
+	ft_memset(map->data, 0, sizeof(t_entity) * map->width * map->height);
 	rawmapcpy = rawmap;
 	current_line = 0;
 	while (*rawmapcpy)

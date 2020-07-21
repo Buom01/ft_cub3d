@@ -6,18 +6,18 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/19 23:29:18 by badam             #+#    #+#             */
-/*   Updated: 2020/07/19 23:30:26 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/21 14:25:25 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-t_surface	*init_door_surface(t_surface *surf, t_pos pos)
+t_surface	*init_door_surface(t_surface *surf, t_pos pos, double special)
 {
 	ft_memset(surf, 0, sizeof(t_surface));
 	surf->pos = pos;
 	surf->backface = true;
-	surf->special = true;
+	surf->special = special;
 	return (surf);
 }
 

@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 13:35:23 by badam             #+#    #+#             */
-/*   Updated: 2020/07/11 02:33:29 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/20 16:59:19 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,4 +16,5 @@ void	scene_shutdown(t_scene *scene)
 {
 	if (scene->map.data)
 		free(scene->map.data);
+	scene->map.data = NULL;
 }

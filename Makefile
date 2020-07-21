@@ -6,13 +6,15 @@
 #    By: badam <badam@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/10 18:46:41 by badam             #+#    #+#              #
-#    Updated: 2020/07/20 00:57:34 by badam            ###   ########.fr        #
+#    Updated: 2020/07/21 15:05:19 by badam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC=gcc
-#CFLAGS=-Wall -Wextra -Werror -fsanitize=address -g3 -Isrcs -Ilibs/libft -Ilibs/minilibx
-CFLAGS=-Wall -Wextra -Werror -Ofast -flto -Isrcs -Ilibs/libft -Ilibs/minilibx
+INCLUDES=-Isrcs -Ilibs/libft -Ilibs/minilibx
+COMMON_CFLAGS=-Wall -Wextra -Werror
+#CFLAGS=$(COMMON_CFLAGS) -g3 -fsanitize=address $(INCLUDES)
+CFLAGS=$(COMMON_CFLAGS) -Ofast -flto $(INCLUDES)
 NAME=Cub3D
 DEPS=libs/minilibx/libmlx.a libs/libft/libft.a -lXext -lX11 -lm
 HEADERS= \
@@ -48,6 +50,7 @@ SRC= \
 	srcs/raytracing/init.c \
 	srcs/raytracing/render_ceilfloor.c \
 	srcs/raytracing/render.c \
+	srcs/raytracing/shutdown.c \
 	srcs/scene/utils.c \
 	srcs/scene/parsing.c \
 	srcs/scene/parsing_utils.c \
@@ -69,13 +72,14 @@ SRC= \
 OBJ=$(SRC:.c=.o)
 SRC_BONUS=
 OBJ_BONUS=$(SRC_BONUS:.c=.o)
+NORM=lib/libft lib/gnl srcs
 
 all: $(NAME) 
 
 bonus: $(NAME) 
 
 $(NAME): $(DEPS) $(OBJ) $(HEADERS)
-	$(CC) -o $(NAME) $(CFLAGS) $(OBJ) ${DEPS}
+	$(CC) -o $(NAME) $(CFLAGS) $(OBJ) $(DEPS)
 
 libs/libft/libft.a:
 	make -C libs/libft bonus
@@ -96,3 +100,8 @@ fclean:	clean
 	make -C libs/libft fclean
 
 re: fclean all
+
+norm: fclean
+	norminette $(NORM) || ~/.norminette/norminette.rb $(NORM)
+
+norminette: norm

@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 23:06:36 by badam             #+#    #+#             */
-/*   Updated: 2020/07/19 23:08:24 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/20 13:52:55 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 int		get_texture_color_at(double x, double y,
 		const t_texture *tex, const t_surface *surf)
 {
+	if (!(tex->colors))
+		return (COLOR_VOID);
 	if (surf && surf->crop_x)
 	{
 		if (surf->crop_x > 0)
