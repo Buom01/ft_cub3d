@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 22:37:34 by badam             #+#    #+#             */
-/*   Updated: 2020/07/21 21:16:48 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/21 22:55:52 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void		ctrl_init(t_scene *sc)
 	state = &(sc->state);
 	sc->mouse_origin_x = sc->screen_w / 2;
 	sc->mouse_origin_y = sc->screen_h / 2;
-	mlx_mouse_hide(sc->mlx, sc->window);
 	mlx_hook(sc->window, KEYPRESS, KEYPRESSMASK, ctrl_keypress, state);
 	mlx_hook(sc->window, KEYRELEASE, KEYRELEASEMASK, ctrl_keyrelease, state);
 	mlx_hook(sc->window, MOTIONNOTIFY, POINTERMOTIONMASK, ctrl_mousemove, sc);

@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 18:57:53 by badam             #+#    #+#             */
-/*   Updated: 2020/07/21 14:37:51 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/21 23:02:46 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,6 +228,9 @@ typedef struct			s_scene
 {
 	bool				loaded;
 	char				*file;
+	bool				paused;
+	bool				focused;
+	bool				mouse_in;
 
 	size_t				screen_w;
 	size_t				screen_h;
@@ -340,6 +343,12 @@ bool					has_extension(char *path, char *ext);
 char					*relative_to(const char *file_from, const char *file,
 							t_scene *scene);
 
+int						window_clicked(t_scene *scene);
+int						window_focus_in(t_scene *scene);
+int						window_focus_out(t_scene *scene);
+int						window_mouse_in(t_scene *scene);
+int						window_mouse_out(t_scene *scene);
+
 void					scene_defaults(t_scene *scene);
 bool					validate_scene(t_scene *scene);
 char					*gna(char **line, bool is_first);
@@ -349,6 +358,7 @@ void					parse_color(char *colorstr, t_color *out);
 void					parse_colortexture(char *str, t_colortexture *out,
 							char *cmd, t_scene *scene);
 void					parse_resolution(char *resstr, t_scene *scene);
+void					scene_set_pause(t_scene *scene, bool pause);
 void					scene_shutdown(t_scene *scene);
 
 size_t					map_find_longer_line(char **rawmap);

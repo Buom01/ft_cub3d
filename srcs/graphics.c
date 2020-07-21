@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/13 22:24:50 by badam             #+#    #+#             */
-/*   Updated: 2020/07/21 21:51:42 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/21 23:00:55 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,12 @@ static void	graphical_init(t_scene *sc)
 	raytr_init(sc);
 }
 
-static int	graphical_update(t_scene *sc)
+static void	do_update(t_scene *sc,
+		t_surface **rendr_surfs_p, t_surface **lst_rendr_surf_p)
 {
 	t_state		*state;
 	t_ray		ray;
-	t_surface	*rendr_surfs;
-	t_surface	*lst_rendr_surf;
-	t_surface	**lst_rendr_surf_p;
 
-	mlx_do_sync(sc->mlx);
 	state = &(sc->state);
 	if (!sc->save)
 	{
@@ -49,31 +46,26 @@ static int	graphical_update(t_scene *sc)
 	}
 	ray.origin = state->pos;
 	vec_from_angles(&(ray.direction), state->yaw, state->pitch);
-	rendr_surfs = NULL;
-	lst_rendr_surf = NULL;
-	lst_rendr_surf_p = &lst_rendr_surf;
-	walls_update(sc, ray, lst_rendr_surf_p, &rendr_surfs);
+	walls_update(sc, ray, lst_rendr_surf_p, rendr_surfs_p);
 	sprites_update(sc, state, ray, lst_rendr_surf_p);
 	items_update(sc, state, ray, lst_rendr_surf_p);
 	doors_update(sc, ray, lst_rendr_surf_p);
-	raytr_render(sc, &rendr_surfs, ray, state);
-	free_surfaces(rendr_surfs);
-	return (0);
+	raytr_render(sc, rendr_surfs_p, ray, state);
 }
 
-static void	graphical_main(t_scene *sc)
+int			graphical_update(t_scene *sc)
 {
-	if (sc->save)
-	{
-		graphical_update(sc);
-	}
-	else
-	{
-		mlx_hook(sc->window, DESTROYNOTIFY, STRUCTURENOTIFYMASK,
-			main_stopall, sc);
-		mlx_loop_hook(sc->mlx, graphical_update, sc);
-		mlx_loop(sc->mlx);
-	}
+	t_surface	*rendr_surfs;
+	t_surface	*lst_rendr_surf;
+
+	mlx_do_sync(sc->mlx);
+	if (sc->paused || sc->loaded == false)
+		return (0);
+	rendr_surfs = NULL;
+	lst_rendr_surf = NULL;
+	do_update(sc, &rendr_surfs, &lst_rendr_surf);
+	free_surfaces(rendr_surfs);
+	return (0);
 }
 
 void		graphical_shutdown(t_scene *scene)
@@ -100,6 +92,24 @@ void		graphical_shutdown(t_scene *scene)
 void		graphical_run(t_scene *scene)
 {
 	graphical_init(scene);
-	graphical_main(scene);
+	if (scene->save)
+		graphical_update(scene);
+	else
+	{
+		mlx_hook(scene->window, DESTROYNOTIFY, STRUCTURENOTIFYMASK,
+			main_stopall, scene);
+		mlx_hook(scene->window, BUTTONPRESS, BUTTONPRESSMASK,
+			window_clicked, scene);
+		mlx_hook(scene->window, FOCUSIN, FOCUSCHANGEMASK,
+			window_focus_in, scene);
+		mlx_hook(scene->window, FOCUSOUT, FOCUSCHANGEMASK,
+			window_focus_out, scene);
+		mlx_hook(scene->window, ENTERNOTIFY, ENTERWINDOWMASK,
+			window_mouse_in, scene);
+		mlx_hook(scene->window, LEAVENOTIFY, LEAVEWINDOWMASK,
+			window_mouse_out, scene);
+		mlx_loop_hook(scene->mlx, graphical_update, scene);
+		mlx_loop(scene->mlx);
+	}
 	graphical_shutdown(scene);
 }

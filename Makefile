@@ -6,7 +6,7 @@
 #    By: badam <badam@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/10 18:46:41 by badam             #+#    #+#              #
-#    Updated: 2020/07/21 21:35:49 by badam            ###   ########.fr        #
+#    Updated: 2020/07/21 22:48:17 by badam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,6 +59,7 @@ SRC= \
 	srcs/error.c \
 	srcs/textures.c \
 	srcs/screen.c \
+	srcs/window.c \
 	srcs/graphics.c \
 	srcs/images/bmp.c \
 	srcs/physics/utils.c \

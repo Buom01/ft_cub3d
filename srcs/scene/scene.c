@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 00:40:12 by badam             #+#    #+#             */
-/*   Updated: 2020/07/20 17:37:20 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/21 23:06:00 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,13 @@ void		parse_scene(char *scenefile, t_scene *scene)
 	if (is_map)
 		parse_rawmap_free(rawmap, scene);
 	scene->loaded = validate_scene(scene);
+}
+
+void		scene_set_pause(t_scene *scene, bool pause)
+{
+	if (pause)
+		mlx_mouse_show(scene->mlx, scene->window);
+	else
+		mlx_mouse_hide(scene->mlx, scene->window);
+	scene->paused = pause;
 }
