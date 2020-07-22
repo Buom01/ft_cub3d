@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 18:57:53 by badam             #+#    #+#             */
-/*   Updated: 2020/07/22 22:29:03 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/22 23:24:49 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -299,7 +299,6 @@ typedef enum
 typedef enum
 {
 	ERR_NO_ARG,
-	ERR_MISSING_OUTPUT,
 	ERR_UNKNOWN_ARG,
 	ERR_MALLOC,
 	ERR_SCENE_NOT_LOADED,

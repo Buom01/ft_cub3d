@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 17:45:22 by badam             #+#    #+#             */
-/*   Updated: 2020/07/22 23:21:06 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/22 23:25:46 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,11 @@ static void	parse_args(int argc, char **argv, int *argi, t_scene *scene)
 	if (!ft_strcmp(argv[*argi], "--save"))
 	{
 		if (*argi + 1 == argc)
-			error(scene, ERR_MISSING_OUTPUT, NULL);
-		if (has_extension(argv[*argi + 1], ".bmp"))
+		{
+			if (!(scene->save = ft_strdup("preview.bmp")))
+				error(scene, ERR_MALLOC, NULL);
+		}
+		else if (has_extension(argv[*argi + 1], ".bmp"))
 			scene->save = ft_strdup(argv[++(*argi)]);
 		else
 			scene->save = ft_strjoin(argv[++(*argi)], ".bmp");

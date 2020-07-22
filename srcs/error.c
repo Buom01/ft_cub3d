@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 21:45:04 by badam             #+#    #+#             */
-/*   Updated: 2020/07/22 23:14:20 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/22 23:24:29 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ static void	print_error(t_error error)
 {
 	if (error == ERR_NO_ARG)
 		ft_putstr_fd("Usage: ./cub3d scene.cub [--save output]\n", STDERR);
-	else if (error == ERR_MISSING_OUTPUT)
-		ft_putstr_fd("--save need destination file\n", STDERR);
 	else if (error == ERR_UNKNOWN_ARG)
 		ft_putstr_fd("Unknown arg: ", STDERR);
 	else if (error == ERR_MALLOC)
