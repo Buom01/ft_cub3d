@@ -12,8 +12,11 @@
 
 #include "cub3d.h"
 
-int	window_clicked(t_scene *scene)
+int	window_clicked(int btn, int x, int y, t_scene *scene)
 {
+	(void)btn;
+	(void)x;
+	(void)y;
 	scene->focused = true;
 	scene->mouse_in = true;
 	scene_set_pause(scene, false);

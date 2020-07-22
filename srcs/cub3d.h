@@ -343,7 +343,7 @@ bool					has_extension(char *path, char *ext);
 char					*relative_to(const char *file_from, const char *file,
 							t_scene *scene);
 
-int						window_clicked(t_scene *scene);
+int						window_clicked(int btn, int x, int y, t_scene *scene);
 int						window_focus_in(t_scene *scene);
 int						window_focus_out(t_scene *scene);
 int						window_mouse_in(t_scene *scene);
