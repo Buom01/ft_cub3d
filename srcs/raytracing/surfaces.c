@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 21:32:40 by badam             #+#    #+#             */
-/*   Updated: 2020/07/21 14:22:57 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/22 22:33:05 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ bool	is_surface_useful(t_surface *candidate, t_ray ray, t_angle yaw,
 	t_pos	filter_origin;
 
 	filter_origin.y = ray.origin.y;
-	filter_origin.x = ray.origin.x - SIN(yaw * TORAD) / 2;
-	filter_origin.z = ray.origin.z + COS(yaw * TORAD) / 2;
+	filter_origin.x = ray.origin.x - SIN(yaw) / 2;
+	filter_origin.z = ray.origin.z + COS(yaw) / 2;
 	candidate->cache.distance = dist_2d(candidate->pos, ray.origin);
 	if (candidate->special)
 		candidate->cache.distance -= candidate->special;
@@ -80,10 +80,10 @@ void	ceilfloor_pre_tr(t_scene *sc, t_pos origin)
 void	update_surface(t_surface *surf)
 {
 	surf->base.u.y = 1;
-	surf->base.v.x = COS(surf->yaw * TORAD);
-	surf->base.v.z = SIN(surf->yaw * TORAD);
+	surf->base.v.x = COS(surf->yaw);
+	surf->base.v.z = SIN(surf->yaw);
 	surf->base.n = cross_product(surf->base.u, surf->base.v);
-	surf->o_t.x = surf->pos.x - COS(surf->yaw * TORAD) * 0.5;
+	surf->o_t.x = surf->pos.x - COS(surf->yaw) * 0.5;
 	surf->o_t.y = surf->pos.y - 0.5;
-	surf->o_t.z = surf->pos.z - SIN(surf->yaw * TORAD) * 0.5;
+	surf->o_t.z = surf->pos.z - SIN(surf->yaw) * 0.5;
 }

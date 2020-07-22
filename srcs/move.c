@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/08 22:14:45 by badam             #+#    #+#             */
-/*   Updated: 2020/07/07 17:46:51 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/22 22:32:19 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void			move_forward(t_state *state, int direction)
 	double	speed_ratio;
 
 	speed_ratio = get_speed_ratio(state);
-	state->move_x += SIN(state->yaw * TORAD) * direction * speed_ratio;
-	state->move_z -= COS(state->yaw * TORAD) * direction * speed_ratio;
+	state->move_x += SIN(state->yaw) * direction * speed_ratio;
+	state->move_z -= COS(state->yaw) * direction * speed_ratio;
 }
 
 void			move_side(t_state *state, int direction)
@@ -34,8 +34,8 @@ void			move_side(t_state *state, int direction)
 	double	speed_ratio;
 
 	speed_ratio = get_speed_ratio(state);
-	state->move_x -= COS(state->yaw * TORAD) * direction * speed_ratio;
-	state->move_z -= SIN(state->yaw * TORAD) * direction * speed_ratio;
+	state->move_x -= COS(state->yaw) * direction * speed_ratio;
+	state->move_z -= SIN(state->yaw) * direction * speed_ratio;
 }
 
 void			jump(t_state *state)

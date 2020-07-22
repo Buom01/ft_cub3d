@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/18 13:33:20 by badam             #+#    #+#             */
-/*   Updated: 2020/07/21 14:28:39 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/22 22:38:32 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	door_standard_update(t_door *door, t_ray ray,
 	surf_b.texture = door->texture_b;
 	if (door->vertical)
 	{
-		surf_a.yaw = 90;
-		surf_b.yaw = 90;
+		surf_a.yaw = PI / 2;
+		surf_b.yaw = PI / 2;
 		surf_a.pos.z += door->state / 2;
 		surf_b.pos.z -= door->state / 2;
 	}

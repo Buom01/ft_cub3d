@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/15 15:21:00 by badam             #+#    #+#             */
-/*   Updated: 2020/07/19 23:27:06 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/22 22:37:00 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	add_wall_block(t_scene *sc, size_t i,
 	if (map->data[i - map->width] == MAP_WALL)
 	{
 		surf = add_surface(&(sc->surfaces), lst, sc);
-		set_surface(surf, i2pos(map, i, DIR_NORTH), 180, &(sc->north));
+		set_surface(surf, i2pos(map, i, DIR_NORTH), PI, &(sc->north));
 	}
 	if (map->data[i + map->width] == MAP_WALL)
 	{
@@ -40,12 +40,12 @@ static void	add_wall_block(t_scene *sc, size_t i,
 	if (map->data[i - 1] == MAP_WALL)
 	{
 		surf = add_surface(&(sc->surfaces), lst, sc);
-		set_surface(surf, i2pos(map, i, DIR_WEST), 90, &(sc->west));
+		set_surface(surf, i2pos(map, i, DIR_WEST), PI / 2, &(sc->west));
 	}
 	if (map->data[i + 1] == MAP_WALL)
 	{
 		surf = add_surface(&(sc->surfaces), lst, sc);
-		set_surface(surf, i2pos(map, i, DIR_EAST), 270, &(sc->east));
+		set_surface(surf, i2pos(map, i, DIR_EAST), PI * 3 / 2, &(sc->east));
 	}
 }
 

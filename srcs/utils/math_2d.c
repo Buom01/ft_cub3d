@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/29 22:51:50 by badam             #+#    #+#             */
-/*   Updated: 2020/07/14 14:00:41 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/22 22:35:22 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_angle	point_to(t_pos from, t_pos to)
 	x = to.x - from.x;
 	z = to.z - from.z;
 	if (z < 0)
-		return (-atan(x / z) * TODEG);
+		return (-atan(x / z));
 	else
-		return (-atan(x / z) * TODEG + 180);
+		return (-atan(x / z) + PI);
 }

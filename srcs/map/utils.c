@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/10 22:08:39 by badam             #+#    #+#             */
-/*   Updated: 2020/07/07 17:54:05 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/22 22:37:26 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,9 @@ void		init_player(t_map *map, t_scene *scene)
 	player = map->data[i];
 	state->pos = i2pos(map, i, DIR_NONE);
 	if (player == MAP_PLAYER_S)
-		state->yaw = 180;
+		state->yaw = PI;
 	else if (player == MAP_PLAYER_E)
-		state->yaw = 90;
+		state->yaw = PI / 2;
 	else if (player == MAP_PLAYER_W)
-		state->yaw = -90;
+		state->yaw = -PI / 2;
 }

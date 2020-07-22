@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 22:08:58 by badam             #+#    #+#             */
-/*   Updated: 2020/07/22 16:22:31 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/22 22:33:53 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ void	direction_from_state(t_vec *dir, t_angle yaw, t_angle pitch)
 {
 	double	cos_pitch;
 
-	cos_pitch = COS(pitch * TORAD);
-	dir->x = SIN(yaw * TORAD) * cos_pitch;
-	dir->z = -COS(yaw * TORAD) * cos_pitch;
-	dir->y = -SIN(pitch * TORAD);
+	cos_pitch = COS(pitch);
+	dir->x = SIN(yaw) * cos_pitch;
+	dir->z = -COS(yaw) * cos_pitch;
+	dir->y = -SIN(pitch);
 }
 
 void	direction_rotaxis_from_state(t_vec *dir, t_vec *rotaxis_cross_dir,
@@ -29,12 +29,12 @@ void	direction_rotaxis_from_state(t_vec *dir, t_vec *rotaxis_cross_dir,
 	double	cos_yaw;
 	double	sin_yaw;
 
-	cos_pitch = COS(pitch * TORAD);
-	cos_yaw = COS(yaw * TORAD);
-	sin_yaw = SIN(yaw * TORAD);
+	cos_pitch = COS(pitch);
+	cos_yaw = COS(yaw);
+	sin_yaw = SIN(yaw);
 	dir->x = sin_yaw * cos_pitch;
 	dir->z = -cos_yaw * cos_pitch;
-	dir->y = -SIN(pitch * TORAD);
+	dir->y = -SIN(pitch);
 	rotaxis_cross_dir->x = cos_yaw;
 	rotaxis_cross_dir->z = sin_yaw;
 	rotaxis_cross_dir->y = 0;

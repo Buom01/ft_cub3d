@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 18:46:34 by badam             #+#    #+#             */
-/*   Updated: 2020/07/22 22:11:45 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/22 23:06:35 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,17 +96,15 @@ void		raytr_render(t_scene *sc, t_surface **surfs,
 	while (y < sc->screen_h)
 	{
 		direction_rotaxis_from_state(&vertical_direction, &rotaxis_cross_dir,
-			state->yaw, state->pitch + sc->y2pitch[y]);
+			state->yaw, state->pitch + sc->y2pitch[y++]);
 		x = 0;
 		while (x < sc->screen_w)
 		{
-			optimized_rotate_vec(vertical_direction, sc->x2yaw[x],
+			optimized_rotate_vec(vertical_direction, sc->x2yaw[x++],
 					rotaxis_cross_dir, &(ray.direction));
 			raytr_tr(sc, pixel_index, ray, *surfs);
 			++pixel_index;
-			++x;
 		}
-		++y;
 	}
 	draw_frame(sc);
 }

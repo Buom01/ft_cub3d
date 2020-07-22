@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 00:07:12 by badam             #+#    #+#             */
-/*   Updated: 2020/07/20 23:03:48 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/22 22:34:39 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ static void	generate_view_matrix(t_scene *scene, int w, int h)
 	i = 0;
 	while (i < w)
 	{
-		*(scene->x2yaw + i) = atan(min + screen_w * i / w) * TODEG;
+		*(scene->x2yaw + i) = atan(min + screen_w * i / w);
 		++i;
 	}
 	min = -screen_h / 2;
 	i = 0;
 	while (i < h)
 	{
-		*(scene->y2pitch + i) = atan(min + screen_h * i / h) * TODEG;
+		*(scene->y2pitch + i) = atan(min + screen_h * i / h);
 		++i;
 	}
 }

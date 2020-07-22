@@ -6,15 +6,14 @@
 #    By: badam <badam@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/10 18:46:41 by badam             #+#    #+#              #
-#    Updated: 2020/07/22 21:56:01 by badam            ###   ########.fr        #
+#    Updated: 2020/07/22 23:01:00 by badam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC=gcc
 INCLUDES=-Isrcs -Ilibs/libft -Ilibs/minilibx
 COMMON_CFLAGS=-Wall -Wextra -Werror
-#CFLAGS=$(COMMON_CFLAGS) -Ofast -flto $(INCLUDES)
-CFLAGS=$(COMMON_CFLAGS) -g3 -fsanitize=address $(INCLUDES)
+CFLAGS=$(COMMON_CFLAGS) -Ofast -flto $(INCLUDES)
 NAME=Cub3D
 DEPS=libs/minilibx/libmlx.a libs/libft/libft.a -lXext -lX11 -lm
 HEADERS= \
