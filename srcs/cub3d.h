@@ -23,9 +23,8 @@
 # include <mlx.h>
 # include <math.h>
 
-# include "../libs/libft/libft.h"
+# include "../libft/libft.h"
 # include "mlx/cub3d_mlx.h"
-
 # include "libs/gnl/get_next_line_bonus.h"
 
 # define STDIN STDIN_FILENO

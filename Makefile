@@ -11,11 +11,11 @@
 # **************************************************************************** #
 
 CC=gcc
-INCLUDES=-Isrcs -Ilibs/libft -Ilibs/minilibx
+INCLUDES=-Isrcs -Ilibft -Iminilibx
 COMMON_CFLAGS=-Wall -Wextra -Werror
 CFLAGS=$(COMMON_CFLAGS) -Ofast -flto $(INCLUDES)
 NAME=Cub3D
-DEPS=libs/minilibx/libmlx.a libs/libft/libft.a -lXext -lX11 -lm
+DEPS=minilibx/libmlx.a libft/libft.a -lXext -lX11 -lm
 HEADERS= \
 	srcs/cub3d.h \
 	srcs/libs/gnl/get_next_line_bonus.h
@@ -73,7 +73,7 @@ SRC= \
 OBJ=$(SRC:.c=.o)
 SRC_BONUS=
 OBJ_BONUS=$(SRC_BONUS:.c=.o)
-NORM=libs/libft srcs
+NORM=libft srcs
 
 all: $(NAME) 
 
@@ -82,23 +82,23 @@ bonus: $(NAME)
 $(NAME): $(DEPS) $(OBJ) $(HEADERS)
 	$(CC) -o $(NAME) $(CFLAGS) $(OBJ) $(DEPS)
 
-libs/libft/libft.a:
-	make -C libs/libft bonus
+libft/libft.a:
+	make -C libft bonus
 
-libs/minilibx/libmlx.a:
-	make -C libs/minilibx
+minilibx/libmlx.a:
+	make -C minilibx
 
 %.o: %.c
 	$(CC) -o $@ -c $< $(CFLAGS)
 
 clean:
 	rm -rf $(OBJ)
-	make -C libs/libft clean
-	make -C libs/minilibx clean
+	make -C libft clean
+	make -C minilibx clean
 
 fclean:	clean	
 	rm -rf $(NAME)
-	make -C libs/libft fclean
+	make -C libft fclean
 
 re: fclean all
 
