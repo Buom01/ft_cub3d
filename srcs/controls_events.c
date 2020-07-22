@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 19:11:35 by badam             #+#    #+#             */
-/*   Updated: 2020/06/20 20:16:45 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/22 13:38:11 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void	ctrl_releaseall(t_state *state)
 
 int		ctrl_mousemove(int x, int y, t_scene *sc)
 {
+	if (sc->paused)
+		return (0);
 	sc->state.mouse_x += x - sc->mouse_origin_x;
 	sc->state.mouse_y += y - sc->mouse_origin_y;
 	mlx_mouse_move(sc->mlx, sc->window, sc->mouse_origin_x, sc->mouse_origin_y);

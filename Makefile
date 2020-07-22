@@ -6,27 +6,29 @@
 #    By: badam <badam@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/10 18:46:41 by badam             #+#    #+#              #
-#    Updated: 2020/07/21 22:48:17 by badam            ###   ########.fr        #
+#    Updated: 2020/07/22 21:56:01 by badam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC=gcc
 INCLUDES=-Isrcs -Ilibs/libft -Ilibs/minilibx
 COMMON_CFLAGS=-Wall -Wextra -Werror
-CFLAGS=$(COMMON_CFLAGS) -Ofast -flto $(INCLUDES)
+#CFLAGS=$(COMMON_CFLAGS) -Ofast -flto $(INCLUDES)
+CFLAGS=$(COMMON_CFLAGS) -g3 -fsanitize=address $(INCLUDES)
 NAME=Cub3D
 DEPS=libs/minilibx/libmlx.a libs/libft/libft.a -lXext -lX11 -lm
 HEADERS= \
 	srcs/cub3d.h \
-	libs/gnl/get_next_line_bonus.h
+	srcs/libs/gnl/get_next_line_bonus.h
 SRC= \
-	libs/gnl/get_next_line_utils_bonus.c \
-	libs/gnl/get_next_line_bonus.c \
+	srcs/libs/gnl/get_next_line_utils_bonus.c \
+	srcs/libs/gnl/get_next_line_bonus.c \
 	srcs/utils/utils.c \
 	srcs/utils/surfaces.c \
 	srcs/utils/math.c \
 	srcs/utils/math_2d.c \
 	srcs/utils/math_3d.c \
+	srcs/utils/math_3d_2.c \
 	srcs/utils/color.c \
 	srcs/utils/file.c \
 	srcs/map/utils.c \
@@ -72,7 +74,7 @@ SRC= \
 OBJ=$(SRC:.c=.o)
 SRC_BONUS=
 OBJ_BONUS=$(SRC_BONUS:.c=.o)
-NORM=libs/libft libs/gnl srcs
+NORM=libs/libft srcs
 
 all: $(NAME) 
 

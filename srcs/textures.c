@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/14 00:25:30 by badam             #+#    #+#             */
-/*   Updated: 2020/07/21 14:38:24 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/22 22:22:48 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static void	loadtexture(t_texture *texture, void *mlx, t_scene *scene)
 			&(texture->width), &(texture->height));
 	if (!(texture->data))
 		error(scene, ERR_MLX_TEXTURE, texture->path);
+	texture->max_index = texture->width * texture->height - 1;
 	texture->colors = (int*)mlx_get_data_addr(texture->data,
 			&mock, &mock, &mock);
 }

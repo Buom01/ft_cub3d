@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 18:57:53 by badam             #+#    #+#             */
-/*   Updated: 2020/07/21 23:02:46 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/22 22:29:03 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@
 # include <math.h>
 
 # include "../libs/libft/libft.h"
-# include "../libs/gnl/get_next_line_bonus.h"
-
 # include "mlx/cub3d_mlx.h"
+
+# include "libs/gnl/get_next_line_bonus.h"
 
 # define STDIN STDIN_FILENO
 # define STDOUT STDOUT_FILENO
@@ -62,6 +62,7 @@ typedef	struct			s_texture
 	int					*colors;
 	int					width;
 	int					height;
+	size_t				max_index;
 }						t_texture;
 
 typedef	struct			s_colortexture
@@ -410,7 +411,12 @@ int						sign(double n);
 float					born(float val, float min, float max);
 double					dist_2d(t_vec a, t_vec b);
 t_angle					point_to(t_pos from, t_pos to);
-void					vec_from_angles(t_vec *vec, t_angle yaw, t_angle pitch);
+void					direction_from_state(t_vec *vec,
+							t_angle yaw, t_angle pitch);
+void					direction_rotaxis_from_state(t_vec *vec, t_vec *rotaxis,
+							t_angle yaw, t_angle pitch);
+void					optimized_rotate_vec(t_vec vec, t_angle phy, t_vec axis,
+							t_vec *out);
 double					dot_product(t_vec a, t_vec b);
 t_vec					cross_product(t_vec a, t_vec b);
 t_vec					vec_diff(t_vec a, t_vec b);
@@ -452,7 +458,7 @@ void					screen_init(t_scene *sc);
 void					screen_shutdown(t_scene *sc);
 void					textures_load(t_scene *scene);
 void					textures_unload(t_scene *scene);
-int						get_texture_color_at(double x, double y,
+size_t					get_texture_color_at(double x, double y,
 							const t_texture *tex, const t_surface *surf);
 int						to_x_color(t_color *color);
 void					color_darken(int *color, double dark_ratio);

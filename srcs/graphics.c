@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/13 22:24:50 by badam             #+#    #+#             */
-/*   Updated: 2020/07/21 23:00:55 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/22 14:55:39 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	do_update(t_scene *sc,
 		physics_apply(sc);
 	}
 	ray.origin = state->pos;
-	vec_from_angles(&(ray.direction), state->yaw, state->pitch);
+	direction_from_state(&(ray.direction), state->yaw, state->pitch);
 	walls_update(sc, ray, lst_rendr_surf_p, rendr_surfs_p);
 	sprites_update(sc, state, ray, lst_rendr_surf_p);
 	items_update(sc, state, ray, lst_rendr_surf_p);

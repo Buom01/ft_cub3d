@@ -6,39 +6,35 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/04 23:06:36 by badam             #+#    #+#             */
-/*   Updated: 2020/07/20 13:52:55 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/22 22:19:27 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		get_texture_color_at(double x, double y,
+size_t	get_texture_color_at(double x, double y,
 		const t_texture *tex, const t_surface *surf)
 {
+	size_t	index;
+
 	if (!(tex->colors))
 		return (COLOR_VOID);
-	if (surf && surf->crop_x)
+	if (surf)
 	{
-		if (surf->crop_x > 0)
-		{
-			if (x < surf->crop_x)
-				return (COLOR_ALPHA);
-		}
-		else if (x > 1.0 + surf->crop_x)
+		if (surf->crop_x > 0 && x < surf->crop_x)
+			return (COLOR_ALPHA);
+		else if (surf->crop_x < 0 && x > 1.0 + surf->crop_x)
+			return (COLOR_ALPHA);
+		if (surf->crop_y > 0 && y < surf->crop_y)
+			return (COLOR_ALPHA);
+		else if (surf->crop_y < 0 && y > 1.0 + surf->crop_y)
 			return (COLOR_ALPHA);
 	}
-	if (surf && surf->crop_y)
-	{
-		if (surf->crop_y > 0)
-		{
-			if (y < surf->crop_y)
-				return (COLOR_ALPHA);
-		}
-		else if (y > 1.0 + surf->crop_y)
-			return (COLOR_ALPHA);
-	}
-	return (tex->colors[(int)((1 - x) * tex->width)
-		+ tex->width * (int)((1 - y) * tex->height)]);
+	index = (int)((1 - x) * tex->width)
+		+ tex->width * (int)((1 - y) * tex->height);
+	if (index > tex->max_index)
+		return (COLOR_ALPHA);
+	return (tex->colors[index]);
 }
 
 int		to_x_color(t_color *color)

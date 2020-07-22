@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/15 18:46:34 by badam             #+#    #+#             */
-/*   Updated: 2020/07/21 03:38:25 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/22 22:11:45 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,10 @@ void		raytr_render(t_scene *sc, t_surface **surfs,
 {
 	register size_t	x;
 	register size_t	y;
-	register t_vec	*direction_p;
 	register int	pixel_index;
+	t_vec			vertical_direction;
+	t_vec			rotaxis_cross_dir;
 
-	direction_p = &(ray.direction);
 	surfaces_sort(surfs);
 	surfaces_pre_tr(*surfs, ray.origin);
 	ceilfloor_pre_tr(sc, ray.origin);
@@ -95,11 +95,13 @@ void		raytr_render(t_scene *sc, t_surface **surfs,
 	y = 0;
 	while (y < sc->screen_h)
 	{
+		direction_rotaxis_from_state(&vertical_direction, &rotaxis_cross_dir,
+			state->yaw, state->pitch + sc->y2pitch[y]);
 		x = 0;
 		while (x < sc->screen_w)
 		{
-			vec_from_angles(direction_p, sc->x2yaw[x] + state->yaw,
-					sc->y2pitch[y] + state->pitch);
+			optimized_rotate_vec(vertical_direction, sc->x2yaw[x],
+					rotaxis_cross_dir, &(ray.direction));
 			raytr_tr(sc, pixel_index, ray, *surfs);
 			++pixel_index;
 			++x;
