@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 21:45:04 by badam             #+#    #+#             */
-/*   Updated: 2020/07/21 21:56:27 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/22 23:14:20 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	print_error(t_error error)
 	else if (error == ERR_READING_SCENE)
 		ft_putstr_fd("Error while reading scene: ", STDERR);
 	else if (error == ERR_INV_CONFIG)
-		ft_putstr_fd("Misformatted or inalid configuration command: ", STDERR);
+		ft_putstr_fd("Inalid or missing configuration command: ", STDERR);
 	else if (error == ERR_MAP_UNKNOWN)
 		ft_putstr_fd("Unknown map object: ", STDERR);
 	else if (error == ERR_MLX_INIT)
