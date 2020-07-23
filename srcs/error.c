@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 21:45:04 by badam             #+#    #+#             */
-/*   Updated: 2020/07/22 23:24:29 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/23 15:10:32 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ static void	print_error(t_error error)
 		ft_putstr_fd("Inalid or missing configuration command: ", STDERR);
 	else if (error == ERR_MAP_UNKNOWN)
 		ft_putstr_fd("Unknown map object: ", STDERR);
+	else if (error == ERR_MAP)
+		ft_putstr_fd("Invalid map\n", STDERR);
 	else if (error == ERR_MLX_INIT)
 		ft_putstr_fd("MiniLibX initialization failed\n", STDERR);
 	else if (error == ERR_MLX_TEXTURE)

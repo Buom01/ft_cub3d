@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/13 22:24:50 by badam             #+#    #+#             */
-/*   Updated: 2020/07/22 23:02:20 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/23 14:18:47 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ static void	graphical_init(t_scene *sc)
 	items_init(sc, map);
 	doors_init(sc, map);
 	raytr_init(sc);
-	scene_set_pause(sc, false);
+	if (!sc->save)
+		scene_set_pause(sc, false);
 }
 
 static void	do_update(t_scene *sc,
@@ -60,7 +61,7 @@ int			graphical_update(t_scene *sc)
 	t_surface	*lst_rendr_surf;
 
 	mlx_do_sync(sc->mlx);
-	if (sc->paused || sc->loaded == false)
+	if ((sc->paused && !sc->save) || !sc->loaded)
 		return (0);
 	rendr_surfs = NULL;
 	lst_rendr_surf = NULL;

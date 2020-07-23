@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/11 01:14:43 by badam             #+#    #+#             */
-/*   Updated: 2020/07/21 14:37:33 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/23 15:05:01 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,17 @@ static bool	parse_additionnal(char *line, t_scene *sc)
 	else if (is_command(line, "NOCLIP"))
 		sc->noclip = true;
 	else if (is_command(line, "DOOR_A"))
-		sc->door_a.path = relative_to(sc->file, gna(&line, false), sc);
+		sc->door_a.path = parse_texture(gna(&line, false), "DOOR_A", sc);
 	else if (is_command(line, "DOOR_B"))
-		sc->door_b.path = relative_to(sc->file, gna(&line, false), sc);
+		sc->door_b.path = parse_texture(gna(&line, false), "DOOR_B", sc);
 	else if (is_command(line, "DOOR_GRID"))
-		sc->door_grid.path = relative_to(sc->file, gna(&line, false), sc);
+		sc->door_grid.path = parse_texture(gna(&line, false), "DOOR_GRID", sc);
 	else if (is_command(line, "PANE"))
-		sc->pane.path = relative_to(sc->file, gna(&line, false), sc);
+		sc->pane.path = parse_texture(gna(&line, false), "PANE", sc);
 	else if (is_command(line, "KEY"))
-		sc->key.path = relative_to(sc->file, gna(&line, false), sc);
+		sc->key.path = parse_texture(gna(&line, false), "KEY", sc);
 	else if (is_command(line, "TREASURE"))
-		sc->treasure.path = relative_to(sc->file, gna(&line, false), sc);
+		sc->treasure.path = parse_texture(gna(&line, false), "TREASURE", sc);
 	else
 		error(sc, ERR_INV_CONFIG, line);
 	return (false);
@@ -56,15 +56,15 @@ bool		parse_line(char *line, t_scene *sc)
 	else if (is_command(line, "R"))
 		parse_resolution(line, sc);
 	else if (is_command(line, "NO"))
-		sc->north.path = relative_to(sc->file, gna(&line, false), sc);
+		sc->north.path = parse_texture(gna(&line, false), "NO", sc);
 	else if (is_command(line, "SO"))
-		sc->south.path = relative_to(sc->file, gna(&line, false), sc);
+		sc->south.path = parse_texture(gna(&line, false), "SO", sc);
 	else if (is_command(line, "WE"))
-		sc->west.path = relative_to(sc->file, gna(&line, false), sc);
+		sc->west.path = parse_texture(gna(&line, false), "WE", sc);
 	else if (is_command(line, "EA"))
-		sc->east.path = relative_to(sc->file, gna(&line, false), sc);
+		sc->east.path = parse_texture(gna(&line, false), "EA", sc);
 	else if (is_command(line, "S"))
-		sc->sprite.path = relative_to(sc->file, gna(&line, false), sc);
+		sc->sprite.path = parse_texture(gna(&line, false), "S", sc);
 	else if (is_command(line, "F"))
 		parse_colortexture(gna(&line, false), &(sc->floor), "F", sc);
 	else if (is_command(line, "C"))

@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/09 04:24:31 by badam             #+#    #+#             */
-/*   Updated: 2020/07/22 22:28:54 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/23 15:18:19 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ static void	calculate_fov(t_scene *scene)
 
 bool		validate_scene(t_scene *scene)
 {
-	if (scene->screen_w <= 0 || scene->screen_h <= 0)
-		error(scene, ERR_INV_CONFIG, "R");
 	if (!scene->north.path || ft_strlen(scene->north.path) == 0)
 		error(scene, ERR_INV_CONFIG, "NO");
 	if (!scene->south.path || ft_strlen(scene->south.path) == 0)

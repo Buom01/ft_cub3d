@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 18:57:53 by badam             #+#    #+#             */
-/*   Updated: 2020/07/22 23:24:49 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/23 15:19:49 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -305,6 +305,7 @@ typedef enum
 	ERR_READING_SCENE,
 	ERR_INV_CONFIG,
 	ERR_MAP_UNKNOWN,
+	ERR_MAP,
 	ERR_MLX_INIT,
 	ERR_MLX_TEXTURE,
 	ERR_MLX_UNKNOWN,
@@ -353,7 +354,9 @@ bool					validate_scene(t_scene *scene);
 char					*gna(char **line, bool is_first);
 void					parse_scene(char *scenefile, t_scene *scene);
 bool					parse_line(char *line, t_scene *scene);
-void					parse_color(char *colorstr, t_color *out);
+void					parse_color(char *colorstr, t_color *out,
+							char *cmd, t_scene *scene);
+char					*parse_texture(char *str, char *cmd, t_scene *scene);
 void					parse_colortexture(char *str, t_colortexture *out,
 							char *cmd, t_scene *scene);
 void					parse_resolution(char *resstr, t_scene *scene);

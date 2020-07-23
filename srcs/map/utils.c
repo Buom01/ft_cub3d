@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/10 22:08:39 by badam             #+#    #+#             */
-/*   Updated: 2020/07/22 22:37:26 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/23 15:09:46 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void		init_player(t_map *map, t_scene *scene)
 			&& i < map->length)
 		i++;
 	if (i == map->length)
-		error(scene, ERR_MAP_UNKNOWN, NULL);
+		error(scene, ERR_MAP, NULL);
 	map->init_player_pos = i;
 	player = map->data[i];
 	state->pos = i2pos(map, i, DIR_NONE);

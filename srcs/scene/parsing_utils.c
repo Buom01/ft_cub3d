@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 22:36:49 by badam             #+#    #+#             */
-/*   Updated: 2020/07/06 18:19:35 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/23 15:18:19 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*gna(char **line, bool is_first)
 	return (*line);
 }
 
-void	parse_color(char *colorstr, t_color *out)
+void	parse_color(char *colorstr, t_color *out, char *cmd, t_scene *scene)
 {
 	char	*red;
 	char	*green;
@@ -31,18 +31,29 @@ void	parse_color(char *colorstr, t_color *out)
 	red = colorstr;
 	green = gna(&colorstr, false);
 	blue = gna(&colorstr, false);
-	if (green == blue || ft_strlen(blue) == 0)
+	if (green == blue && ft_strlen(blue) == 0)
 	{
 		out->red = atoi(red);
 		out->green = out->red;
 		out->blue = out->red;
 	}
-	else
+	else if (ft_strlen(green) != 0 && ft_strlen(blue) != 0)
 	{
 		out->red = atoi(red);
 		out->green = atoi(green);
 		out->blue = atoi(blue);
 	}
+	else
+		error(scene, ERR_INV_CONFIG, cmd);
+}
+
+char	*parse_texture(char *str, char *cmd, t_scene *scene)
+{
+	if (ft_strlen(str) != 0)
+		return (relative_to(scene->file, str, scene));
+	else
+		error(scene, ERR_INV_CONFIG, cmd);
+	return (NULL);
 }
 
 void	parse_colortexture(char *str, t_colortexture *out,
@@ -52,17 +63,24 @@ void	parse_colortexture(char *str, t_colortexture *out,
 		error(scene, ERR_INV_CONFIG, cmd);
 	if (ft_isdigit(*str))
 	{
-		parse_color(str, &(out->color));
+		parse_color(str, &(out->color), cmd, scene);
 	}
 	else
 	{
 		out->is_texture = true;
-		out->texture.path = relative_to(scene->file, str, scene);
+		out->texture.path = parse_texture(str, cmd, scene);
 	}
 }
 
 void	parse_resolution(char *resstr, t_scene *scene)
 {
-	scene->screen_w = ft_atoi(gna(&resstr, false));
-	scene->screen_h = ft_atoi(gna(&resstr, false));
+	int	screen_w;
+	int	screen_h;
+
+	screen_w = ft_atoi(gna(&resstr, false));
+	screen_h = ft_atoi(gna(&resstr, false));
+	if (screen_w <= 0 || screen_h <= 0)
+		error(scene, ERR_INV_CONFIG, "R");
+	scene->screen_w = screen_w;
+	scene->screen_h = screen_h;
 }
