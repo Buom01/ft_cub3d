@@ -78,5 +78,7 @@ bool		validate_scene(t_scene *scene)
 	create_ceilfloor(scene);
 	scene->shadow_begin = scene->shadow - scene->shadow_fade;
 	scene->state.inventory[ITEM_EMPTY] = true;
+	scene->mouse_in = true;
+	scene->focused = true;
 	return (validate_map(scene));
 }

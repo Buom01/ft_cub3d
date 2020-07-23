@@ -29,6 +29,7 @@ static void	graphical_init(t_scene *sc)
 	items_init(sc, map);
 	doors_init(sc, map);
 	raytr_init(sc);
+	scene_set_pause(sc, false);
 }
 
 static void	do_update(t_scene *sc,
