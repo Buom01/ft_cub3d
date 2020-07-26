@@ -6,7 +6,7 @@
 #    By: badam <badam@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/10 18:46:41 by badam             #+#    #+#              #
-#    Updated: 2020/07/22 23:01:00 by badam            ###   ########.fr        #
+#    Updated: 2020/07/26 16:38:36 by badam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -103,6 +103,20 @@ fclean:	clean
 re: fclean all
 
 norm: fclean
+	# Verifying the norm...
 	norminette $(NORM) || ~/.norminette/norminette.rb $(NORM)
 
 norminette: norm
+
+test: $(NAME)
+	# Testing scene parsing behaviour with BROKEN maps...
+	find ./maps/broken -iname '*.cub' -exec ./Cub3D "{}" \;
+	# Testing software behaviour... 
+	./Cub3D maps/given.cub maps/scene.cub || true
+	./Cub3D maps/scene.cub maps/scene.cub || true
+	./Cub3D --save || true
+	./Cub3D --save maps/given.cub || echo "!! Failed !!"
+	./Cub3D --save tested maps/scene.cub || echo "!! Failed !!"
+	./Cub3D --save --save tested maps/scene.cub || echo "!! Failed !!"
+	./Cub3D --save --save tested maps/scene.cub maps/scene.cub || true
+	# No misbehaviour should have happened
