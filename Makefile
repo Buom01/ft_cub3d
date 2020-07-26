@@ -6,7 +6,7 @@
 #    By: badam <badam@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/10 18:46:41 by badam             #+#    #+#              #
-#    Updated: 2020/07/26 16:38:36 by badam            ###   ########.fr        #
+#    Updated: 2020/07/26 16:44:46 by badam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -119,4 +119,5 @@ test: $(NAME)
 	./Cub3D --save tested maps/scene.cub || echo "!! Failed !!"
 	./Cub3D --save --save tested maps/scene.cub || echo "!! Failed !!"
 	./Cub3D --save --save tested maps/scene.cub maps/scene.cub || true
+	rm -f preview.bmp tested.bmp
 	# No misbehaviour should have happened
