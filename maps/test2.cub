@@ -1,0 +1,24 @@
+R	800 400 
+NO	./assets/test_n.xpm
+SO	./assets/test_s.xpm
+WE	./assets/test_w.xpm
+EA	./assets/test_e.xpm
+S	./assets/test2.xpm
+
+F			./assets/floor
+C			./assets/ceil
+
+SHADOW		15
+SHADOW_FADE	11
+NOCLIP
+
+1111111111
+1000000001
+1000000001
+1000000001
+1000000001
+1000000201
+1000000201
+10E0000201
+1000000001
+1111111111

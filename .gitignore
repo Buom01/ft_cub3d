@@ -1,7 +1,8 @@
 **/*.swp
 **/*.vim
 **/*.o
-./Cub3D
+**/*.a
 *.bmp
-
-./todo
+Cub3D
+todo
+minilibx/test
