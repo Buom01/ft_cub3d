@@ -1,4 +1,7 @@
 **/*.swp
+**/*.vim
 **/*.o
 ./Cub3D
 *.bmp
+
+./todo
