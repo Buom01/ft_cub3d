@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 18:57:53 by badam             #+#    #+#             */
-/*   Updated: 2020/07/23 15:19:49 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/26 16:09:56 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -299,6 +299,7 @@ typedef enum
 {
 	ERR_NO_ARG,
 	ERR_UNKNOWN_ARG,
+	ERR_DOUBLE_SCENE,
 	ERR_MALLOC,
 	ERR_SCENE_NOT_LOADED,
 	ERR_OPENING_SCENE,

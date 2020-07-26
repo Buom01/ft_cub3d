@@ -6,7 +6,7 @@
 /*   By: badam <badam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/08 21:45:04 by badam             #+#    #+#             */
-/*   Updated: 2020/07/23 15:10:32 by badam            ###   ########.fr       */
+/*   Updated: 2020/07/26 16:10:49 by badam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ static void	print_error(t_error error)
 		ft_putstr_fd("Usage: ./cub3d scene.cub [--save output]\n", STDERR);
 	else if (error == ERR_UNKNOWN_ARG)
 		ft_putstr_fd("Unknown arg: ", STDERR);
+	else if (error == ERR_DOUBLE_SCENE)
+		ft_putstr_fd("A scene where already loaded when loading: ", STDERR);
 	else if (error == ERR_MALLOC)
 		ft_putstr_fd("Memory allocation failed\n", STDERR);
 	else if (error == ERR_SCENE_NOT_LOADED)
