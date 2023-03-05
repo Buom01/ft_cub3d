@@ -6,7 +6,7 @@
 /*   By: badam <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/04 15:51:20 by badam             #+#    #+#             */
-/*   Updated: 2020/04/09 03:28:52 by badam            ###   ########.fr       */
+/*   Updated: 2023/03/06 00:42:14 by bastien          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_list	*ft_lstnew(void *content)
 {
 	t_list	*lst;
 
-	if (!(lst = malloc(sizeof(ft_lstnew))))
+	if (!(lst = malloc(sizeof(t_list))))
 		return (NULL);
 	lst->content = content;
 	lst->next = NULL;
